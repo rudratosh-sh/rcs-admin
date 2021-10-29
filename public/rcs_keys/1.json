@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "rbm-metro-max-services-ovlozqm",
+  "private_key_id": "21006987a25baf207b8ddd9879a20c30720b5c7e",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvwIBADANBgkqhkiG9w0BAQEFAASCBKkwggSlAgEAAoIBAQDAtRI4etapIdNr\nT7Qd76Df+27xqO0dfJG1K32gRYC/y4Z/EZQFbrWQ/DRNv3klI6PYI2Hm+SUT/dYI\nwC0Vj9eAM1zti04ZfrmmFusb2OJm6gT4GsszVavdje156JGOxmuwjk95ydgVbINy\nvVee7UDOIrFWOWpsR9Rm2qsjHMdhI81o0H+iQBQqdgq2V1FqF595NDXkcbzgjBdm\nPbFDvL7kvcqivd+0U7ef3+mNUTlMmBrHZjojMQwv5o0UmWdHKOdbDN9hUDsWFgaE\nyJS86OQIHBjkkSNxyMVTcKfqQVdc/VnbLAyynttgAosk2LN8JRHdd4PIt8B4NfP2\nFfpN66IHAgMBAAECggEAH5JKzugJHSKGkbE4MCNfNvLphTwIxOjwsj7S0Rwx8Lo2\nacEGgDFYG83F/+rbvSLup+18D6xHz9OpajuZ50tuoflIQz6sZ+7kGXrtv90zkmrK\nr58sJVfm1WB4RJ2+oyaM5BscmDZiaXgivPyaS1ZRZLQ4W4kCj4ThHoy6twDzBU3g\nJhoKivEHlvixryjgjaV4WIu/ASkft8/72kbGD7yra5kcLA8rKr+C1H2Vln4lvTkG\nTMJa84NzGV9c0nOsuMuxpfZjyOe+n/Q/kbgm2ucOpcZV6JJk1YyTrhECBNEJlcRr\nPmIxlHVced06i0D+mQwSuUvBQ5A9fXb0T+Eo2RmCoQKBgQD1sTjKdDsddHNYnFlR\n7PKNJ3VZIIEwhn0znsrZ4DQAexbT+us1TXEY9QiLrKkrTYzTg+mKq8s5JbLd0BOC\nzLWb2VlMJ8GFR7cJu4O0R8THL0gyQTax3Xp7+JGlxfYtB96XEMpX4N5rHjM05V2/\neFJ/AoZt5L27h2ov0UhEt8jl8QKBgQDIysgRwv/TKU62+AzuMLpmLIxyEjZi/G9F\nMcvcvcL87A9B4CGmwYTzmGai2lgtAcSMV2FSIAEfJnfrBaldzZSLiGBkxaUiM99w\nnYAWrL6Zz5/0fjLzSRJviShMjy3yyJEcUy5fqUSf3aEq4+lA4hGqyNuErizf63fq\nmyv3YumvdwKBgQDpRaq2DkVSYg5iQ5BKyL5CZwRz6vi+KfMV396ZntXA3x19hu9r\nXGvVVlEWzIiSJL9g1A4ZK6N4TuLU14qu1c5YerTeKaED+mM/SlpyAPJEbBAQJvrX\nRYHV0tv2mU5y0tX0eGylo0uKSNI1ltC7ynIJRUx9aoD6XEflvr7u/9AvAQKBgQCh\ntdbtnxuDx9fSOfHH/0yPrz8pO4u7qsw+cP1beSTJp6AeENFpSJ+3w7ydWbX8AVl3\nIYSKrKXanZOknzmpB0GkIqBnaFo3Mom4W9Bl8pfKrlGHif+kuev0EgV3qzR5PJjJ\ntCA8AMn46ni7XzRjAe7ymbNZpyES8cPxGSmOooXLvwKBgQDjcjDgrX9imGfIX/3m\nKIjYHrRQV0TeXSb41ItwIE55PFqfmVUWB716nJskjJfN9vuYWvei/yN52Xxy4GOQ\nza+Ze8rhmir2cc8KcYzfo0bd8eKft2Evp8YcuPPQLyPMM02WxBQgs5+3EDaalMpJ\nx3WHcVFjraBj7RwyT/5ia6JjEw==\n-----END PRIVATE KEY-----\n",
+  "client_email": "rbm-agent@rbm-metro-max-services-ovlozqm.iam.gserviceaccount.com",
+  "client_id": "101730744630222262932",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/rbm-agent%40rbm-metro-max-services-ovlozqm.iam.gserviceaccount.com"
+}

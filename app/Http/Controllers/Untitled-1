@@ -1,0 +1,24 @@
+curl -X POST "https://asia-rcsbusinessmessaging.googleapis.com/v1/phones/+919511506221/agentMessages?messageId=sdfsdfsf" \
+-H "Content-Type: application/json" \
+-H "`oauth2l header --json rbm-metro-max-services-ovlozqm-21006987a25b.json rcsbusinessmessaging`" \
+-d "{
+  'contentMessage': {
+    'text': 'Hello worldcurl -X POST "https://asia-rcsbusinessmessaging.googleapis.com/v1/phones/+919511506221/agentMessages?messageId=sdfsdfsf" \
+-H "Content-Type: application/json" \
+-H "`oauth2l header --json rbm-metro-max-services-ovlozqm-21006987a25b.json rcsbusinessmessaging`" \
+-d "{
+  'contentMessage': {
+    'text': 'Hello Harish, Rudra this side'
+  }'
+  }
+}"
+
+
+curl -X POST "https://asia-rcsbusinessmessaging.googleapis.com/v1/phones/+919511506221/agentMessages?messageId=hjkhkk" \
+-H "Content-Type: application/json" \
+-H "`oauth2l header --json rbm-metro-max-services-ovlozqm-21006987a25b.json rcsbusinessmessaging`" \
+-d "{
+  'contentMessage': {
+    'text': 'Hello, world!'
+  }
+}"
