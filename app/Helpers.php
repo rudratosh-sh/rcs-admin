@@ -21,9 +21,9 @@ function callRcsSendTextMessage($mobile_no = null, $user_id = null, $message = n
         $data_string = json_encode(array("contentMessage" => $contentInfo));
     }else{
         $data = array(
-            "text" => $message
-        );
-        $data_string = json_encode(array("contentMessage"=>$data));
+        "text" => $message
+    );
+    $data_string = json_encode(array("contentMessage"=>$data));
     }
     curl_setopt_array($curl, array(
         CURLOPT_URL => 'https://' . $zone . '-rcsbusinessmessaging.googleapis.com/v1/phones/' . $mobile_no . '/agentMessages?messageId=' . $message_id,
