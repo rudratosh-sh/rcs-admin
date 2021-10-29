@@ -42,9 +42,18 @@ class SmartMessageController extends Controller
         if ($validator->fails()) {
             return redirect()->back()->withInput()->with('error', $validator->messages()->first());
         }
+        //image upload
+        $image_path = NULL;
+        if($request->file()) {
+            $request->validate([
+                'file' => 'required|mimes:png,jpg,jpeg|max:4096'
+            ]); 
+            $name = time().'_'.$request->file->getClientOriginalName();
+            $image_path = $request->file('file')->storeAs('', $name);
+        }    
         try {
             // store sms transaction group
-            $this->storeSmsTranscationGroup($request);
+            $this->storeSmsTranscationGroup($request,$image_path);
         } catch (\Exception $e) {
             $bug = $e->getMessage();
             return redirect()->back()->with('error', $bug);
@@ -52,13 +61,14 @@ class SmartMessageController extends Controller
     }
 
     
-    function storeSmsTranscationGroup(Request $request)
+    function storeSmsTranscationGroup(Request $request,$image_path=null)
     {
         try {
             // store sms transaction group
             $storeSmsTransaction = SmsTransactionGroup::create([
-                'user_id'     => Auth::user()->id,
+                'user_id' => Auth::user()->id,
                 'message_form' => 'BASIC',
+                'image' => $image_path,
                 'message_type' => $request->message_type,
                 'message' => $request->message,
                 'image_title' => $request->image_title ? $request->image_title : null,
@@ -71,7 +81,6 @@ class SmartMessageController extends Controller
                 'open_url_title_3' => $request->open_url_title_3 ? $request->open_url_title_3 : null,
                 'open_url_3' => $request->open_url_3 ? $request->open_url_3 : null,
             ]);
-
             //Storing single transaction data
             $this->storeSmsTranscationSingle($request);
         } catch (\Exception $e) {
@@ -88,6 +97,7 @@ class SmartMessageController extends Controller
             $data  = [];
             if (!empty($mobile_nos)){
                 foreach ($mobile_nos as $key => $mobile) :
+                    $mobile = '+'.$mobile;
                     $sendMessage = callRcsSendTextMessage($mobile,Auth::user()->id,$request->message);
                     if($sendMessage['status_code']==200)
                         $status = 1;
@@ -102,9 +112,10 @@ class SmartMessageController extends Controller
                 endforeach;
             }
             if(!empty($data)){
-                SmsTransactionSingle::insert($data); 
-                echo 'hello workd';
-                return redirect('/campaiging-report')->with('message','Message Added to Queue Successfully');   
+                if(SmsTransactionSingle::insert($data)) 
+                    $this->redirectVargin();  
+                else
+                    return redirect()->back()->withInput()->with('error', 'Something Went Wrong');
             }    
             else{
                 return redirect()->back()->withInput()->with('error', 'Something Went Wrong');
@@ -113,5 +124,8 @@ class SmartMessageController extends Controller
             $bug = $e->getMessage();
             return redirect()->back()->with('error', $bug);
         }
+    }
+    function redirectVargin(){
+        return redirect()->route('campaiging-report')->with('message','Message Added to Queue Successfully'); 
     }
 }

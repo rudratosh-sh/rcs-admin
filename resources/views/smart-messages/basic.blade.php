@@ -49,8 +49,18 @@
                 </div>
             </div>
         </div>
-        <form class="smart-message-basic-from" method="POST" action="{{ route('send-smart-message-basic') }}" >
-        <div class="row">
+        <form class="smart-message-basic-from" enctype="multipart/form-data" method="POST" action="{{ route('send-smart-message-basic') }}" >
+            @if (count($errors) > 0)
+            <div class="alert alert-danger">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                      <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+          @endif
+
+            <div class="row">
             <div class="col-md-6">
                 <div class="card">
                     <div class="card-header"><h3>{{ __('Smart Basic Message')}}</h3></div>
@@ -94,7 +104,7 @@
                             </div>
                             <div class="form-group">
                                 <label>{{ __('Image Title')}}</label>
-                                <input type="file" name="image[]" class="file-upload-default">
+                                <input type="file" name="file" class="file-upload-default">
                                 <div class="input-group col-xs-12">
                                     <input type="text" class="form-control file-upload-info" value="{{ old('image_title') }}"  name="image_title" placeholder="Image Title">
                                     <span class="input-group-append">
