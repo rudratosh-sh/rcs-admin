@@ -14,11 +14,11 @@ curl -X POST "https://asia-rcsbusinessmessaging.googleapis.com/v1/phones/+919511
 }"
 
 
-curl -X POST "https://asia-rcsbusinessmessaging.googleapis.com/v1/phones/+919511506221/agentMessages?messageId=hjkhkk" \
--H "Content-Type: application/json" \
--H "`oauth2l header --json rbm-metro-max-services-ovlozqm-21006987a25b.json rcsbusinessmessaging`" \
--d "{
-  'contentMessage': {
-    'text': 'Hello, world!'
-  }
-}"
+  curl -X POST "https://asia-rcsbusinessmessaging.googleapis.com/v1/phones/+919511506221/agentMessages?messageId=hjwerrekhkk" \
+  -H "Content-Type: application/json" \
+  -H "`oauth2l header --json rbm-metro-max-services-ovlozqm-21006987a25b.json rcsbusinessmessaging`" \
+  -d "{
+    'contentMessage': {
+      'text': 'Hello, world!'
+    }
+  }"

@@ -14,6 +14,8 @@ class Kernel extends ConsoleKernel
      */
     protected $commands = [
         //
+        Commands\BasicSmsCron::class
+
     ];
 
     /**
@@ -25,6 +27,9 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         // $schedule->command('inspire')->hourly();
+        $schedule->call('App\Http\Controllers\SmartMessageBasicController@sendBulkBasicSms')->everyMinute();
+        $schedule->call('App\Http\Controllers\SmartMessageAdvanceController@sendBulkBasicSms')->everyMinute();
+
     }
 
     /**

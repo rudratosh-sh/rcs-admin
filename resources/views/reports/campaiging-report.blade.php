@@ -47,6 +47,9 @@
         
 
         <div class="row">
+            <!-- start message area-->
+            @include('include.message')
+            <!-- end message area-->
             <div class="col-sm-12">
                 <div class="card">
                     <div class="card-header d-block">

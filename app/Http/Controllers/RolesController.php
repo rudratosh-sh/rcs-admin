@@ -93,7 +93,7 @@ class RolesController extends Controller
             return redirect()->back()->withInput()->with('error', $validator->messages()->first());
         }
         try{
-
+            
             $role = Role::create(['name' => $request->role]);
             $role->syncPermissions($request->permissions);
 

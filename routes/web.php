@@ -10,7 +10,8 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\RolesController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\ReportsController;
-use App\Http\Controllers\SmartMessageController;
+use App\Http\Controllers\SmartMessageAdvanceController;
+use App\Http\Controllers\SmartMessageBasicController;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,7 +23,7 @@ use App\Http\Controllers\SmartMessageController;
 | contains the "web" middleware group. Now create something great!
 |
 */ 
-Route::get('/', function () { return view('home'); });
+Route::get('/', function () { return redirect('/login'); });
 
 
 Route::get('login', [LoginController::class,'showLoginForm'])->name('login');
@@ -99,14 +100,20 @@ Route::group(['middleware' => 'auth'], function(){
 		Route::get('/campaiging-report', [ReportsController::class,'campaigingReport'])->name("campaiging-report");
 	});
 
-	//smart messaging 
+	//smart messaging basic 
 	//only those have manage_permission permission will get access
-	Route::group(['middleware' => 'can:view_reports'], function(){
-		Route::get('/smart-message-basic', [SmartMessageController::class,'basic']);
+	Route::get('send-basic-sms-background', [SmartMessageBasicController::class, 'sendBulkBasicSms'])->name('send-bulk-basic-sms');
+	Route::group(['middleware' => 'can:rcs_send_smart_message_basic'], function(){
+		Route::get('/smart-message-basic', [SmartMessageBasicController::class,'index']);
+		Route::post('/send-smart-message-basic', [SmartMessageBasicController::class,'sendSmartMessageBasic'])->name('send-smart-message-basic');
 	});
 
-	Route::group(['middleware' => 'can:rcs_send_smart_message_basic'], function(){
-		Route::post('/send-smart-message-basic', [SmartMessageController::class,'sendSmartMessageBasic'])->name('send-smart-message-basic');;
+	//smart messaging advance 
+	//only those have manage_permission permission will get access
+	Route::get('send-advance-sms-background', [SmartMessageAdvanceController::class, 'sendBulkAdvanceSms'])->name('send-bulk-advance-sms');
+	Route::group(['middleware' => 'can:rcs_send_smart_message_advance'], function(){
+		Route::get('/smart-message-advance', [SmartMessageAdvanceController::class,'index']);
+		Route::post('/send-smart-message-advance', [SmartMessageAdvanceController::class,'sendSmartMessageAdvance'])->name('send-smart-message-advance');;
 	});
 
 

@@ -69,6 +69,7 @@ return [
          */
 
         'role_has_permissions' => 'role_has_permissions',
+        
     ],
 
     'column_names' => [
@@ -82,6 +83,8 @@ return [
          */
 
         'model_morph_key' => 'model_id',
+
+        
     ],
 
     /*
@@ -97,6 +100,7 @@ return [
      */
 
     'enable_wildcard_permission' => false,
+
 
     'cache' => [
 

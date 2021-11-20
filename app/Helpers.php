@@ -1,30 +1,21 @@
 <?php
-function callRcsSendTextMessage($mobile_no = null, $user_id = null, $message = null, $image = null)
+/**
+ * Send Text RCS Messages
+ * @return json 
+ */
+function callRcsSendTextMessage($mobile_no = null, $user_id = null,$content=null,$message_id=null)
 {
-    if ($mobile_no == null || $user_id == null || $message == null)
+    
+    if ($mobile_no == null || $user_id == null || $content == null || $message_id==null)
         return false;
+    $content = json_encode($content);    
     //check if rcs json key exist with current user
     if (!file_exists(public_path('rcs_keys/' . $user_id . ".json")))
         return false;
 
-    $message_id = generateRandomString(15);
     $zone = 'asia';
     $access_token = getAccessToken($user_id);
     $curl = curl_init();
-    //if image found 
-    if ($image !== null) {
-        $data = array(
-            "fileUrl" => "http://www.google.com/logos/doodles/2015/googles-new-logo-5078286822539264.3-hp2x.gif",
-            "forceRefresh" => false
-        );
-        $contentInfo = array('contentInfo' => $data);
-        $data_string = json_encode(array("contentMessage" => $contentInfo));
-    }else{
-        $data = array(
-        "text" => $message
-    );
-    $data_string = json_encode(array("contentMessage"=>$data));
-    }
     curl_setopt_array($curl, array(
         CURLOPT_URL => 'https://' . $zone . '-rcsbusinessmessaging.googleapis.com/v1/phones/' . $mobile_no . '/agentMessages?messageId=' . $message_id,
         CURLOPT_RETURNTRANSFER => true,
@@ -34,10 +25,10 @@ function callRcsSendTextMessage($mobile_no = null, $user_id = null, $message = n
         CURLOPT_FOLLOWLOCATION => true,
         CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
         CURLOPT_CUSTOMREQUEST => 'POST',
-        CURLOPT_POSTFIELDS => $data_string,
+        CURLOPT_POSTFIELDS => $content,
         CURLOPT_HTTPHEADER => array(
             'Content-Type: application/json',
-            'Content-Length: ' . strlen($data_string),
+            'Content-Length: ' . strlen($content),
             'Authorization: Bearer ' . $access_token
         ),
     ));
@@ -48,18 +39,49 @@ function callRcsSendTextMessage($mobile_no = null, $user_id = null, $message = n
     return ['status_code' => $httpcode, 'response' => $response];
 }
 
-function generateRandomString($length = 10)
+/**
+ * Send carousel RCS Messages   
+ * @return json 
+ */
+function callRcsSendCarouselMessage($mobile_no = null, $user_id = null,$content=null,$message_id=null)
 {
-    $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
-    $charactersLength = strlen($characters);
-    $randomString = '';
-    for ($i = 0; $i < $length; $i++) {
-        $randomString .= $characters[rand(0, $charactersLength - 1)];
-    }
-    return $randomString;
+    if ($mobile_no == null || $user_id == null || $content == null || $message_id==null)
+        return false;
+    $content = json_encode($content);    
+    //check if rcs json key exist with current user
+    if (!file_exists(public_path('rcs_keys/' . $user_id . ".json")))
+        return false;
+
+    $zone = 'asia';
+    $access_token = getAccessToken($user_id);
+    $curl = curl_init();
+    curl_setopt_array($curl, array(
+        CURLOPT_URL => 'https://' . $zone . '-rcsbusinessmessaging.googleapis.com/v1/phones/' . $mobile_no . '/agentMessages?messageId=' . $message_id,
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_ENCODING => '',
+        CURLOPT_MAXREDIRS => 10,
+        CURLOPT_TIMEOUT => 0,
+        CURLOPT_FOLLOWLOCATION => true,
+        CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+        CURLOPT_CUSTOMREQUEST => 'POST',
+        CURLOPT_POSTFIELDS => $content,
+        CURLOPT_HTTPHEADER => array(
+            'Content-Type: application/json',
+            'Content-Length: ' . strlen($content),
+            'Authorization: Bearer ' . $access_token
+        ),
+    ));
+
+    $response = curl_exec($curl);
+    $httpcode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
+    curl_close($curl);
+    return ['status_code' => $httpcode, 'response' => $response];
 }
 
-
+/**
+ * Generate Google OAuth Access Token
+ * @return string
+ */
 function getAccessToken($user_id)
 {
     $credentialsFilePath = public_path('rcs_keys/' . $user_id . ".json");
@@ -71,6 +93,29 @@ function getAccessToken($user_id)
     $client->refreshTokenWithAssertion();
     $token = $client->getAccessToken();
     return $token['access_token'];
+}
+
+/**
+ * Senitize Mobile Number
+ * @return array
+ */
+function senitizeMobileNumbers($numbers = null){
+    $numbers = str_replace(["'","-"], "", $numbers);
+    $numbers = array_map('intval', explode(',', $numbers));
+    $mobile =  array_map(function ($val) {
+        $val = preg_replace('/\D/', '', $val); 
+        if(substr($val, 0, 3)=='091' && strlen($val)==13){
+         $val = substr($val,3);
+        }
+        if(substr($val, 0, 2)=='91' && strlen($val)==12){
+        $val = substr($val,2);  
+        }
+        if(substr($val, 0, 1)=='0' && strlen($val)==11){
+        $val = substr($val,1);  
+        }
+        return '+91'.$val;
+    }, $numbers);
+    return array_unique($mobile);
 }
 // oauth2l fetch --type oauth --credentials rbm-metro-max-services-ovlozqm-21006987a25b.json  --scope rcsbusinessmessaging
 // ya29.c.Kp8BFghKNvmkaN24MjMraUuwob1g7YWUjKsKdduwTkWCtXeCkTnf4blpnd1Do7ijUyGKbGRwX2Deb-vYLE43bfDE7_TV1TZ3vn3lMnfvHg4ATJsMhcxxn9_8Z5lcwSAUlsmrAPGgy5jOebTLhhUFWszm5V-k8Sn3FqQhSCNh4P6BbY6C3o1594FoQ4_3l14urC5uvgAMu3LEaRWgRLhKtp5B

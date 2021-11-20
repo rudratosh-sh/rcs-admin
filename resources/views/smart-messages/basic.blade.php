@@ -1,5 +1,5 @@
 @extends('layouts.main') 
-@section('title', 'Form Components')
+@section('title', 'Smart Message Basic')
 @section('content')
 <!-- push external head elements to head -->
 @push('head')
@@ -104,12 +104,15 @@
                             </div>
                             <div class="form-group">
                                 <label>{{ __('Image Title')}}</label>
-                                <input type="file" name="file" class="file-upload-default">
+                                <input type="file" name="file" class="file-upload-default file-upload-default-basic">
                                 <div class="input-group col-xs-12">
-                                    <input type="text" class="form-control file-upload-info" value="{{ old('image_title') }}"  name="image_title" placeholder="Image Title">
+                                    <input type="text" class="form-control file-upload-info file-upload-info-basic" value="{{ old('image_title') }}"  name="image_title" placeholder="Image Title">
                                     <span class="input-group-append">
-                                    <button class="file-upload-browse btn btn-primary" type="button">{{ __('Upload')}}</button>
-                                    </span>
+                                    <button class="file-upload-browse file-upload-browse-basic btn btn-primary" type="button">{{ __('Upload')}}</button>
+                                    </span> 
+                                </div>
+                                <div class="alert alert-warning alert-dismissible fade show" role="alert" id="image-alert-basic">
+                                    
                                 </div>
                             </div>
                             <div class="form-group">
