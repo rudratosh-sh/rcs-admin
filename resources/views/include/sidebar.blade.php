@@ -55,7 +55,7 @@
                         <a href="{{url('smart-message-filter')}}" class="menu-item {{ ($segment1 == 'smart-message-filter') ? 'active' : '' }}">{{ __('Filter')}}</a>
                     </div>
                 </div>
-                 <div class="nav-lavel">{{ __('Documentation')}} </div>
+                 {{-- <div class="nav-lavel">{{ __('Documentation')}} </div>
                 <div class="nav-item {{ ($segment1 == 'rest-api') ? 'active' : '' }}">
                     <a href="{{url('rest-api')}}"><i class="ik ik-cloud"></i><span>{{ __('REST API')}}</span> <span class=" badge badge-success badge-right">{{ __('New')}}</span></a>
                 </div>
@@ -177,7 +177,7 @@
                 <div class="nav-item">
                     <a href="javascript:void(0)" class="disabled"><i class="ik ik-slash"></i><span>{{ __('Disabled Menu')}}</span></a>
                 </div>
-                
+                 --}}
         </div>
     </div>
 </div>
