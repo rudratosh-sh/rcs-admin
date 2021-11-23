@@ -37,8 +37,8 @@ class ComposerStaticInitd941875b1c015b1ef870c16e418024e1
         '9cdd7b9056abc3081735233ba9dd9c7f' => __DIR__ . '/..' . '/facade/flare-client-php/src/helpers.php',
         '1f87db08236948d07391152dccb70f04' => __DIR__ . '/..' . '/google/apiclient-services/autoload.php',
         '6124b4c8570aa390c21fafd04a26c69f' => __DIR__ . '/..' . '/myclabs/deep-copy/src/DeepCopy/deep_copy.php',
-        'b6b991a57620e2fb6b2f66f03fe9ddc2' => __DIR__ . '/..' . '/symfony/string/Resources/functions.php',
         'c68906913e1edd14d7659ff7c3658af6' => __DIR__ . '/..' . '/shalvah/clara/helpers.php',
+        'b6b991a57620e2fb6b2f66f03fe9ddc2' => __DIR__ . '/..' . '/symfony/string/Resources/functions.php',
         '4a1f389d6ce373bda9e57857d3b61c84' => __DIR__ . '/..' . '/barryvdh/laravel-debugbar/src/helpers.php',
         'ed962a97bd972bc82007176b647d4e36' => __DIR__ . '/..' . '/facade/ignition/src/helpers.php',
         'a8d3953fd9959404dd22d3dfcd0a79f0' => __DIR__ . '/..' . '/google/apiclient/src/aliases.php',
@@ -46,7 +46,7 @@ class ComposerStaticInitd941875b1c015b1ef870c16e418024e1
         'cb61d74ad51d00867155534456b38b23' => __DIR__ . '/..' . '/mews/purifier/src/helpers.php',
         '377b22b161c09ed6e5152de788ca020a' => __DIR__ . '/..' . '/spatie/laravel-permission/src/helpers.php',
         '0b47d6d4a00ca9112ba3953b49e7c9a4' => __DIR__ . '/..' . '/yajra/laravel-datatables-oracle/src/helper.php',
-        'b4e3f29b106af37a2bb239f73cdf68c7' => __DIR__ . '/../..' . '/app/helpers.php',
+        'be2dabd89e6571c763d3c521b1c3701e' => __DIR__ . '/../..' . '/app/Helpers.php',
     );
 
     public static $prefixLengthsPsr4 = array (
@@ -731,6 +731,7 @@ class ComposerStaticInitd941875b1c015b1ef870c16e418024e1
         'App\\Http\\Controllers\\RolesController' => __DIR__ . '/../..' . '/app/Http/Controllers/RolesController.php',
         'App\\Http\\Controllers\\SmartMessageAdvanceController' => __DIR__ . '/../..' . '/app/Http/Controllers/SmartMessageAdvanceController.php',
         'App\\Http\\Controllers\\SmartMessageBasicController' => __DIR__ . '/../..' . '/app/Http/Controllers/SmartMessageBasicController.php',
+        'App\\Http\\Controllers\\TemplateController' => __DIR__ . '/../..' . '/app/Http/Controllers/TemplateController.php',
         'App\\Http\\Controllers\\UserController' => __DIR__ . '/../..' . '/app/Http/Controllers/UserController.php',
         'App\\Http\\Kernel' => __DIR__ . '/../..' . '/app/Http/Kernel.php',
         'App\\Http\\Middleware\\Authenticate' => __DIR__ . '/../..' . '/app/Http/Middleware/Authenticate.php',
@@ -753,6 +754,7 @@ class ComposerStaticInitd941875b1c015b1ef870c16e418024e1
         'App\\SmsTransactionGroupAdvance' => __DIR__ . '/../..' . '/app/SmsTransactionGroupAdvance.php',
         'App\\SmsTransactionSingle' => __DIR__ . '/../..' . '/app/SmsTransactionSingle.php',
         'App\\SmsTransactionSingleAdvance' => __DIR__ . '/../..' . '/app/SmsTransactionSingleAdvance.php',
+        'App\\TemplateAdvance' => __DIR__ . '/../..' . '/app/TemplateAdvance.php',
         'App\\User' => __DIR__ . '/../..' . '/app/User.php',
         'Asm89\\Stack\\Cors' => __DIR__ . '/..' . '/asm89/stack-cors/src/Asm89/Stack/Cors.php',
         'Asm89\\Stack\\CorsService' => __DIR__ . '/..' . '/asm89/stack-cors/src/Asm89/Stack/CorsService.php',
