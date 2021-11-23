@@ -28,7 +28,7 @@ class Kernel extends ConsoleKernel
     {
         // $schedule->command('inspire')->hourly();
         $schedule->call('App\Http\Controllers\SmartMessageBasicController@sendBulkBasicSms')->everyMinute();
-        $schedule->call('App\Http\Controllers\SmartMessageAdvanceController@sendBulkBasicSms')->everyMinute();
+        $schedule->call('App\Http\Controllers\SmartMessageAdvanceController@sendBulkAdvanceSms')->everyMinute();
 
     }
 

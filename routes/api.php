@@ -6,6 +6,10 @@ use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\Api\RolesController;
 use App\Http\Controllers\Api\PermissionController;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\ReportsController;
+use App\Http\Controllers\SmartMessageAdvanceController;
+use App\Http\Controllers\SmartMessageBasicController;
 
 /*
 |--------------------------------------------------------------------------
@@ -54,6 +58,25 @@ Route::group(['middleware' => 'auth:api'], function(){
 		Route::post('/permission/create', [PermissionController::class,'store']);
 		Route::get('/permission/{id}', [PermissionController::class,'show']);
 		Route::get('/permission/delete/{id}', [PermissionController::class,'delete']);
+	});
+
+	//reports 
+	Route::group(['middleware' => 'can:view_reports'], function () {
+		Route::get('/campaiging-report', [ReportsController::class, 'campaigingReport'])->name("campaiging-report");
+	});
+
+	//smart messaging basic 
+	Route::get('send-basic-sms-background', [SmartMessageBasicController::class, 'sendBulkBasicSms'])->name('send-bulk-basic-sms');
+	Route::group(['middleware' => 'can:rcs_send_smart_message_basic'], function () {
+		Route::get('/smart-message-basic', [SmartMessageBasicController::class, 'index']);
+		Route::post('/send-smart-message-basic', [SmartMessageBasicController::class, 'sendSmartMessageBasic'])->name('send-smart-message-basic');
+	});
+
+	//smart messaging advance 
+	Route::get('send-advance-sms-background', [SmartMessageAdvanceController::class, 'sendBulkAdvanceSms'])->name('send-bulk-advance-sms');
+	Route::group(['middleware' => 'can:rcs_send_smart_message_advance'], function () {
+		Route::get('/smart-message-advance', [SmartMessageAdvanceController::class, 'index']);
+		Route::post('/send-smart-message-advance', [SmartMessageAdvanceController::class, 'sendSmartMessageAdvance'])->name('send-smart-message-advance');;
 	});
 	
 });

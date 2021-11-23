@@ -48,12 +48,13 @@ class SendBulkBasicSms implements ShouldQueue
 
             foreach ($this->singleSmsSingle as $single) {
                 $this->messageId = $this->generateRandomString(15);
-                callRcsSendTextMessage($single->mobile_no, $this->userId, $this->content,$this->messageId);
+                $response = callRcsSendTextMessage($single->mobile_no, $this->userId, $this->content,$this->messageId);
                 //update group id in sms group status
                 SmsTransactionSingle::where('id', $single->id)
                     ->update([
                         'status' => 1,
-                        'message_id' => $this->messageId
+                        'message_id' => $this->messageId,
+                        'response' =>$response
                     ]);
                 $this->smsTransactionId = $single->sms_transaction_group_id;    
             }
