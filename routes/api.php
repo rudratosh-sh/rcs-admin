@@ -6,6 +6,10 @@ use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\Api\RolesController;
 use App\Http\Controllers\Api\PermissionController;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\ReportsController;
+use App\Http\Controllers\SmartMessageAdvanceController;
+use App\Http\Controllers\SmartMessageBasicController;
 
 /*
 |--------------------------------------------------------------------------

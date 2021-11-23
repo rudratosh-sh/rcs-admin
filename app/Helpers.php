@@ -36,7 +36,7 @@ function callRcsSendTextMessage($mobile_no = null, $user_id = null,$content=null
     $response = curl_exec($curl);
     $httpcode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
     curl_close($curl);
-    return ['status_code' => $httpcode, 'response' => $response,'raw_mobile'=>$mobile_no,'raw_response'=>$content];
+    return ['status_code' => $httpcode, 'response' => $response];
 }
 
 /**

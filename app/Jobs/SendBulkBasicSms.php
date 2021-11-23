@@ -54,7 +54,7 @@ class SendBulkBasicSms implements ShouldQueue
                     ->update([
                         'status' => 1,
                         'message_id' => $this->messageId,
-                        'response' => $response
+                        'response' =>$response
                     ]);
                 $this->smsTransactionId = $single->sms_transaction_group_id;    
             }

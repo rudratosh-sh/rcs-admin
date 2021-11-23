@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use App\SmsTransactionGroupAdvance;
 use App\SmsTransactionSingleAdvance;
+use App\TemplateAdvance;
 use App\Helpers;
 use DataTables, Auth;
 
@@ -92,7 +93,8 @@ class SmartMessageAdvanceController extends Controller
 
     public function index()
     {
-        return view('smart-messages/advance');
+        $data['templates'] = TemplateAdvance::where('status',1)->get();
+        return view('smart-messages/advance')->with($data);
     }
 
     /**
@@ -135,6 +137,12 @@ class SmartMessageAdvanceController extends Controller
             $data = $this->prepareStoreData($request, $imagesCardsArr, $mobile_nos);
             // store sms transaction group
             $storeSmsTransaction = SmsTransactionGroupAdvance::create($data);
+            //store template
+            if($request->submit_template){
+                $data['template_name'] = $request->template_name;
+                $data['status'] = 1;
+                $storeTemplate = TemplateAdvance::create($data);
+            }
 
             //Storing single transaction data
             if ($storeSmsTransaction)
@@ -146,7 +154,6 @@ class SmartMessageAdvanceController extends Controller
             return redirect()->back()->with('error', $bug);
         }
     }
-
 
     /**
      * Store sms transaction single
@@ -673,52 +680,68 @@ class SmartMessageAdvanceController extends Controller
      */
     public function storeImages($request)
     {
-        if ($request->card_1_check) {
+        if ($request->submit_template) {
             $request->validate([
-                'file_card_1' => 'required|mimes:png,jpg,jpeg,gif|max:4096',
-                'message_card_1' => 'required'
+                'template_name' => 'required'
             ], [
-                'file_card_1.required' => 'Image Required for Card 1',
-                'file_card_1.mimes' => 'Only Image File Allowed',
-                'file_card_1.max' => 'Only Image 4 MB File Allowed',
-                'message_card_1.required' => 'Message Required for Card 1',
+                'template_name.required' => 'Template Name is Required',
             ]);
+        }
+
+        if ($request->card_1_check) {
+            if(($request->template && $request->hasFile('file_card_1')) || !$request->template){
+                $request->validate([
+                    'file_card_1' => 'required|mimes:png,jpg,jpeg,gif|max:4096',
+                    'message_card_1' => 'required'
+                ], [
+                    'file_card_1.required' => 'Image Required for Card 1',
+                    'file_card_1.mimes' => 'Only Image File Allowed',
+                    'file_card_1.max' => 'Only Image 4 MB File Allowed',
+                    'message_card_1.required' => 'Message Required for Card 1',
+                ]);
+            }
         }
 
         if ($request->card_2_check) {
-            $request->validate([
-                'file_card_2' => 'required|mimes:png,jpg,jpeg,gif|max:4096',
-                'message_card_2' => 'required'
-            ], [
-                'file_card_2.required' => 'Image Required for Card 2',
-                'file_card_2.mimes' => 'Only Image File Allowed',
-                'file_card_2.max' => 'Only Image 4 MB File Allowed',
-                'message_card_2.required' => 'Message Required for Card 2',
-            ]);
+            if(($request->template && $request->hasFile('file_card_2')) || !$request->template){
+                $request->validate([
+                    'file_card_2' => 'required|mimes:png,jpg,jpeg,gif|max:4096',
+                    'message_card_2' => 'required'
+                ], [
+                    'file_card_2.required' => 'Image Required for Card 2',
+                    'file_card_2.mimes' => 'Only Image File Allowed',
+                    'file_card_2.max' => 'Only Image 4 MB File Allowed',
+                    'message_card_2.required' => 'Message Required for Card 2',
+                ]);
+            }    
         }
 
         if ($request->card_3_check) {
-            $request->validate([
-                'file_card_3' => 'required|mimes:png,jpg,jpeg,gif|max:4096',
-                'message_card_3' => 'required'
-            ], [
-                'file_card_3.required' => 'Image Required for Card 3',
-                'file_card_3.mimes' => 'Only Image File Allowed',
-                'file_card_3.max' => 'Only Image 4 MB File Allowed',
-                'message_card_3.required' => 'Message Required for Card 3',
-            ]);
+            if(($request->template && $request->hasFile('file_card_3')) || !$request->template){
+                $request->validate([
+                    'file_card_3' => 'required|mimes:png,jpg,jpeg,gif|max:4096',
+                    'message_card_3' => 'required'
+                ], [
+                    'file_card_3.required' => 'Image Required for Card 3',
+                    'file_card_3.mimes' => 'Only Image File Allowed',
+                    'file_card_3.max' => 'Only Image 4 MB File Allowed',
+                    'message_card_3.required' => 'Message Required for Card 3',
+                ]);
+            }    
         }
 
         if ($request->card_4_check) {
-            $request->validate([
-                'file_card_4' => 'required|mimes:png,jpg,jpeg,gif|max:4096',
-                'message_card_4' => 'required'
-            ], [
-                'file_card_4.required' => 'Image Required for Card 4',
-                'file_card_4.mimes' => 'Only Image File Allowed',
-                'file_card_4.max' => 'Only Image 4 MB File Allowed',
-                'message_card_4.required' => 'Message Required for Card 4',
-            ]);
+            if(($request->template && $request->hasFile('file_card_4')) || !$request->template){
+                $request->validate([
+                    'file_card_4' => 'required|mimes:png,jpg,jpeg,gif|max:4096',
+                    'message_card_4' => 'required'
+                ], [
+                    'file_card_4.required' => 'Image Required for Card 4',
+                    'file_card_4.mimes' => 'Only Image File Allowed',
+                    'file_card_4.max' => 'Only Image 4 MB File Allowed',
+                    'message_card_4.required' => 'Message Required for Card 4',
+                ]);
+            }    
         }
 
         $imageArr = [];
@@ -727,6 +750,10 @@ class SmartMessageAdvanceController extends Controller
             $tempName = time() . '_' . $request->file_card_1->getClientOriginalName();
             $imagePath = $request->file('file_card_1')->storeAs('', str_replace(' ', '', $tempName));
             $imageArr['imageCard1'] = $imagePath;
+        }elseif($request->template){
+            $imageArr['imageCard1'] = $request->card1_img_template;
+        }else{
+            //do nothing
         }
 
         //upload image for card 2
@@ -734,13 +761,21 @@ class SmartMessageAdvanceController extends Controller
             $tempName = time() . '_' . $request->file_card_2->getClientOriginalName();
             $imagePath = $request->file('file_card_2')->storeAs('', str_replace(' ', '', $tempName));
             $imageArr['imageCard2'] = $imagePath;
+        }elseif($request->template){
+            $imageArr['imageCard2'] = $request->card2_img_template;
+        }else{
+            //do nothing
         }
-
+        
         //upload image for card 3
         if ($request->hasFile('file_card_3')) {
             $tempName = time() . '_' . $request->file_card_3->getClientOriginalName();
             $imagePath = $request->file('file_card_3')->storeAs('', str_replace(' ', '', $tempName));
             $imageArr['imageCard3'] = $imagePath;
+        }elseif($request->template){
+            $imageArr['imageCard3'] = $request->card3_img_template;
+        }else{
+            //do nothing
         }
 
         //upload image for card 4
@@ -748,6 +783,10 @@ class SmartMessageAdvanceController extends Controller
             $tempName = time() . '_' . $request->file_card_4->getClientOriginalName();
             $imagePath = $request->file('file_card_4')->storeAs('', str_replace(' ', '', $tempName));
             $imageArr['imageCard4'] = $imagePath;
+        }elseif($request->template){
+            $imageArr['imageCard4'] = $request->card4_img_template;
+        }else{
+            //do nothing
         }
 
         return $imageArr;
@@ -811,6 +850,7 @@ class SmartMessageAdvanceController extends Controller
             'open_url_title_3_card_4' => $request->open_url_title_3_card_4 ? $request->open_url_title_3_card_4 : null,
             'open_url_3_card_4' => $request->open_url_3_card_4 ? $request->open_url_3_card_4 : null,
             'message_length_card_4' => $request->message_card_4 ? strlen($request->message_card_4) : null,
+            'status' => 0,
             'card_1_enable' =>  $request->card_1_check ? 1 : 0,
             'card_2_enable' =>  $request->card_2_check ? 1 : 0,
             'card_3_enable' =>  $request->card_3_check ? 1 : 0,

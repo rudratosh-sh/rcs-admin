@@ -37,9 +37,9 @@ class SmartMessageBasicController extends Controller
         $this->suggetions = [];
         $this->media = [];
         $this->thumbnailImageAlignment = 'RIGHT';
-        $this->cardOrientation = 'VERTICAL';    
+        $this->cardOrientation = 'VERTICAL';
 
-        $this->middleware('auth',['except' => 'sendBulkBasicSms']);
+        $this->middleware('auth', ['except' => 'sendBulkBasicSms']);
     }
 
     public function index()
@@ -125,7 +125,7 @@ class SmartMessageBasicController extends Controller
         try {
             $mobile_nos = senitizeMobileNumbers($request->mobile_no);
             $group_id = SmsTransactionGroup::latest()->first()->id;
-          
+
             $data  = [];
 
             if (!empty($mobile_nos)) {
@@ -194,7 +194,7 @@ class SmartMessageBasicController extends Controller
             //setting text message in object
             if ($pendingGroupSms->message != '')
                 $this->text = $pendingGroupSms->image_title;
-                $this->description = $pendingGroupSms->message;
+            $this->description = $pendingGroupSms->message;
 
             //setting image content and title to object    
             if ($pendingGroupSms->image != null && $pendingGroupSms->image != '') {

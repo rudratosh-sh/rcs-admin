@@ -46,13 +46,13 @@ class SendBulkAdvanceSms implements ShouldQueue
         if (!empty($this->singleSmsSingle)) {
             foreach ($this->singleSmsSingle as $single) {
                 $this->messageId = $this->generateRandomString(15);
-                $response = callRcsSendCarouselMessage($single->mobile_no, $this->userId, $this->content,$this->messageId);
+                $response = callRcsSendTextMessage($single->mobile_no, $this->userId, $this->content,$this->messageId);
                 //update group id in sms group status
                 SmsTransactionSingleAdvance::where('id', $single->id)
                     ->update([
                         'status' => 1,
                         'message_id' => $this->messageId,
-                        'response' =>$response
+                        'response' => $response
                     ]);
                 $this->smsTransactionId = $single->sms_transaction_group_advance_id;
             }
