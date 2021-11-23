@@ -6,6 +6,7 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
+    'App\\Console\\Commands\\AdvanceSmsCron' => $baseDir . '/app/Console/Commands/AdvanceSmsCron.php',
     'App\\Console\\Commands\\BasicSmsCron' => $baseDir . '/app/Console/Commands/BasicSmsCron.php',
     'App\\Console\\Kernel' => $baseDir . '/app/Console/Kernel.php',
     'App\\Exceptions\\Handler' => $baseDir . '/app/Exceptions/Handler.php',
@@ -25,7 +26,8 @@ return array(
     'App\\Http\\Controllers\\RcsBalanceController' => $baseDir . '/app/Http/Controllers/RcsBalanceController.php',
     'App\\Http\\Controllers\\ReportsController' => $baseDir . '/app/Http/Controllers/ReportsController.php',
     'App\\Http\\Controllers\\RolesController' => $baseDir . '/app/Http/Controllers/RolesController.php',
-    'App\\Http\\Controllers\\SmartMessageController' => $baseDir . '/app/Http/Controllers/SmartMessageController.php',
+    'App\\Http\\Controllers\\SmartMessageAdvanceController' => $baseDir . '/app/Http/Controllers/SmartMessageAdvanceController.php',
+    'App\\Http\\Controllers\\SmartMessageBasicController' => $baseDir . '/app/Http/Controllers/SmartMessageBasicController.php',
     'App\\Http\\Controllers\\UserController' => $baseDir . '/app/Http/Controllers/UserController.php',
     'App\\Http\\Kernel' => $baseDir . '/app/Http/Kernel.php',
     'App\\Http\\Middleware\\Authenticate' => $baseDir . '/app/Http/Middleware/Authenticate.php',
@@ -35,6 +37,7 @@ return array(
     'App\\Http\\Middleware\\TrimStrings' => $baseDir . '/app/Http/Middleware/TrimStrings.php',
     'App\\Http\\Middleware\\TrustProxies' => $baseDir . '/app/Http/Middleware/TrustProxies.php',
     'App\\Http\\Middleware\\VerifyCsrfToken' => $baseDir . '/app/Http/Middleware/VerifyCsrfToken.php',
+    'App\\Jobs\\SendBulkAdvanceSms' => $baseDir . '/app/Jobs/SendBulkAdvanceSms.php',
     'App\\Jobs\\SendBulkBasicSms' => $baseDir . '/app/Jobs/SendBulkBasicSms.php',
     'App\\Providers\\AppServiceProvider' => $baseDir . '/app/Providers/AppServiceProvider.php',
     'App\\Providers\\AuthServiceProvider' => $baseDir . '/app/Providers/AuthServiceProvider.php',
@@ -44,7 +47,9 @@ return array(
     'App\\RcsBalance' => $baseDir . '/app/RcsBalance.php',
     'App\\SmartMessage' => $baseDir . '/app/SmartMessage.php',
     'App\\SmsTransactionGroup' => $baseDir . '/app/SmsTransactionGroup.php',
+    'App\\SmsTransactionGroupAdvance' => $baseDir . '/app/SmsTransactionGroupAdvance.php',
     'App\\SmsTransactionSingle' => $baseDir . '/app/SmsTransactionSingle.php',
+    'App\\SmsTransactionSingleAdvance' => $baseDir . '/app/SmsTransactionSingleAdvance.php',
     'App\\User' => $baseDir . '/app/User.php',
     'Asm89\\Stack\\Cors' => $vendorDir . '/asm89/stack-cors/src/Asm89/Stack/Cors.php',
     'Asm89\\Stack\\CorsService' => $vendorDir . '/asm89/stack-cors/src/Asm89/Stack/CorsService.php',

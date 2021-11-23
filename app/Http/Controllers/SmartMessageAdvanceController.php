@@ -87,7 +87,7 @@ class SmartMessageAdvanceController extends Controller
         $this->mediaCard4 = [];
         $this->cardContentCard4 = [];
 
-        $this->middleware('auth');
+        $this->middleware('auth',['except' => 'sendBulkAdvanceSms']);
     }
 
     public function index()
@@ -156,10 +156,7 @@ class SmartMessageAdvanceController extends Controller
     function storeSmsTranscationSingle(Request $request, $image_path)
     {
         try {
-            $mobile_nos = array_map('intval', explode(',', $request->mobile_no));
-            $mobile_nos = array_map(function ($val) {
-                return '+' . $val;
-            }, $mobile_nos);
+            $mobile_nos = senitizeMobileNumbers($request->mobile_no);
             $group_id = SmsTransactionGroupAdvance::latest()->first()->id;
 
             $data  = [];
@@ -239,6 +236,8 @@ class SmartMessageAdvanceController extends Controller
     private function prepareAdvanceSmsRawCard1($pendingGroupSms)
     {
         if (!empty($pendingGroupSms)) {
+            if(!$pendingGroupSms->card_1_enable)
+                return [];
             //setting text message in object
             if ($pendingGroupSms->message_card_1 != '')
                 $this->textCard1 = $pendingGroupSms->image_title_card_1;
@@ -347,6 +346,8 @@ class SmartMessageAdvanceController extends Controller
     private function prepareAdvanceSmsRawcard2($pendingGroupSms)
     {
         if (!empty($pendingGroupSms)) {
+            if(!$pendingGroupSms->card_2_enable)
+                return [];
             //setting text message in object
             if ($pendingGroupSms->message_card_2 != '')
                 $this->textcard2 = $pendingGroupSms->image_title_card_2;
@@ -455,6 +456,8 @@ class SmartMessageAdvanceController extends Controller
     private function prepareAdvanceSmsRawcard3($pendingGroupSms)
     {
         if (!empty($pendingGroupSms)) {
+            if(!$pendingGroupSms->card_3_enable)
+                return [];
             //setting text message in object
             if ($pendingGroupSms->message_card_3 != '')
                 $this->textcard3 = $pendingGroupSms->image_title_card_3;
@@ -563,6 +566,8 @@ class SmartMessageAdvanceController extends Controller
     private function prepareAdvanceSmsRawcard4($pendingGroupSms)
     {
         if (!empty($pendingGroupSms)) {
+            if(!$pendingGroupSms->card_4_enable)
+                return [];
             //setting text message in object
             if ($pendingGroupSms->message_card_4 != '')
                 $this->textcard4 = $pendingGroupSms->image_title_card_4;
@@ -759,7 +764,7 @@ class SmartMessageAdvanceController extends Controller
             'message_type' => $request->message_type,
             'sms_count' => count($mobile_nos),
             'message_card_1' => $request->message_card_1,
-            'image_card_1' => $imagesCardsArr['imageCard1'] ? $imagesCardsArr['imageCard1'] : null,
+            'image_card_1' => !empty($imagesCardsArr['imageCard1']) ? $imagesCardsArr['imageCard1'] : null,
             'image_title_card_1' => $request->image_title_card_1 ? $request->image_title_card_1 : null,
             'call_title_card_1' => $request->call_title_card_1 ? $request->call_title_card_1 : null,
             'call_number_card_1' => $request->call_number_card_1 ? $request->call_number_card_1 : null,
@@ -771,7 +776,7 @@ class SmartMessageAdvanceController extends Controller
             'open_url_3_card_1' => $request->open_url_3_card_1 ? $request->open_url_3_card_1 : null,
             'message_length_card_1' => $request->message_card_1 ? strlen($request->message_card_1) : null,
             'message_card_2' => $request->message_card_2,
-            'image_card_2' => $imagesCardsArr['imageCard1'] ? $imagesCardsArr['imageCard1'] : null,
+            'image_card_2' => !empty($imagesCardsArr['imageCard2']) ? $imagesCardsArr['imageCard2'] : null,
             'image_title_card_2' => $request->image_title_card_2 ? $request->image_title_card_2 : null,
             'call_title_card_2' => $request->call_title_card_2 ? $request->call_title_card_2 : null,
             'call_number_card_2' => $request->call_number_card_2 ? $request->call_number_card_2 : null,
@@ -783,7 +788,7 @@ class SmartMessageAdvanceController extends Controller
             'open_url_3_card_2' => $request->open_url_3_card_2 ? $request->open_url_3_card_2 : null,
             'message_length_card_2' => $request->message_card_2 ? strlen($request->message_card_2) : null,
             'message_card_3' => $request->message_card_3,
-            'image_card_3' => $imagesCardsArr['imageCard1'] ? $imagesCardsArr['imageCard1'] : null,
+            'image_card_3' => !empty($imagesCardsArr['imageCard3']) ? $imagesCardsArr['imageCard3'] : null,
             'image_title_card_3' => $request->image_title_card_3 ? $request->image_title_card_3 : null,
             'call_title_card_3' => $request->call_title_card_3 ? $request->call_title_card_3 : null,
             'call_number_card_3' => $request->call_number_card_3 ? $request->call_number_card_3 : null,
@@ -795,7 +800,7 @@ class SmartMessageAdvanceController extends Controller
             'open_url_3_card_3' => $request->open_url_3_card_3 ? $request->open_url_3_card_3 : null,
             'message_length_card_3' => $request->message_card_3 ? strlen($request->message_card_3) : null,
             'message_card_4' => $request->message_card_4,
-            'image_card_4' => $imagesCardsArr['imageCard1'] ? $imagesCardsArr['imageCard1'] : null,
+            'image_card_4' => !empty($imagesCardsArr['imageCard4']) ? $imagesCardsArr['imageCard4'] : null,
             'image_title_card_4' => $request->image_title_card_4 ? $request->image_title_card_4 : null,
             'call_title_card_4' => $request->call_title_card_4 ? $request->call_title_card_4 : null,
             'call_number_card_4' => $request->call_number_card_4 ? $request->call_number_card_4 : null,
@@ -806,7 +811,10 @@ class SmartMessageAdvanceController extends Controller
             'open_url_title_3_card_4' => $request->open_url_title_3_card_4 ? $request->open_url_title_3_card_4 : null,
             'open_url_3_card_4' => $request->open_url_3_card_4 ? $request->open_url_3_card_4 : null,
             'message_length_card_4' => $request->message_card_4 ? strlen($request->message_card_4) : null,
-            'status' => 1
+            'card_1_enable' =>  $request->card_1_check ? 1 : 0,
+            'card_2_enable' =>  $request->card_2_check ? 1 : 0,
+            'card_3_enable' =>  $request->card_3_check ? 1 : 0,
+            'card_4_enable' =>  $request->card_4_check ? 1 : 0,
         );
     }
 }

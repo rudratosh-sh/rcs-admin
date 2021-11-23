@@ -102,7 +102,6 @@ Route::group(['middleware' => 'auth'], function(){
 
 	//smart messaging basic 
 	//only those have manage_permission permission will get access
-	Route::get('send-basic-sms-background', [SmartMessageBasicController::class, 'sendBulkBasicSms'])->name('send-bulk-basic-sms');
 	Route::group(['middleware' => 'can:rcs_send_smart_message_basic'], function(){
 		Route::get('/smart-message-basic', [SmartMessageBasicController::class,'index']);
 		Route::post('/send-smart-message-basic', [SmartMessageBasicController::class,'sendSmartMessageBasic'])->name('send-smart-message-basic');
@@ -110,7 +109,6 @@ Route::group(['middleware' => 'auth'], function(){
 
 	//smart messaging advance 
 	//only those have manage_permission permission will get access
-	Route::get('send-advance-sms-background', [SmartMessageAdvanceController::class, 'sendBulkAdvanceSms'])->name('send-bulk-advance-sms');
 	Route::group(['middleware' => 'can:rcs_send_smart_message_advance'], function(){
 		Route::get('/smart-message-advance', [SmartMessageAdvanceController::class,'index']);
 		Route::post('/send-smart-message-advance', [SmartMessageAdvanceController::class,'sendSmartMessageAdvance'])->name('send-smart-message-advance');;
@@ -164,3 +162,8 @@ Route::group(['middleware' => 'auth'], function(){
 
 Route::get('/register', function () { return view('pages.register'); });
 Route::get('/login-1', function () { return view('pages.login'); });
+
+//background services 
+	Route::get('send-basic-sms-background', [SmartMessageBasicController::class, 'sendBulkBasicSms'])->name('send-bulk-basic-sms');
+	Route::get('send-advance-sms-background', [SmartMessageAdvanceController::class, 'sendBulkAdvanceSms'])->name('send-bulk-advance-sms');
+

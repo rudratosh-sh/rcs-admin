@@ -39,7 +39,7 @@ class SmartMessageBasicController extends Controller
         $this->thumbnailImageAlignment = 'RIGHT';
         $this->cardOrientation = 'VERTICAL';    
 
-        $this->middleware('auth');
+        $this->middleware('auth',['except' => 'sendBulkBasicSms']);
     }
 
     public function index()

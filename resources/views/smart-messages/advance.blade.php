@@ -163,7 +163,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="messageText">{{ __('Message')}}</label>
-                                <textarea class="form-control" name="message_card_1"  value="{{ old('message') }}" id="messageTextCard1" rows="4"></textarea>
+                                <textarea class="form-control" name="message_card_1"  value="{{ old('message_card_1') }}" id="messageTextCard1" rows="4"></textarea>
                                 <div class="help-block with-errors" ></div>
                                 @error('message_card_1')
                                     <span class="invalid-feedback" role="alert">
@@ -237,7 +237,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="messageText">{{ __('Message')}}</label>
-                                <textarea class="form-control" name="message_card_2"  value="{{ old('message') }}" id="messageTextcard2" rows="4"></textarea>
+                                <textarea class="form-control" name="message_card_2"  value="{{ old('message_card_2') }}" id="messageTextcard2" rows="4"></textarea>
                                 <div class="help-block with-errors" ></div>
                                 @error('message_card_2')
                                     <span class="invalid-feedback" role="alert">
@@ -312,7 +312,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="messageText">{{ __('Message')}}</label>
-                                <textarea class="form-control" name="message_card_3"  value="{{ old('message') }}" id="messageTextcard3" rows="4"></textarea>
+                                <textarea class="form-control" name="message_card_3"  value="{{ old('message_card_3') }}" id="messageTextcard3" rows="4"></textarea>
                                 <div class="help-block with-errors" ></div>
                                 @error('message_card_3')
                                     <span class="invalid-feedback" role="alert">
@@ -386,7 +386,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="messageText">{{ __('Message')}}</label>
-                                <textarea class="form-control" name="message_card_4"  value="{{ old('message') }}" id="messageTextcard4" rows="4"></textarea>
+                                <textarea class="form-control" name="message_card_4"  value="{{ old('message_card_4') }}" id="messageTextcard4" rows="4"></textarea>
                                 <div class="help-block with-errors" ></div>
                                 @error('message_card_4')
                                     <span class="invalid-feedback" role="alert">
