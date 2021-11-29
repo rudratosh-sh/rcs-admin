@@ -100,7 +100,7 @@ class UserController extends Controller
                 'role'     => 'required',
                 'company_name' => 'required',
                 'company_address' =>'required',
-                'balance' =>'required',
+                'recharge' =>'required',
                 'assigned' =>'required',
             ]);
         }else{
