@@ -55,6 +55,7 @@
                         <a href="{{url('filter-messages')}}" class="menu-item {{ ($segment1 == 'filter-messages') ? 'active' : '' }}">{{ __('Filter')}}</a>
                     </div>
                 </div>
+                @if (!Auth::guest() && !Auth::user()->admin)
                 @php
                     $balance = getBalance(auth()->user()->id);
                 @endphp 
@@ -85,6 +86,7 @@
                         @endif    
                     </div>
                 </div>
+                @endif
                  {{-- <div class="nav-lavel">{{ __('Documentation')}} </div>
                 <div class="nav-item {{ ($segment1 == 'rest-api') ? 'active' : '' }}">
                     <a href="{{url('rest-api')}}"><i class="ik ik-cloud"></i><span>{{ __('REST API')}}</span> <span class=" badge badge-success badge-right">{{ __('New')}}</span></a>
