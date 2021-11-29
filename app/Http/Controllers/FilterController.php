@@ -15,6 +15,10 @@ use Illuminate\Support\Str;
 
 class FilterController extends Controller
 {
+    protected $totalCount;
+    protected $reachableCount;
+    protected $notReachableCount;
+
     public function index(Request $request)
     {
         $data['filters'] = FilterMessages::get();
@@ -86,7 +90,8 @@ class FilterController extends Controller
     {
         $file = file_get_contents(Storage::disk('local')->path($pendingFilter->uploaded_file));
         $data = array_map("str_getcsv", preg_split('/\r*\n+|\r+/', $file));
-        $data = (array_reduce($data, 'array_merge', array()));
+        $data = array_filter((array_reduce($data, 'array_merge', array())));
+        $this->totalCount = count($data); 
         $data = implode(',', $data);
         $mobileNoEarlier = senitizeMobileNumbers($data);
         $mobileFiltered = array_filter($mobileNoEarlier, function ($element) {
@@ -117,10 +122,15 @@ class FilterController extends Controller
             fclose($file);
 
             FilterMessages::where('id',$id)->update(
-                ['status'=>2,'error_file'=>'csv/'.$fileName]
+                [
+                    'status'=>2,
+                    'error_file'=>'csv/'.$fileName,
+                    'total_counts'=> $this->totalCount,
+                    'invalid_counts' => count($response['mobileNOS'])
+                ]
             );
         }catch(\Exception $e){
-            return $e->getMessage();
+            return ($e->getMessage());
         }    
     }
 }

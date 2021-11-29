@@ -8,6 +8,7 @@
 <link rel="stylesheet" href="{{ asset('plugins/summernote/dist/summernote-bs4.css') }}">
 <link rel="stylesheet" href="{{ asset('plugins/bootstrap-tagsinput/dist/bootstrap-tagsinput.css') }}">
 <link rel="stylesheet" href="{{ asset('plugins/mohithg-switchery/dist/switchery.min.css') }}">
+<link rel="stylesheet" href="{{ asset('plugins/jquery-toast-plugin/dist/jquery.toast.min.css')}}">
 
 @endpush
 <style>
@@ -168,7 +169,7 @@
 
                             <div class="form-group">
                                 <label for="messageText">{{ __('Message')}}</label>
-                                <textarea class="form-control" name="message_card_1"  value="{{ old('message_card_1') }}" id="messageTextCard1" rows="4"></textarea>
+                                <textarea class="form-control" name="message_card_1"  value="{{ old('message_card_1') }}" id="messageTextCard1" rows="4">{{ old('message_card_1') }}</textarea>
                                 <div class="help-block with-errors mt-25" ></div>
                                 @error('message_card_1')
                                 <div class="alert alert-danger" role="alert">
@@ -242,7 +243,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="messageText">{{ __('Message')}}</label>
-                                <textarea class="form-control messageTextcard2" name="message_card_2"  value="{{ old('message_card_2') }}" id="messageTextcard2" rows="4"></textarea>
+                                <textarea class="form-control messageTextcard2" name="message_card_2"  value="{{ old('message_card_2') }}" id="messageTextcard2" rows="4">{{ old('message_card_2') }}</textarea>
                                 <div class="help-block with-errors mt-25" ></div>
                                 @error('message_card_2')
                                 <div class="alert alert-danger" role="alert">
@@ -317,7 +318,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="messageText">{{ __('Message')}}</label>
-                                <textarea class="form-control messageTextcard3" name="message_card_3"  value="{{ old('message_card_3') }}" id="messageTextcard3" rows="4"></textarea>
+                                <textarea class="form-control messageTextcard3" name="message_card_3"  value="{{ old('message_card_3') }}" id="messageTextcard3" rows="4">{{ old('message_card_3') }}</textarea>
                                 <div class="help-block with-errors mt-25" ></div>
                                 @error('message_card_3')
                                 <div class="alert alert-danger" role="alert">
@@ -392,7 +393,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="messageText">{{ __('Message')}}</label>
-                                <textarea class="form-control messageTextCard4" name="message_card_4"  value="{{ old('message_card_4') }}" id="messageTextcard4" rows="4"></textarea>
+                                <textarea class="form-control messageTextCard4" name="message_card_4"  value="{{ old('message_card_4') }}" id="messageTextcard4" rows="4">{{ old('message_card_4') }}</textarea>
                                 <div class="help-block with-errors" ></div>
                                 <div class="help-block with-errors mt-25" ></div>
                                 @error('message_card_4')
@@ -463,6 +464,7 @@
     </div>
      <!-- push external js -->
      @push('script')
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
      <script src="{{ asset('plugins/select2/dist/js/select2.min.js') }}"></script>
      <script src="{{ asset('plugins/summernote/dist/summernote-bs4.min.js') }}"></script>
      <script src="{{ asset('plugins/bootstrap-tagsinput/dist/bootstrap-tagsinput.min.js') }}"></script>
@@ -470,6 +472,20 @@
      <script src="{{ asset('plugins/mohithg-switchery/dist/switchery.min.js') }}"></script>
      <script src="{{ asset('js/form-components.js') }}"></script>
      <script src="{{ asset('js/form-advanced.js') }}"></script>
+
+     <script src="{{ asset('plugins/jquery-toast-plugin/dist/jquery.toast.min.js')}}"></script>
+        
+     <script src="{{ asset('js/alerts.js')}}"></script>
+     
+     <script>
+        $(document).ready( function() {
+            @if(count($errors)>0)
+                @foreach ($errors->all() as $error )
+                    showDangerToast("{{$error}}");
+                @endforeach
+            @endif
+        });
+    </script>
  @endpush
 @endsection
 

@@ -1,14 +1,16 @@
 <?php
+
+use App\RcsBalance;
+
 /**
  * Send Text RCS Messages
  * @return json 
  */
-function callRcsSendTextMessage($mobile_no = null, $user_id = null,$content=null,$message_id=null)
+function callRcsSendTextMessage($mobile_no = null, $user_id = null, $content = null, $message_id = null)
 {
-    
-    if ($mobile_no == null || $user_id == null || $content == null || $message_id==null)
+    if ($mobile_no == null || $user_id == null || $content == null || $message_id == null)
         return false;
-    $content = json_encode($content);    
+    $content = json_encode($content);
     //check if rcs json key exist with current user
     if (!file_exists(public_path('rcs_keys/' . $user_id . ".json")))
         return false;
@@ -43,11 +45,11 @@ function callRcsSendTextMessage($mobile_no = null, $user_id = null,$content=null
  * Send carousel RCS Messages   
  * @return json 
  */
-function callRcsSendCarouselMessage($mobile_no = null, $user_id = null,$content=null,$message_id=null)
+function callRcsSendCarouselMessage($mobile_no = null, $user_id = null, $content = null, $message_id = null)
 {
-    if ($mobile_no == null || $user_id == null || $content == null || $message_id==null)
+    if ($mobile_no == null || $user_id == null || $content == null || $message_id == null)
         return false;
-    $content = json_encode($content);    
+    $content = json_encode($content);
     //check if rcs json key exist with current user
     if (!file_exists(public_path('rcs_keys/' . $user_id . ".json")))
         return false;
@@ -75,16 +77,16 @@ function callRcsSendCarouselMessage($mobile_no = null, $user_id = null,$content=
     $response = curl_exec($curl);
     $httpcode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
     curl_close($curl);
-    return ['status_code' => $httpcode, 'response' => $response,'raw_mobile'=>$mobile_no,'raw_response'=>$content];
+    return ['status_code' => $httpcode, 'response' => $response, 'raw_mobile' => $mobile_no, 'raw_response' => $content];
 }
 
 /**
  * Send Filter Messages  
  * @return json 
  */
-function callRcsValidate($mobileNOS=null,$user_id=null)
+function callRcsValidate($mobileNOS = null, $user_id = null)
 {
-    if ($mobileNOS == null || $user_id==null)
+    if ($mobileNOS == null || $user_id == null)
         return false;
     //check if rcs json key exist with current user
     if (!file_exists(public_path('rcs_keys/' . $user_id . ".json")))
@@ -139,23 +141,72 @@ function getAccessToken($user_id)
  * Senitize Mobile Number
  * @return array
  */
-function senitizeMobileNumbers($numbers = null){
-    $numbers = str_replace(["'","-"], "", $numbers);
+function senitizeMobileNumbers($numbers = null)
+{
+    $numbers = str_replace(["'", "-"], "", $numbers);
     $numbers = array_map('intval', explode(',', $numbers));
     $mobile =  array_map(function ($val) {
-        $val = preg_replace('/\D/', '', $val); 
-        if(substr($val, 0, 3)=='091' && strlen($val)==13){
-         $val = substr($val,3);
+        $val = preg_replace('/\D/', '', $val);
+        if (substr($val, 0, 3) == '091' && strlen($val) == 13) {
+            $val = substr($val, 3);
         }
-        if(substr($val, 0, 2)=='91' && strlen($val)==12){
-        $val = substr($val,2);  
+        if (substr($val, 0, 2) == '91' && strlen($val) == 12) {
+            $val = substr($val, 2);
         }
-        if(substr($val, 0, 1)=='0' && strlen($val)==11){
-        $val = substr($val,1);  
+        if (substr($val, 0, 1) == '0' && strlen($val) == 11) {
+            $val = substr($val, 1);
         }
-        return '+91'.$val;
+        return '+91' . $val;
     }, $numbers);
     return array_unique($mobile);
+}
+
+function getBalance($userId = null)
+{
+    if (!$userId)
+        return [];
+
+    $balance = RcsBalance::where('user_id', $userId)->get();
+    $balance = $balance->sortByDesc('id');
+    $totalMessageCredit = $creditSpend = $creditReverted = $creditExpired = $creditRemaining = $lastRecharged = 0;
+    $lastRechargedOn = $creditExpiredOn = null;
+
+    if (!empty($balance)) {
+        foreach ($balance as $key => $bal) {
+            if ($key == 1){
+                $lastRechargedOn = date_format(date_create($bal->created_at), "d F Y");
+                $lastRecharged = $bal;
+            }    
+            //valid till date
+            $validTillDate = new DateTime($bal->valid_till);
+            $today = new DateTime("today");
+            if ($validTillDate >= $today) {
+                $creditRemaining = $bal->credit_remaining + $creditRemaining;
+            } else {
+                $creditExpired = $bal->credit_remaining + $creditExpired;
+            }
+            //find out expiry date of credit
+            if ($creditExpiredOn == null) {
+                $creditExpiredOn = $validTillDate;
+            } elseif ($creditExpiredOn <= $validTillDate) {
+                $creditExpiredOn = $validTillDate;
+            }
+
+            $totalMessageCredit = $bal->recharge + $totalMessageCredit;
+            $creditSpend = $bal->credit_spend + $creditSpend;
+            $creditReverted = $bal->credit_reverted + $creditReverted;
+        }
+        return  array(
+            'totalMessageCredit' => $totalMessageCredit,
+            'creditSpend' => $creditSpend,
+            'creditReverted' => $creditReverted,
+            'creditExpired' => $creditExpired,
+            'creditRemaining' => $creditRemaining,
+            'lastRechargedOn' => $lastRechargedOn,
+            'creditExpiredOn' => date_format($creditExpiredOn, "d F Y"),
+            'lastRecharged' => $lastRecharged
+        );
+    }
 }
 // oauth2l fetch --type oauth --credentials rbm-metro-max-services-ovlozqm-21006987a25b.json  --scope rcsbusinessmessaging
 // ya29.c.Kp8BFghKNvmkaN24MjMraUuwob1g7YWUjKsKdduwTkWCtXeCkTnf4blpnd1Do7ijUyGKbGRwX2Deb-vYLE43bfDE7_TV1TZ3vn3lMnfvHg4ATJsMhcxxn9_8Z5lcwSAUlsmrAPGgy5jOebTLhhUFWszm5V-k8Sn3FqQhSCNh4P6BbY6C3o1594FoQ4_3l14urC5uvgAMu3LEaRWgRLhKtp5B

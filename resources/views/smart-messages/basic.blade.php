@@ -8,6 +8,7 @@
 <link rel="stylesheet" href="{{ asset('plugins/summernote/dist/summernote-bs4.css') }}">
 <link rel="stylesheet" href="{{ asset('plugins/bootstrap-tagsinput/dist/bootstrap-tagsinput.css') }}">
 <link rel="stylesheet" href="{{ asset('plugins/mohithg-switchery/dist/switchery.min.css') }}">
+<link rel="stylesheet" href="{{ asset('plugins/jquery-toast-plugin/dist/jquery.toast.min.css')}}">
 
 @endpush
 <style>
@@ -50,7 +51,7 @@
             </div>
         </div>
         <form class="smart-message-basic-from" enctype="multipart/form-data" method="POST" action="{{ route('send-smart-message-basic') }}" >
-            @if (count($errors) > 0)
+            {{-- @if (count($errors) > 0)
             <div class="alert alert-danger">
                 <ul>
                     @foreach ($errors->all() as $error)
@@ -58,7 +59,7 @@
                     @endforeach
                 </ul>
             </div>
-          @endif
+          @endif --}}
 
             <div class="row">
             <div class="col-md-6">
@@ -117,7 +118,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="messageText">{{ __('Message')}}</label>
-                                <textarea class="form-control" name="message"  value="{{ old('message') }}" id="messageText" rows="4"></textarea>
+                                <textarea class="form-control" name="message"  value="{{ old('message') }}" id="messageText" rows="4">{{ old('message') }}</textarea>
                                 <div class="help-block with-errors" ></div>
                                 @error('message')
                                     <span class="invalid-feedback" role="alert">
@@ -190,6 +191,7 @@
     </div>
      <!-- push external js -->
      @push('script')
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
      <script src="{{ asset('plugins/select2/dist/js/select2.min.js') }}"></script>
      <script src="{{ asset('plugins/summernote/dist/summernote-bs4.min.js') }}"></script>
      <script src="{{ asset('plugins/bootstrap-tagsinput/dist/bootstrap-tagsinput.min.js') }}"></script>
@@ -198,6 +200,18 @@
      <script src="{{ asset('js/form-components.js') }}"></script>
    
      <script src="{{ asset('js/form-advanced.js') }}"></script>
-    
+     <script src="{{ asset('plugins/jquery-toast-plugin/dist/jquery.toast.min.js')}}"></script>
+        
+     <script src="{{ asset('js/alerts.js')}}"></script>
+     
+     <script>
+        $(document).ready( function() {
+            @if(count($errors)>0)
+                @foreach ($errors->all() as $error )
+                    showDangerToast("{{$error}}");
+                @endforeach
+            @endif
+        });
+    </script>
  @endpush
 @endsection

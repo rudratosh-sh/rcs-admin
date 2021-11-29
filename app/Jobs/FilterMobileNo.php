@@ -113,7 +113,13 @@ class FilterMobileNo implements ShouldQueue
             }
             fclose($file);
             FilterMessages::where('id', $this->contentId)->update(
-                ['status' => 1, 'downloaded_file' => 'csv/' . $fileName]
+                [
+                    'status' => 1, 
+                    'downloaded_file' => 'csv/' . $fileName,
+                    'valid_counts' => count($this->reachableGlobal),
+                    'invalid_counts' => count($this->notRechableGlobal),
+                    'total_counts' => count($this->mergeGlobal)
+                ]
             );
         } catch (\Exception $e) {
             return $e;
