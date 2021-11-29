@@ -1,4 +1,4 @@
-<?php
+<?php 
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\LoginController;
@@ -13,7 +13,7 @@ use App\Http\Controllers\ReportsController;
 use App\Http\Controllers\SmartMessageAdvanceController;
 use App\Http\Controllers\SmartMessageBasicController;
 use App\Http\Controllers\TemplateController;
-
+use App\Http\Controllers\FilterController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -118,6 +118,13 @@ Route::group(['middleware' => 'auth'], function () {
 
 	//templates
 	Route::post('api/fetch-template', [TemplateController::class, 'fetchTemplate']);
+
+	//filter messages 
+	Route::group(['middleware' => 'can:filter_messages'], function () {
+		Route::get('/filter-messages', [FilterController::class, 'index'])->name('filter-messages');
+		Route::post('/store-filter-messages', [FilterController::class, 'store'])->name('store-filter-messages');
+		Route::get('/filter-validation', [FilterController::class, 'filterMobileNumbers'])->name('filter-validation');
+	});
 
 	// Themekit demo pages
 	Route::get('/calendar', function () {

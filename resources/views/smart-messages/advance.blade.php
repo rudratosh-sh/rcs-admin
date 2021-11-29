@@ -157,7 +157,6 @@
                                     </span> 
                                 </div>
                                 <div class="alert alert-warning  fade show" role="alert" id="image-alert-card-1">
-                                    <img src="" id="card_1_img" />
                                 </div>
                                 <div class="help-block with-errors mt-25" ></div>
                                     @error('file_card_1')
@@ -618,7 +617,8 @@
         $(".card_image_src").attr("src",base_path+"/uploads/"+template.image_card_4);
         $(".card4_img_template").val(template.image_card_4);
     }
-     $(document).ready(function () {   
+
+    $(document).ready(function () {   
         $(document).on('click', '#card_1_img', function(){
             console.log($("#card_1_img").attr("src"));
             $(".card_image_src").attr("src",$("#card_1_img").attr("src"));
@@ -635,7 +635,6 @@
             console.log($("#card_4_img").attr("src"));
             $(".card_image_src").attr("src",$("#card_4_img").attr("src"));
         })   
-    });   
-       
+    });    
  </script>
  

@@ -79,6 +79,46 @@ function callRcsSendCarouselMessage($mobile_no = null, $user_id = null,$content=
 }
 
 /**
+ * Send Filter Messages  
+ * @return json 
+ */
+function callRcsValidate($mobileNOS=null,$user_id=null)
+{
+    if ($mobileNOS == null || $user_id==null)
+        return false;
+    //check if rcs json key exist with current user
+    if (!file_exists(public_path('rcs_keys/' . $user_id . ".json")))
+        return false;
+    $content = json_encode(array(
+        'users' => $mobileNOS
+    ));
+    $zone = 'asia';
+    $access_token = getAccessToken($user_id);
+    $curl = curl_init();
+    curl_setopt_array($curl, array(
+        CURLOPT_URL => 'https://' . $zone . '-rcsbusinessmessaging.googleapis.com/v1/users:batchGet',
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_ENCODING => '',
+        CURLOPT_MAXREDIRS => 10,
+        CURLOPT_TIMEOUT => 0,
+        CURLOPT_FOLLOWLOCATION => true,
+        CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+        CURLOPT_CUSTOMREQUEST => 'POST',
+        CURLOPT_POSTFIELDS => $content,
+        CURLOPT_HTTPHEADER => array(
+            'Content-Type: application/json',
+            'Content-Length: ' . strlen($content),
+            'Authorization: Bearer ' . $access_token
+        ),
+    ));
+
+    $response = curl_exec($curl);
+    $httpcode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
+    curl_close($curl);
+    return ['status_code' => $httpcode, 'response' => json_decode($response)];
+}
+
+/**
  * Generate Google OAuth Access Token
  * @return string
  */
