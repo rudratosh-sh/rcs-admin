@@ -35,12 +35,11 @@
       position: 'top-right'
     })
   };
-  showDangerToast = function() {
-    'use strict';
+  showDangerToast = function(error='And these were just the basic demos! Scroll down to check further details on how to customize the output.') {
     resetToastPosition();
     $.toast({
-      heading: 'Danger',
-      text: 'And these were just the basic demos! Scroll down to check further details on how to customize the output.',
+      heading: 'Error',
+      text: error,
       showHideTransition: 'slide',
       icon: 'error',
       loaderBg: '#f2a654',

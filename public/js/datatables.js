@@ -5,7 +5,8 @@ $(document).ready(function() {
         select: true,
         'aoColumnDefs': [{
             'bSortable': false,
-            'aTargets': ['nosort']
+            'aTargets': ['nosort'],
+            'infoEmpty':'No Records Available'
         }],
         dom: "<'row'<'col-sm-2'l><'col-sm-7 text-center'B><'col-sm-3'f>>tipr",
                 buttons: [
