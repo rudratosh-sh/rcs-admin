@@ -100,7 +100,7 @@ class UserController extends Controller
                 'role'     => 'required',
                 'company_name' => 'required',
                 'company_address' =>'required',
-                'recharge' =>'required',
+                'balance' =>'required',
                 'assigned' =>'required',
             ]);
         }else{
@@ -134,7 +134,7 @@ class UserController extends Controller
             // store RCS Balance information
             $rcs_balance = RcsBalance::create([
                 'user_id'     => User::latest()->first()->id,
-                'balance'    => $request->balance,
+                'recharge'    => $request->balance,
                 'valid_from' => $valid_from,
                 'valid_till' => $valid_till,
                 'assigned' => $request->assigned,
