@@ -55,7 +55,7 @@
                         <a href="{{url('filter-messages')}}" class="menu-item {{ ($segment1 == 'filter-messages') ? 'active' : '' }}">{{ __('Filter')}}</a>
                     </div>
                 </div>
-                @if (!Auth::guest() && !Auth::user()->admin)
+                @if ( Auth::user()->role == 1 ||  Auth::user()->role == 2)
                 @php
                     $balance = getBalance(auth()->user()->id);
                 @endphp 
