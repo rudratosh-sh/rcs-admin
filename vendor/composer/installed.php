@@ -5,7 +5,7 @@
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
-        'reference' => '8c0887ff843c71d51f6d9b5791a6a514e207afd4',
+        'reference' => 'dbc1274322f05cd11f6f4d189f4daec99000903a',
         'name' => 'laravel/laravel',
         'dev' => true,
     ),
@@ -113,7 +113,7 @@
             'dev_requirement' => false,
         ),
         'ergebnis/faker' => array(
-            'dev_requirement' => true,
+            'dev_requirement' => false,
             'replaced' => array(
                 0 => '1.9.2',
             ),
@@ -125,7 +125,7 @@
             'install_path' => __DIR__ . '/../erusev/parsedown',
             'aliases' => array(),
             'reference' => 'cb17b6477dfff935958ba01325f2e8a2bfa6dab3',
-            'dev_requirement' => true,
+            'dev_requirement' => false,
         ),
         'ezyang/htmlpurifier' => array(
             'pretty_version' => 'v4.13.0',
@@ -161,7 +161,7 @@
             'install_path' => __DIR__ . '/../facade/ignition-contracts',
             'aliases' => array(),
             'reference' => '3c921a1cdba35b68a7f0ccffc6dffc1995b18267',
-            'dev_requirement' => true,
+            'dev_requirement' => false,
         ),
         'fakerphp/faker' => array(
             'pretty_version' => 'v1.9.2',
@@ -170,7 +170,7 @@
             'install_path' => __DIR__ . '/../fakerphp/faker',
             'aliases' => array(),
             'reference' => '84220cf137a9344acffb10374e781fed785ff307',
-            'dev_requirement' => true,
+            'dev_requirement' => false,
         ),
         'fideloper/proxy' => array(
             'pretty_version' => '4.4.1',
@@ -188,7 +188,7 @@
             'install_path' => __DIR__ . '/../filp/whoops',
             'aliases' => array(),
             'reference' => 'f056f1fe935d9ed86e698905a957334029899895',
-            'dev_requirement' => true,
+            'dev_requirement' => false,
         ),
         'firebase/php-jwt' => array(
             'pretty_version' => 'v5.5.1',
@@ -209,7 +209,7 @@
             'dev_requirement' => false,
         ),
         'fzaninotto/faker' => array(
-            'dev_requirement' => true,
+            'dev_requirement' => false,
             'replaced' => array(
                 0 => '1.9.2',
             ),
@@ -479,7 +479,7 @@
             'install_path' => __DIR__ . '/../knuckleswtf/scribe',
             'aliases' => array(),
             'reference' => '6a001e403b65567be4089e26ab18bd4f23dd2216',
-            'dev_requirement' => true,
+            'dev_requirement' => false,
         ),
         'kodova/hamcrest-php' => array(
             'dev_requirement' => true,
@@ -502,7 +502,7 @@
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
-            'reference' => '8c0887ff843c71d51f6d9b5791a6a514e207afd4',
+            'reference' => 'dbc1274322f05cd11f6f4d189f4daec99000903a',
             'dev_requirement' => false,
         ),
         'laravel/passport' => array(
@@ -671,7 +671,7 @@
             'dev_requirement' => false,
         ),
         'mpociot/laravel-apidoc-generator' => array(
-            'dev_requirement' => true,
+            'dev_requirement' => false,
             'replaced' => array(
                 0 => '*',
             ),
@@ -683,7 +683,7 @@
             'install_path' => __DIR__ . '/../mpociot/reflection-docblock',
             'aliases' => array(),
             'reference' => 'c8b2e2b1f5cebbb06e2b5ccbf2958f2198867587',
-            'dev_requirement' => true,
+            'dev_requirement' => false,
         ),
         'mtdowling/cron-expression' => array(
             'dev_requirement' => false,
@@ -746,7 +746,7 @@
             'install_path' => __DIR__ . '/../nunomaduro/collision',
             'aliases' => array(),
             'reference' => '3004cfa49c022183395eabc6d0e5207dfe498d00',
-            'dev_requirement' => true,
+            'dev_requirement' => false,
         ),
         'nyholm/psr7' => array(
             'pretty_version' => '1.4.1',
@@ -1227,7 +1227,7 @@
             'install_path' => __DIR__ . '/../shalvah/clara',
             'aliases' => array(),
             'reference' => '9b4e5b2681fb79e7214f66106d11917d9c3faa40',
-            'dev_requirement' => true,
+            'dev_requirement' => false,
         ),
         'shalvah/upgrader' => array(
             'pretty_version' => '0.1.5',
@@ -1236,7 +1236,7 @@
             'install_path' => __DIR__ . '/../shalvah/upgrader',
             'aliases' => array(),
             'reference' => 'ce368ee2333b3546afc698add299b23b3f46cd56',
-            'dev_requirement' => true,
+            'dev_requirement' => false,
         ),
         'spatie/data-transfer-object' => array(
             'pretty_version' => '2.8.3',
@@ -1245,7 +1245,7 @@
             'install_path' => __DIR__ . '/../spatie/data-transfer-object',
             'aliases' => array(),
             'reference' => '2625a59566804ec63f01947d85947336237cbda6',
-            'dev_requirement' => true,
+            'dev_requirement' => false,
         ),
         'spatie/laravel-permission' => array(
             'pretty_version' => '5.4.0',
@@ -1554,7 +1554,7 @@
             'install_path' => __DIR__ . '/../symfony/var-exporter',
             'aliases' => array(),
             'reference' => 'a7604de14bcf472fe8e33f758e9e5b7bf07d3b91',
-            'dev_requirement' => true,
+            'dev_requirement' => false,
         ),
         'symfony/yaml' => array(
             'pretty_version' => 'v5.3.6',
@@ -1563,7 +1563,7 @@
             'install_path' => __DIR__ . '/../symfony/yaml',
             'aliases' => array(),
             'reference' => '4500fe63dc9c6ffc32d3b1cb0448c329f9c814b7',
-            'dev_requirement' => true,
+            'dev_requirement' => false,
         ),
         'theseer/tokenizer' => array(
             'pretty_version' => '1.2.1',

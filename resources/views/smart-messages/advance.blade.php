@@ -618,6 +618,24 @@
         $(".card_image_src").attr("src",base_path+"/uploads/"+template.image_card_4);
         $(".card4_img_template").val(template.image_card_4);
     }
+     $(document).ready(function () {   
+        $(document).on('click', '#card_1_img', function(){
+            console.log($("#card_1_img").attr("src"));
+            $(".card_image_src").attr("src",$("#card_1_img").attr("src"));
+        })
+        $(document).on('click', '#card_2_img', function(){
+            console.log($("#card_2_img").attr("src"));
+            $(".card_image_src").attr("src",$("#card_2_img").attr("src"));
+        })
+        $(document).on('click', '#card_3_img', function(){
+            console.log($("#card_3_img").attr("src"));
+            $(".card_image_src").attr("src",$("#card_3_img").attr("src"));
+        })
+        $(document).on('click', '#card_4_img', function(){
+            console.log($("#card_4_img").attr("src"));
+            $(".card_image_src").attr("src",$("#card_4_img").attr("src"));
+        })   
+    });   
        
  </script>
  

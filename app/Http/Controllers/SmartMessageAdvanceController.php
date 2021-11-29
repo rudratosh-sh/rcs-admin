@@ -245,6 +245,7 @@ class SmartMessageAdvanceController extends Controller
         if (!empty($pendingGroupSms)) {
             if(!$pendingGroupSms->card_1_enable)
                 return [];
+            $this->textcard1 = $this->descriptioncard1 = $this->mediacard1=$this->suggetionscard1=null;    
             //setting text message in object
             if ($pendingGroupSms->message_card_1 != '')
                 $this->textCard1 = $pendingGroupSms->image_title_card_1;
@@ -355,6 +356,7 @@ class SmartMessageAdvanceController extends Controller
         if (!empty($pendingGroupSms)) {
             if(!$pendingGroupSms->card_2_enable)
                 return [];
+            $this->textcard2 = $this->descriptioncard2 = $this->mediacard2=$this->suggetionscard2=null;    
             //setting text message in object
             if ($pendingGroupSms->message_card_2 != '')
                 $this->textcard2 = $pendingGroupSms->image_title_card_2;
@@ -465,6 +467,7 @@ class SmartMessageAdvanceController extends Controller
         if (!empty($pendingGroupSms)) {
             if(!$pendingGroupSms->card_3_enable)
                 return [];
+            $this->textcard3 = $this->descriptioncard3 = $this->mediacard3=$this->suggetionscard3=null;    
             //setting text message in object
             if ($pendingGroupSms->message_card_3 != '')
                 $this->textcard3 = $pendingGroupSms->image_title_card_3;
@@ -575,6 +578,7 @@ class SmartMessageAdvanceController extends Controller
         if (!empty($pendingGroupSms)) {
             if(!$pendingGroupSms->card_4_enable)
                 return [];
+            $this->textcard4 = $this->descriptioncard4 = $this->mediacard4=$this->suggetionscard4=null;    
             //setting text message in object
             if ($pendingGroupSms->message_card_4 != '')
                 $this->textcard4 = $pendingGroupSms->image_title_card_4;
