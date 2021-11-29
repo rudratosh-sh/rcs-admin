@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "rbm-education-exdvchm",
+  "private_key_id": "22dcbb1b4ef93e0fa6ff8f0b8c598327d0ba5b77",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQDZqLc6nSWo3n60\n4qfNYVhzLV2kM6wnKblcfzka5AG0ishn8j4/7xuZKY7KjCWFPrGEiZzjUMKi9uah\nmMyW8POgVb4o7aHVhPuNFDZnTXaFd0xRPa2FG3DXa41aOG3/OgeG5APyEXXDOI1I\n+zz5XWHcWynWmEXCjiG0oQZso1BfHcH2sBVDHiY3tjRJRg3YcqEn4FfZR94LiUUh\nkJtuwk5QHd1GqKQ/sFnqCAP0r0/kehayp0vDe4Za9EHk9xszm/Vz/FcYSTCSYTON\nBmHk7R7L7RcUEq0DPK4JyoIWSe2hZ/aPKpYYvE6Bk4umhFxftNyVwUdpU8jMp+kh\nVwsmn7s1AgMBAAECggEAEKTLhrvOYynJB8Ue3pWKHrE89vSCPnK860iJjJebqhtZ\nr0R8GPChtuDRZoYjIVurAI7y/wPlhPIl2Sdhb6JdstM+VGFgIxRv6uNn30GHuwrQ\nEb9KZe0JqtiyfqVlgziEAP8tw7nXkYshF0//jd746nwocxyCQG9qFDv4TTWLd2EK\nRpX1X+OrWGNMBgyZhcFspnkgRvx2ih/hbW0v/HZmuO+6RXp3aTzNE4VM7uCIMlm/\nZMGc6IyTy8nS0pRz7S6IQjIebdQrB8ejTPY4p+zBs7qhGgEMUiOVnY7IGi9v1hly\ns840Io7QuVvmybD+ro5iL2FqVUoAdgZ4Am1b+pIJIQKBgQD1JpNwzZqbgockdkLR\n1xXCJ6q8nDQB1YfCGko8dre30X3BbBoI9qxqYX5PWlA+j7wKR5qNe27M4GDxzNiQ\n5kG+MmtD7pNlvejA0QOLEgDTgF5Sq0m2pEcTuvCHZPlcrIL8FBT0Pv5/OPlUrJmZ\nlY+oEQl1WE0s1P1FVAWLVs761QKBgQDjSqyoLcph6RcMc7143roKB/BMjTyDQfE0\nf2Mk1Sg8j+lDJ/dLeEYPUPlZu9HpfwrQd6Zm8je159QAATPuWtT+VVaEuDtkGHDq\n9DoqOQnzNg07lHmUS0nixWDu7rB6eDYC0wD2qlWZF5/DN3MUPUvxnZPm/eHa0ePG\nWjrg3pcu4QKBgE5KrZe+8ftsKkDIy/o8GKTTCkIGGM3lJeAliUPaHj5EV0cogQAP\n12x6Cl7JVwtD2CfoSkGZA//GQO+4HgnYn3Jgo8UkMkqx5d1+YwVNEJp7SqRYM8hy\nmoiAkUSMSN8B8SsUNsTyQVDcHzSdkshr7V8dYcnqE2uX8fLsLIEdjiipAoGATjB1\nHtHJyk7WF/mE15y/IQ5EEwGPLJQ1ttqPr68ITXUwSGLqRnMUntY7QSxEdO+4N6jB\nfK6cjZ43ptzDEZ77oJaY0cVS4QcraRglHjtK+fjBKprUDDiuLS27P9aqrSbHZcdS\nkIheM/EVi6F6nB7ODksoAxGZbZ5Ang6SLKNGHOECgYBcquFJPvDRQXppMdosq22b\nhobbRfVePTwTKJ/vJZzL/mRfQ7qm+rGVFCoRLhE1V99etex2Latk0d5qn+waeThp\niyo/GGjzvL1GRVuy5NJOj7CGKm7YNr4FF/cRr8vFZ17Erfk5QdhH0dSDEp4M61nz\nZ2AeNxC/yby/NCfiMVQJpw==\n-----END PRIVATE KEY-----\n",
+  "client_email": "rbm-agent@rbm-education-exdvchm.iam.gserviceaccount.com",
+  "client_id": "103265119143230782166",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/rbm-agent%40rbm-education-exdvchm.iam.gserviceaccount.com"
+}

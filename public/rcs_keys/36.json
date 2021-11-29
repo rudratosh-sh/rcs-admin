@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "rbm-paneri-y42hzuf",
+  "private_key_id": "db4b7e10660cb46c919d65f564bd92b4c6b7e235",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQCx42ovADq9LBQr\n9dm5biOlhbBxiE/MHxdOrbF2ScdektpdpECwjH7bdBjyiy2f5lxpnRecZnkkmafy\nrDBOao39AEDHU3FBLK2/+woMYwGT7Piwex/E1i0fJdQlgWCM7pCly4nmiEC+ZKUj\ntCQ6hYWvJCJmYBklp6Zh8GXZm1LMfCQrqqeHwtJ9HZ452qnRW5+Qnrwml9P4wIIW\n0EeuPcIYft3FnGZwn/pfs5JONZPu3QISvIXchxaNQry9lmQM16v5ROhmsb/lV8Ih\n6lI4AqnQymD3vpLw/8zj+iCUgh4dlAX/J35rzwjtmaVBVPwqe3VEOEuo5bYD8DPO\nz0+Daxd/AgMBAAECggEAGE78W/ngYlNwr4/ZYHvgMSaeCusBWeJxxpWjvNyuJYqp\n08a19FTuokHbhYwRVbAetsFPJayMfLzmn28k7Bem2Yjm++tiJvGFDh6vASxSXeAx\nx7lmM6QU5xRoniDE4d1ZNN7QibPa178HILmQLdMV2+4d0/bpLiUabnhxt+qAG7iB\nz4VBnNDF8w//ERglxy9xToMvvdOoqcvrxuuFEGXi12AZUugxoT8UT66qVdxdN4k/\ni5dS05TQ6CMKv8l1mcO9k3BzS9byYQS9Sqmj/YfyqG+e1xcQiFzn+xuZ8OHcIwF+\n7gjyIJ6c//Qni/FGj5GlENZN4k8PcePXkC6DXAPQ2QKBgQDtDhOpOe2lB1GOX1Nk\nBnWjqaHPk5HuqL8ijMVn/Hs1+8D2hEPNJnGpEjw0Da97blNjg6Ut5J5Qfd5GQMMx\nA7TouLWWpEir5Qizx5knHDg3xVwJB2BfP7Lods9hlAFwtNuhZ6Rou45ZL0MaoHgm\nOveBztm93n02JMvMVTrPBKTxKwKBgQDAGtf+EFNGGvbZsQapZKSCe6LiAcUZGJJG\nRj+zJsBUcwX5sUy65ykPntli8aza51re4V9xWGUMZAZ6UDnd04AG0pUD8StC0yjn\nqluS5Y6LYRfTvYvOYj10uXHCj7EeizbRXNSAGtD+6JBHaYHy4yuV20jFNZ+g4Sdu\nSXzsNVpA/QKBgCgtzp9MNj9WcjhTZ+r4PVA0HDz2ojF1YJAWlA7/+FI6DYa6/FL1\nRSaG9LVN7IRbOr8PPRv+N+ckrlvx9iOEoVEgnYae6cJY25S9K/Q5ED5DsUnGeksq\nnMRR/uxnDadwwBknW/J0d7geDp2gvTydmf3idX19DHP04KYNfB5Ch0JpAoGBAJoY\nbk30FnhTxNNWdzuF6ZhpSHz2Yn4BAcSxMQOp//k90vs5x4zdREitaT8/ESL/FhtW\nuVKYT2YjDjcrB1/y+e1/Gd1xpPwTmepK8u3gifkvxwcoMm84yodJAgHJdZBEp5JF\nXofr+t2e+6zs6zpEE4A/yB25J/TK5vBGrphjK6SZAoGAIJAyQNEaYuky3fTE96GS\nTtyMZK/8A/cgkM7+Yn0Man0TMlNRI+pqFP2jg437UwYARup+IEiiBCLVD1iuVArF\nTovfveuDcMdMuyon1gq6RIIu8sPE52gVE7SUjPUQv5zBGL33qHcSKYukVJ5tC0cW\nWqUJ1DRg0ahlkoLqG7Tj2QE=\n-----END PRIVATE KEY-----\n",
+  "client_email": "rbm-agent@rbm-paneri-y42hzuf.iam.gserviceaccount.com",
+  "client_id": "106551447369970087600",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/rbm-agent%40rbm-paneri-y42hzuf.iam.gserviceaccount.com"
+}

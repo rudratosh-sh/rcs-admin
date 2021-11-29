@@ -19,8 +19,9 @@
         "laravel/ui": "^3.0",
         "laravelcollective/html": "^6.1",
         "mews/purifier": "^3.2",
+        "mpociot/laravel-apidoc-generator": "^4.8",
         "spatie/laravel-permission": "^5.3.0",
-        "yajra/laravel-datatables-oracle": "~9.0"   
+        "yajra/laravel-datatables-oracle": "~9.0"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.6",

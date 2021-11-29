@@ -617,6 +617,7 @@
         $(".card_image_src").attr("src",base_path+"/uploads/"+template.image_card_4);
         $(".card4_img_template").val(template.image_card_4);
     }
+
     $(document).ready(function () {   
         $(document).on('click', '#card_1_img', function(){
             console.log($("#card_1_img").attr("src"));

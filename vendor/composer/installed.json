@@ -10416,19 +10416,12 @@
     "dev-package-names": [
         "barryvdh/laravel-debugbar",
         "doctrine/instantiator",
-        "erusev/parsedown",
         "facade/flare-client-php",
         "facade/ignition",
-        "facade/ignition-contracts",
-        "fakerphp/faker",
-        "filp/whoops",
         "hamcrest/hamcrest-php",
-        "knuckleswtf/scribe",
         "maximebf/debugbar",
         "mockery/mockery",
-        "mpociot/reflection-docblock",
         "myclabs/deep-copy",
-        "nunomaduro/collision",
         "phar-io/manifest",
         "phar-io/version",
         "phpdocumentor/reflection-common",
@@ -10457,12 +10450,7 @@
         "sebastian/resource-operations",
         "sebastian/type",
         "sebastian/version",
-        "shalvah/clara",
-        "shalvah/upgrader",
-        "spatie/data-transfer-object",
         "symfony/debug",
-        "symfony/var-exporter",
-        "symfony/yaml",
         "theseer/tokenizer"
     ]
 }
