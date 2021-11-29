@@ -11,6 +11,7 @@ use Illuminate\Queue\SerializesModels;
 
 use App\SmsTransactionGroup;
 use App\SmsTransactionSingle;
+use App\RcsBalance;
 
 class SendBulkBasicSms implements ShouldQueue
 {
@@ -33,7 +34,6 @@ class SendBulkBasicSms implements ShouldQueue
         $this->content = $content;
         $this->singleSmsSingle = $singleSmsSingle;
         $this->userId = $userId;
-        
     }
 
     /**
@@ -54,7 +54,8 @@ class SendBulkBasicSms implements ShouldQueue
                     ->update([
                         'status' => 1,
                         'message_id' => $this->messageId,
-                        'response' =>$response
+                        'response' =>$response,
+                        'status_code' => $response['status_code']
                     ]);
                 $this->smsTransactionId = $single->sms_transaction_group_id;    
             }
@@ -63,6 +64,9 @@ class SendBulkBasicSms implements ShouldQueue
                 ->update([
                     'status' => 2
                 ]);
+            
+            //update stats
+            $this->updateStats($this->smsTransactionId);
         }
     }
 
@@ -76,5 +80,20 @@ class SendBulkBasicSms implements ShouldQueue
             $randomString .= $characters[rand(0, $charactersLength - 1)];
         }
         return $randomString;
+    }
+
+    private function updateStats($smsTransactionId=null){
+        if($smsTransactionId==null)
+            return false;
+
+        $failedRcsCount = SmsTransactionSingle::where('sms_transaction_group_id', $this->smsTransactionId)->where('status_code',404)->count();
+        $rcsBalanceId = RcsBalance::where('user_id',$this->userId)->orderBy('id','desc')->first(); 
+        return RcsBalance::where('id',$rcsBalanceId->id)->update(
+            [
+                'credit_remaining' => $rcsBalanceId->credit_remaining+$failedRcsCount,
+                'credit_spend' => $rcsBalanceId->credit_spend-$failedRcsCount,
+            ]
+        );
+
     }
 }

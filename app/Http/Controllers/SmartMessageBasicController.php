@@ -8,7 +8,7 @@ use App\SmsTransactionGroup;
 use App\SmsTransactionSingle;
 use App\Helpers;
 use DataTables, Auth;
-
+use App\RcsBalance;
 class SmartMessageBasicController extends Controller
 {
     protected $suggetions;
@@ -54,14 +54,15 @@ class SmartMessageBasicController extends Controller
      */
     public function sendSmartMessageBasic(Request $request)
     {
-        $validator = Validator::make($request->all(), [
-            'message_type' => 'required ',
-            'message'     => 'required',
-            'mobile_no' => 'required'
+        $request->validate([
+            'message_type' => 'required',
+            'message' => 'required',
+            'mobile_no' =>'required'
+        ], [
+            'message_type.required' => 'Message Type is Required',
+            'message.required' => 'Message is Required',
+            'mobile_no.required' => 'Mobile No is Required',
         ]);
-        if ($validator->fails()) {
-            return redirect()->back()->withInput()->with('error', $validator->messages()->first());
-        }
 
         $image_path = NULL;
         if ($request->file()) {
@@ -73,8 +74,15 @@ class SmartMessageBasicController extends Controller
         }
 
         try {
+            //get mobile counts
+            $mobile_nos = array_map('intval', explode(',', $request->mobile_no));
+            
+            //check if user has enough balance
+            if(!$this->getBalance(count($mobile_nos)))
+                return redirect()->back()->withErrors(["Don't Have Enough Credit to Spend"])->withInput($request->all());
+
             // store sms transaction group
-            if ($this->storeSmsTranscationGroup($request, $image_path))
+            if ($this->storeSmsTranscationGroup($request, $image_path,$mobile_nos))
                 return redirect('campaiging-report')->with('success', 'Messages added in Queue');
             else
                 return redirect('campaiging-report')->with('error', 'Failed to create sms queue! Try again.');
@@ -85,9 +93,8 @@ class SmartMessageBasicController extends Controller
     }
 
 
-    function storeSmsTranscationGroup(Request $request, $image_path = null)
+    function storeSmsTranscationGroup(Request $request, $image_path = null,$mobile_nos=[])
     {
-        $mobile_nos = array_map('intval', explode(',', $request->mobile_no));
         try {
             // store sms transaction group
             $storeSmsTransaction = SmsTransactionGroup::create([
@@ -270,5 +277,20 @@ class SmartMessageBasicController extends Controller
                 'suggestions' => $this->suggetions
             );
         }
+    }
+
+    private function getBalance($nos=0){
+       $balance =  getBalance(Auth::user()->id);
+       $creditRemaining = $balance['creditRemaining'];
+       $lastRecharged = $balance['lastRecharged'];
+       if($creditRemaining<$nos)
+            return false;
+       else
+            return RcsBalance::where('id',$lastRecharged->id)->update(
+                array(
+                    'credit_remaining' => $lastRecharged->credit_remaining - $nos,
+                    'credit_spend' => $lastRecharged->credit_spend + $nos
+                )
+            );
     }
 }

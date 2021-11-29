@@ -9,7 +9,7 @@ use App\SmsTransactionSingleAdvance;
 use App\TemplateAdvance;
 use App\Helpers;
 use DataTables, Auth;
-
+use App\RcsBalance;
 class SmartMessageAdvanceController extends Controller
 {
     protected $cardWidth;
@@ -113,8 +113,15 @@ class SmartMessageAdvanceController extends Controller
         $imagesCardsArr = $this->storeImages($request);
 
         try {
+            //get mobile counts
+            $mobile_nos = array_map('intval', explode(',', $request->mobile_no));
+            
+            //check if user has enough balance
+            if(!$this->getBalance(count($mobile_nos)))
+                return redirect()->back()->withErrors(["Don't Have Enough Credit to Spend"])->withInput($request->all());
+
             // store sms transaction group advance
-            if ($this->storeSmsTranscationGroup($request, $imagesCardsArr))
+            if ($this->storeSmsTranscationGroup($request, $imagesCardsArr,$mobile_nos))
                 return redirect('campaiging-report')->with('success', 'Messages added in Queue');
             else
                 return redirect('campaiging-report')->with('error', 'Failed to create sms queue! Try again.');
@@ -129,9 +136,8 @@ class SmartMessageAdvanceController extends Controller
      *
      * @return void
      */
-    function storeSmsTranscationGroup(Request $request, $imagesCardsArr = [])
+    function storeSmsTranscationGroup(Request $request, $imagesCardsArr = [],$mobile_nos=[])
     {
-        $mobile_nos = array_map('intval', explode(',', $request->mobile_no));
         try {
             //get prepared post data 
             $data = $this->prepareStoreData($request, $imagesCardsArr, $mobile_nos);
@@ -861,4 +867,19 @@ class SmartMessageAdvanceController extends Controller
             'card_4_enable' =>  $request->card_4_check ? 1 : 0,
         );
     }
+
+    private function getBalance($nos=0){
+        $balance =  getBalance(Auth::user()->id);
+        $creditRemaining = $balance['creditRemaining'];
+        $lastRecharged = $balance['lastRecharged'];
+        if($creditRemaining<$nos)
+             return false;
+        else
+             return RcsBalance::where('id',$lastRecharged->id)->update(
+                 array(
+                     'credit_remaining' => $lastRecharged->credit_remaining - $nos,
+                     'credit_spend' => $lastRecharged->credit_spend + $nos
+                 )
+             );
+     }
 }
