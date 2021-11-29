@@ -203,7 +203,7 @@ function getBalance($userId = null)
             'creditExpired' => $creditExpired,
             'creditRemaining' => $creditRemaining,
             'lastRechargedOn' => $lastRechargedOn,
-            'creditExpiredOn' => date_format($creditExpiredOn, "d F Y"),
+            'creditExpiredOn' => $creditExpiredOn!=null ? date_format($creditExpiredOn, "d F Y"):'Not Available',
             'lastRecharged' => $lastRecharged
         );
     }
