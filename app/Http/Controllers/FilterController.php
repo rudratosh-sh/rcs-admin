@@ -66,10 +66,10 @@ class FilterController extends Controller
     public function filterMobileNumbers()
     {
         $pendingFilter = FilterMessages::where('status', 0)->first();
-        if ($pendingFilter->id) {
+        if (!empty($pendingFilter) && $pendingFilter->id) {
             $response = $this->validateMobileNo($pendingFilter);
             if ($response['status'] == false) {
-                $this->storeErrorFile($response,$pendingFilter->id);
+                echo $this->storeErrorFile($response,$pendingFilter->id);
             }else{
                 $job = (new \App\Jobs\FilterMobileNo($response['mobileNOS'],$pendingFilter->user_id,$pendingFilter->id))
                 ->delay(
@@ -110,7 +110,7 @@ class FilterController extends Controller
             $tempName = 'ERROR' . time() . '_' . Str::uuid()->toString();
             $path = 'uploads/csv/';
             $fileName =  $tempName  . '.csv';
-            $file = fopen($path . $fileName, 'w');
+            $file = fopen(public_path().'/'.$path . $fileName, 'w');
             $columns = array('Invalid Mobile No');
             fputcsv($file, $columns);
             fputcsv($file, $response['mobileNOS']);
