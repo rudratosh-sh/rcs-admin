@@ -54,39 +54,41 @@
                         <a href="{{url('smart-message-advance')}}" class="menu-item {{ ($segment1 == 'smart-message-advance') ? 'active' : '' }}">{{ __('Advance')}}</a>
                         <a href="{{url('filter-messages')}}" class="menu-item {{ ($segment1 == 'filter-messages') ? 'active' : '' }}">{{ __('Filter')}}</a>
                     </div>
-                </div>
-                @if ( Auth::user()->role == 1 ||  Auth::user()->role == 2)
-                @php
-                    $balance = getBalance(auth()->user()->id);
-                @endphp 
-                <div class="col mt-45">
-                    <div class="card social-res-card">
-                        <div class="card-header">
-                            <h5>RCS Balance</h5>
-                        </div>   
-                        @if(!empty($balance))
-                            <div class="card-body">
-                                <p class="mb-10 text-primary">Total Message Credit</p>
-                                    <p class="">{{$balance['totalMessageCredit']}}</p>
-                                <p class="mb-10 text-warning">Total Credit Remaining</p>
-                                    <p class="">{{$balance['creditRemaining']}}</p>    
-                                <p class="m-b-10 text-success">Credit Spend</p>
-                                    <p class="">{{$balance['creditSpend']}}</p>
-                                <p class="mb-10 text-info">Credit Reverted</p>
-                                    <p class="">{{$balance['creditReverted']}}</p> 
-                                <p class="mb-10 text-danger">Credit Expired</p>
-                                    <p class="">{{$balance['creditExpired']}}</p> 
-                                <p class="mb-10 text-warning">Last Recharge On</p>
-                                    <p class="">{{$balance['lastRechargedOn']}} </p>    
-                                <p class="mb-10 text-danger">Credit Expire On</p>
-                                    <p class="">{{$balance['creditExpiredOn']}}</p>         
-                            </div>
-                        @else
-                            <p>Balance is Zero</p>    
-                        @endif    
+                </div> 
+                {{-- @if(Auth::user()->roles->pluck('id')->toArray()[0]>2) --}}
+                    @php
+                        $balance = getBalance(auth()->user()->id);
+                    @endphp 
+                    <div class="col mt-45">
+                        <div class="card social-res-card">
+                            <div class="card-header">
+                                <h5>RCS Balance</h5>
+                            </div>   
+                            @if(!empty($balance))
+                                <div class="card-body">
+                                    <p class="mb-10 text-primary">Total Message Credit</p>
+                                        <p class="">{{$balance['totalMessageCredit']}}</p>
+                                    <p class="mb-10 text-warning">Total Credit Remaining</p>
+                                        <p class="">{{$balance['creditRemaining']}}</p>    
+                                    <p class="m-b-10 text-success">Credit Spend</p>
+                                        <p class="">{{$balance['creditSpend']}}</p>
+                                    <p class="mb-10 text-info">Credit Reverted</p>
+                                        <p class="">{{$balance['creditReverted']}}</p> 
+                                    <p class="mb-10 text-danger">Credit Expired</p>
+                                        <p class="">{{$balance['creditExpired']}}</p> 
+                                    @if($balance['lastRechargedOn'])    
+                                        <p class="mb-10 text-warning">Last Recharge On</p>
+                                            <p class="">{{$balance['lastRechargedOn']}} </p>    
+                                    @endif        
+                                    <p class="mb-10 text-danger">Credit Expire On</p>
+                                        <p class="">{{$balance['creditExpiredOn']}}</p>         
+                                </div>
+                            @else
+                                <p>Balance is Zero</p>    
+                            @endif    
+                        </div>
                     </div>
-                </div>
-                @endif
+                {{-- @endif     --}}
                  {{-- <div class="nav-lavel">{{ __('Documentation')}} </div>
                 <div class="nav-item {{ ($segment1 == 'rest-api') ? 'active' : '' }}">
                     <a href="{{url('rest-api')}}"><i class="ik ik-cloud"></i><span>{{ __('REST API')}}</span> <span class=" badge badge-success badge-right">{{ __('New')}}</span></a>
