@@ -183,7 +183,7 @@ class SmartMessageBasicController extends Controller
 
             //creating contentMessage object
             $this->contentMessage = ['contentMessage' => $this->richCard];
-
+            exit;
             $job = (new \App\Jobs\SendBulkBasicSms($this->contentMessage, $pendingSingleSms, $pendingGroupSms->user_id))
                 ->delay(
                     now()
@@ -201,25 +201,9 @@ class SmartMessageBasicController extends Controller
             //setting text message in object
             if ($pendingGroupSms->message != '')
                 $this->text = $pendingGroupSms->image_title;
-            $this->description = $pendingGroupSms->message;
+            $this->description = $pendingGroupSms->message; 
 
-            //setting image content and title to object    
-            if ($pendingGroupSms->image != null && $pendingGroupSms->image != '') {
-                $imageSize = !empty($this->call_title)  + !empty($this->open_url_title_1)  + !empty($this->open_url_title_2)  + !empty($this->open_url_title_2);
-                if ($imageSize == 0)
-                    $cardWidth = 'TALL';
-                elseif ($imageSize == 1)
-                    $cardWidth = 'MEDIUM';
-                else
-                    $cardWidth = 'SHORT';
-
-                $this->media = [
-                    'height' => $cardWidth,
-                    'contentInfo' => ['fileUrl' => url('/uploads/' . $pendingGroupSms->image), 'forceRefresh' => true]
-                ];
-            }
-
-            //setting call url to object
+             //setting call url to object
             if ($pendingGroupSms->call_title != '' && $pendingGroupSms->call_number != '') {
                 $this->dialCall = array(
                     'action' =>
@@ -266,6 +250,21 @@ class SmartMessageBasicController extends Controller
                         'openUrlAction' => ['url' => $pendingGroupSms->open_url_3]
                     ]
                 );
+            }
+               //setting image content and title to object    
+               if ($pendingGroupSms->image != null && $pendingGroupSms->image != '') {
+                $imageSize = !empty($this->dialCall)  + !empty($this->callUrl1)  + !empty($this->callUrl2)  + !empty($this->callUrl3);
+                if ($imageSize == 0)
+                    $cardWidth = 'TALL';
+                elseif ($imageSize == 1)
+                    $cardWidth = 'MEDIUM';
+                else
+                    $cardWidth = 'SHORT';
+
+                $this->media = [
+                    'height' => $cardWidth,
+                    'contentInfo' => ['fileUrl' => url('/uploads/' . $pendingGroupSms->image), 'forceRefresh' => true]
+                ];
             }
             //pushing suggestions to object
             if ($this->dialCall != null)
