@@ -227,7 +227,7 @@ class SmartMessageBasicController extends Controller
             }
 
             //setting open url 2 to object
-            if ($pendingGroupSms->open_url_title_2 != '' && $pendingGroupSms->open_url_2 = '') {
+            if ($pendingGroupSms->open_url_title_2 != '' && $pendingGroupSms->open_url_2 != '') {
                 $this->callUrl2 = array(
                     'action' =>
                     [
@@ -260,7 +260,7 @@ class SmartMessageBasicController extends Controller
                     $cardWidth = 'SHORT';
 
                 $this->media = [
-                    'height' => $cardWidth,
+                    'height' => 'TALL',
                     'contentInfo' => ['fileUrl' => url('/uploads/' . $pendingGroupSms->image), 'forceRefresh' => true]
                 ];
             }
