@@ -44,6 +44,7 @@
                         <table id="user_table" class="table">
                             <thead>
                                 <tr>
+                                    <th>{{ __('UserId')}}</th>
                                     <th>{{ __('Name')}}</th>
                                     <th>{{ __('Email')}}</th>
                                     <th>{{ __('Role')}}</th>
