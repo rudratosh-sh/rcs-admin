@@ -135,6 +135,7 @@ class UserController extends Controller
             $rcs_balance = RcsBalance::create([
                 'user_id'     => User::latest()->first()->id,
                 'recharge'    => $request->balance,
+                'credit_remaining' =>$request->balance,
                 'valid_from' => $valid_from,
                 'valid_till' => $valid_till,
                 'assigned' => $request->assigned,
@@ -162,7 +163,7 @@ class UserController extends Controller
 
             if($user){
                 $user_role = $user->roles->first();
-                $roles     = Role::pluck('name','id');
+s     = Role::pluck('name','id');
 
                 return view('user-edit', compact('user','user_role','roles'));
             }else{

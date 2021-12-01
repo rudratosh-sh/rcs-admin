@@ -205,8 +205,16 @@ class SmartMessageBasicController extends Controller
 
             //setting image content and title to object    
             if ($pendingGroupSms->image != null && $pendingGroupSms->image != '') {
+                $imageSize = !empty($this->call_title)  + !empty($this->open_url_title_1)  + !empty($this->open_url_title_2)  + !empty($this->open_url_title_2);
+                if ($imageSize == 0)
+                    $cardWidth = 'TALL';
+                elseif ($imageSize == 1)
+                    $cardWidth = 'MEDIUM';
+                else
+                    $cardWidth = 'SHORT';
+
                 $this->media = [
-                    'height' => 'TALL',
+                    'height' => $cardWidth,
                     'contentInfo' => ['fileUrl' => url('/uploads/' . $pendingGroupSms->image), 'forceRefresh' => true]
                 ];
             }
