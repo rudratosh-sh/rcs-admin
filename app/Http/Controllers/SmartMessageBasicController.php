@@ -180,10 +180,8 @@ class SmartMessageBasicController extends Controller
             );
             //creating rich card
             $this->richCard = ['richCard' => $this->standaloneCard];
-
             //creating contentMessage object
             $this->contentMessage = ['contentMessage' => $this->richCard];
-            exit;
             $job = (new \App\Jobs\SendBulkBasicSms($this->contentMessage, $pendingSingleSms, $pendingGroupSms->user_id))
                 ->delay(
                     now()
