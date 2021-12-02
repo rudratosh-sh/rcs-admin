@@ -123,7 +123,7 @@
 
                                     <div class="form-group col-sm-4">
                                         <label for="validity">{{ __('Validity')}}</label>
-                                        <select class="form-control select2">
+                                        <select class="form-control select2" name="validity">
                                             <option value="1">{{ __('1 Month')}}</option>
                                             <option value="2">{{ __('2 Month')}}</option>
                                             <option value="3">{{ __('3 Month')}}</option>
