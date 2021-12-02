@@ -129,8 +129,7 @@ class UserController extends Controller
            
              //store sms balance
             $valid_from = date('Y-m-d');
-            $valid_till =  date('Y-m-d', strtotime($valid_from. ' + '.(int)$request->validity.'month'));    
-
+           $valid_till =  date('Y-m-d', strtotime($valid_from. ' + '.(int)$request->validity.'month'));    
             // store RCS Balance information
             $rcs_balance = RcsBalance::create([
                 'user_id'     => User::latest()->first()->id,
