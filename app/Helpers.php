@@ -12,6 +12,7 @@ function callRcsSendTextMessage($mobile_no = null, $user_id = null, $content = n
     var_dump($user_id);
     var_dump($content);
     var_dump($message_id);
+    echo public_path('rcs_keys/' . $user_id . ".json");
     dd(file_exists(public_path('rcs_keys/' . $user_id . ".json")));
     if ($mobile_no == null || $user_id == null || $content == null || $message_id == null)
         return false;
