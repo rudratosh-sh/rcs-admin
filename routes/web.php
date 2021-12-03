@@ -5,6 +5,7 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\Auth\ResetPasswordController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\RolesController;
@@ -48,9 +49,7 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::get('/clear-cache', [HomeController::class, 'clearCache']);
 
 	// dashboard route  
-	Route::get('/dashboard', function () {
-		return view('pages.dashboard');
-	})->name('dashboard');
+	Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
 	//only those have manage_user permission will get access
 	Route::group(['middleware' => 'can:manage_user'], function () {

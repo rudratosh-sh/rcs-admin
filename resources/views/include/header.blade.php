@@ -22,6 +22,17 @@
                 <button type="button" id="navbar-fullscreen" class="nav-link"><i class="ik ik-maximize"></i></button>
             </div>
             <div class="top-menu d-flex align-items-center">
+                @php
+                    $balance = getBalance(auth()->user()->id);
+                @endphp 
+                @if(!empty($balance))
+                <div  class="mr-10 mt-10">
+                <h6>Credit Remanining: <span class="text-warning">{{$balance['creditRemaining']}}</span></h6>
+                </div>
+                <div class="mr-10 mt-10">
+                    <h6>credit Expired On: <span class="text-warning">{{$balance['creditExpiredOn']}}</span></h6>
+                    </div>
+                @endif
                 <div class="dropdown" style="display: none">
                     <a class="nav-link dropdown-toggle" href="#" id="notiDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="ik ik-bell"></i><span class="badge bg-danger">3</span></a>
                     <div class="dropdown-menu dropdown-menu-right notification-dropdown" aria-labelledby="notiDropdown">

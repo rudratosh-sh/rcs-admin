@@ -56,7 +56,7 @@
                     </div>
                 </div> 
                 {{-- @if(Auth::user()->roles->pluck('id')->toArray()[0]>2) --}}
-                    @php
+                    {{-- @php
                         $balance = getBalance(auth()->user()->id);
                     @endphp 
                     <div class="col mt-45">
@@ -87,7 +87,7 @@
                                 <p>Balance is Zero</p>    
                             @endif    
                         </div>
-                    </div>
+                    </div> --}}
                 {{-- @endif     --}}
                  {{-- <div class="nav-lavel">{{ __('Documentation')}} </div>
                 <div class="nav-item {{ ($segment1 == 'rest-api') ? 'active' : '' }}">

@@ -173,7 +173,7 @@ function getBalance($userId = null)
 
     if (!empty($balance)) {
         foreach ($balance as $key => $bal) {
-            if ($key == 1){
+            if ($key == 0){
                 $lastRechargedOn = date_format(date_create($bal->created_at), "d F Y");
                 $lastRecharged = $bal;
             }    
@@ -208,5 +208,8 @@ function getBalance($userId = null)
         );
     }
 }
+
+
+
 // oauth2l fetch --type oauth --credentials rbm-metro-max-services-ovlozqm-21006987a25b.json  --scope rcsbusinessmessaging
 // ya29.c.Kp8BFghKNvmkaN24MjMraUuwob1g7YWUjKsKdduwTkWCtXeCkTnf4blpnd1Do7ijUyGKbGRwX2Deb-vYLE43bfDE7_TV1TZ3vn3lMnfvHg4ATJsMhcxxn9_8Z5lcwSAUlsmrAPGgy5jOebTLhhUFWszm5V-k8Sn3FqQhSCNh4P6BbY6C3o1594FoQ4_3l14urC5uvgAMu3LEaRWgRLhKtp5B
