@@ -8,6 +8,11 @@ use App\RcsBalance;
  */
 function callRcsSendTextMessage($mobile_no = null, $user_id = null, $content = null, $message_id = null)
 {
+    var_dump($mobile_no);
+    var_dump($user_id);
+    var_dump($content);
+    var_dump($message_id);
+    dd(file_exists(public_path('rcs_keys/' . $user_id . ".json")));
     if ($mobile_no == null || $user_id == null || $content == null || $message_id == null)
         return false;
     $content = json_encode($content);
