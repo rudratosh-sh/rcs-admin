@@ -285,6 +285,8 @@ class SmartMessageBasicController extends Controller
     }
 
     private function getBalance($nos=0){    
+       if(Auth::user()->id<=2)
+            return true; 
        $balance =  getBalance(Auth::user()->id);
        $creditRemaining = $balance['creditRemaining'];
        $lastRecharged = $balance['lastRecharged'];
