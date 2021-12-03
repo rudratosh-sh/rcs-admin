@@ -92,7 +92,7 @@ class UserController extends Controller
     {
           
         //if role is reseller 
-        if($request->role==6){
+        if($request->role>2){
             $validator = Validator::make($request->all(), [
                 'name'     => 'required | string ',
                 'email'    => 'required | email | unique:users',

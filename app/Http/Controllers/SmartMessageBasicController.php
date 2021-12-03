@@ -76,7 +76,6 @@ class SmartMessageBasicController extends Controller
         try {
             //get mobile counts
             $mobile_nos = array_map('intval', explode(',', $request->mobile_no));
-            
             //check if user has enough balance
             if(!$this->getBalance(count($mobile_nos)))
                 return redirect()->back()->withErrors(["Don't Have Enough Credit to Spend"])->withInput($request->all());
@@ -88,6 +87,7 @@ class SmartMessageBasicController extends Controller
                 return redirect('campaiging-report')->with('error', 'Failed to create sms queue! Try again.');
         } catch (\Exception $e) {
             $bug = $e->getMessage();
+            dd($bug);
             return redirect()->back()->with('error', $bug);
         }
     }
@@ -284,7 +284,7 @@ class SmartMessageBasicController extends Controller
         }
     }
 
-    private function getBalance($nos=0){
+    private function getBalance($nos=0){    
        $balance =  getBalance(Auth::user()->id);
        $creditRemaining = $balance['creditRemaining'];
        $lastRecharged = $balance['lastRecharged'];
