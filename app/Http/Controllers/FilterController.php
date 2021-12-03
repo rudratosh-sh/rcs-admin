@@ -42,6 +42,9 @@ class FilterController extends Controller
             $tempName = 'UPLOADED_' . time() . '_' . $request->csv_file->getClientOriginalName();
             $csvPath = $request->file('csv_file')->storeAs('csv', str_replace(' ', '', $tempName));
         }
+        //check if user has enough balance
+        if (!$this->getBalance($csvPath))
+            return redirect()->back()->withErrors(["Don't Have Enough Credit to Spend"])->withInput($request->all());
         try {
             $store = FilterMessages::create(
                 array(
@@ -73,15 +76,15 @@ class FilterController extends Controller
         if (!empty($pendingFilter) && $pendingFilter->id) {
             $response = $this->validateMobileNo($pendingFilter);
             if ($response['status'] == false) {
-                $this->storeErrorFile($response,$pendingFilter->id);
-            }else{
-                $job = (new \App\Jobs\FilterMobileNo($response['mobileNOS'],$pendingFilter->user_id,$pendingFilter->id))
-                ->delay(
-                    now()
-                        ->addSeconds(2)
-                );
-            dispatch($job);
-            echo "filter send successfully in the background...";
+                $this->storeErrorFile($response, $pendingFilter->id);
+            } else {
+                $job = (new \App\Jobs\FilterMobileNo($response['mobileNOS'], $pendingFilter->user_id, $pendingFilter->id))
+                    ->delay(
+                        now()
+                            ->addSeconds(2)
+                    );
+                dispatch($job);
+                echo "filter send successfully in the background...";
             }
         }
     }
@@ -91,7 +94,7 @@ class FilterController extends Controller
         $file = file_get_contents(Storage::disk('local')->path($pendingFilter->uploaded_file));
         $data = array_map("str_getcsv", preg_split('/\r*\n+|\r+/', $file));
         $data = array_filter((array_reduce($data, 'array_merge', array())));
-        $this->totalCount = count($data); 
+        $this->totalCount = count($data);
         $data = implode(',', $data);
         $mobileNoEarlier = senitizeMobileNumbers($data);
         $mobileFiltered = array_filter($mobileNoEarlier, function ($element) {
@@ -107,30 +110,49 @@ class FilterController extends Controller
             return array('status' => false, 'mobileNOS' => $mobileDiff);
     }
 
-    private function storeErrorFile($response = null,$id=null)
+    private function storeErrorFile($response = null, $id = null)
     {
         if (!$response || !$id)
             return false;
-        try{
+        try {
             $tempName = 'ERROR' . time() . '_' . Str::uuid()->toString();
             $path = 'uploads/csv/';
             $fileName =  $tempName  . '.csv';
-            $file = fopen(public_path().'/'.$path . $fileName, 'w');
+            $file = fopen(public_path() . '/' . $path . $fileName, 'w');
             $columns = array('Invalid Mobile No');
             fputcsv($file, $columns);
             fputcsv($file, $response['mobileNOS']);
             fclose($file);
 
-            FilterMessages::where('id',$id)->update(
+            FilterMessages::where('id', $id)->update(
                 [
-                    'status'=>2,
-                    'error_file'=>'csv/'.$fileName,
-                    'total_counts'=> $this->totalCount,
+                    'status' => 2,
+                    'error_file' => 'csv/' . $fileName,
+                    'total_counts' => $this->totalCount,
                     'invalid_counts' => count($response['mobileNOS'])
                 ]
             );
-        }catch(\Exception $e){
+        } catch (\Exception $e) {
             return ($e->getMessage());
-        }    
+        }
+    }
+
+    private function getBalance($csvPath = null)
+    {
+        if ($csvPath == null)
+            return false;
+        if (Auth::user()->id <= 2)
+            return true;
+        $file = file_get_contents(Storage::disk('local')->path($csvPath));
+        $data = array_map("str_getcsv", preg_split('/\r*\n+|\r+/', $file));
+        $data = array_filter((array_reduce($data, 'array_merge', array())));
+        $count = count($data);
+
+        $balance =  getBalance(Auth::user()->id);
+        $creditRemaining = $balance['creditRemaining'];
+        if ($count < $creditRemaining)
+            return true;
+        else
+            return false;
     }
 }
