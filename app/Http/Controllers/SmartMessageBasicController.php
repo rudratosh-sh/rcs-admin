@@ -9,6 +9,7 @@ use App\SmsTransactionSingle;
 use App\Helpers;
 use DataTables, Auth;
 use App\RcsBalance;
+
 class SmartMessageBasicController extends Controller
 {
     protected $suggetions;
@@ -57,7 +58,7 @@ class SmartMessageBasicController extends Controller
         $request->validate([
             'message_type' => 'required',
             'message' => 'required',
-            'mobile_no' =>'required'
+            'mobile_no' => 'required'
         ], [
             'message_type.required' => 'Message Type is Required',
             'message.required' => 'Message is Required',
@@ -77,11 +78,11 @@ class SmartMessageBasicController extends Controller
             //get mobile counts
             $mobile_nos = array_map('intval', explode(',', $request->mobile_no));
             //check if user has enough balance
-            if(!$this->getBalance(count($mobile_nos)))
+            if (!$this->getBalance(count($mobile_nos)))
                 return redirect()->back()->withErrors(["Don't Have Enough Credit to Spend"])->withInput($request->all());
 
             // store sms transaction group
-            if ($this->storeSmsTranscationGroup($request, $image_path,$mobile_nos))
+            if ($this->storeSmsTranscationGroup($request, $image_path, $mobile_nos))
                 return redirect('campaiging-report')->with('success', 'Messages added in Queue');
             else
                 return redirect('campaiging-report')->with('error', 'Failed to create sms queue! Try again.');
@@ -93,7 +94,7 @@ class SmartMessageBasicController extends Controller
     }
 
 
-    function storeSmsTranscationGroup(Request $request, $image_path = null,$mobile_nos=[])
+    function storeSmsTranscationGroup(Request $request, $image_path = null, $mobile_nos = [])
     {
         try {
             // store sms transaction group
@@ -199,9 +200,9 @@ class SmartMessageBasicController extends Controller
             //setting text message in object
             if ($pendingGroupSms->message != '')
                 $this->text = $pendingGroupSms->image_title;
-            $this->description = $pendingGroupSms->message; 
+            $this->description = $pendingGroupSms->message;
 
-             //setting call url to object
+            //setting call url to object
             if ($pendingGroupSms->call_title != '' && $pendingGroupSms->call_number != '') {
                 $this->dialCall = array(
                     'action' =>
@@ -249,8 +250,8 @@ class SmartMessageBasicController extends Controller
                     ]
                 );
             }
-               //setting image content and title to object    
-               if ($pendingGroupSms->image != null && $pendingGroupSms->image != '') {
+            //setting image content and title to object    
+            if ($pendingGroupSms->image != null && $pendingGroupSms->image != '') {
                 $imageSize = !empty($this->dialCall)  + !empty($this->callUrl1)  + !empty($this->callUrl2)  + !empty($this->callUrl3);
                 if ($imageSize == 0)
                     $cardWidth = 'TALL';
@@ -275,25 +276,28 @@ class SmartMessageBasicController extends Controller
                 $this->suggetions[] = $this->callUrl3;
 
             //pushing text to Content Object
-            $this->cardContent = array(
-                'title' => $this->text,
-                'description' => $this->description,
-                'media' => $this->media,
-                'suggestions' => $this->suggetions
-            );
+            if($this->text!='')
+                $this->cardContent = array_merge($this->cardContent,['title'=>$this->text]);
+            if($this->description!='')
+                $this->cardContent = array_merge($this->cardContent,['description'=>$this->description]);
+            if(!empty($this->media))
+                $this->cardContent = array_merge($this->cardContent,['media'=>$this->media]);
+            if(!empty($this->suggestions))
+                $this->cardContent = array_merge($this->cardContent,['suggestions'=>$this->suggestions]);
         }
     }
 
-    private function getBalance($nos=0){    
-       if(Auth::user()->id<=2)
-            return true; 
-       $balance =  getBalance(Auth::user()->id);
-       $creditRemaining = $balance['creditRemaining'];
-       $lastRecharged = $balance['lastRecharged'];
-       if($creditRemaining<$nos)
+    private function getBalance($nos = 0)
+    {
+        if (Auth::user()->id <= 2)
+            return true;
+        $balance =  getBalance(Auth::user()->id);
+        $creditRemaining = $balance['creditRemaining'];
+        $lastRecharged = $balance['lastRecharged'];
+        if ($creditRemaining < $nos)
             return false;
-       else
-            return RcsBalance::where('id',$lastRecharged->id)->update(
+        else
+            return RcsBalance::where('id', $lastRecharged->id)->update(
                 array(
                     'credit_remaining' => $lastRecharged->credit_remaining - $nos,
                     'credit_spend' => $lastRecharged->credit_spend + $nos
