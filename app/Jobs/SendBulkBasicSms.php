@@ -87,13 +87,19 @@ class SendBulkBasicSms implements ShouldQueue
             return false;
 
         $failedRcsCount = SmsTransactionSingle::where('sms_transaction_group_id', $this->smsTransactionId)->where('status_code',404)->count();
+        $succedRcsCount = SmsTransactionSingle::where('sms_transaction_group_id', $this->smsTransactionId)->where('status_code',200)->count();
         $rcsBalanceId = RcsBalance::where('user_id',$this->userId)->orderBy('id','desc')->first(); 
-        return RcsBalance::where('id',$rcsBalanceId->id)->update(
+        RcsBalance::where('id',$rcsBalanceId->id)->update(
             [
                 'credit_remaining' => $rcsBalanceId->credit_remaining+$failedRcsCount,
                 'credit_spend' => $rcsBalanceId->credit_spend-$failedRcsCount,
             ]
         );
+    
+        return SmsTransactionGroup::where('id',$this->smsTransactionId)->update([
+            'sms_failed' =>$failedRcsCount,
+            'sms_success' =>$succedRcsCount
+        ]);
 
     }
 }

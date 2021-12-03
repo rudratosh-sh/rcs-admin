@@ -86,13 +86,19 @@ class SendBulkAdvanceSms implements ShouldQueue
             return false;
 
         $failedRcsCount = SmsTransactionSingleAdvance::where('sms_transaction_group_advance_id', $this->smsTransactionId)->where('status_code',404)->count();
+        $succedRcsCount = SmsTransactionSingleAdvance::where('sms_transaction_group_advance_id', $this->smsTransactionId)->where('status_code',200)->count();
         $rcsBalanceId = RcsBalance::where('user_id',$this->userId)->orderBy('id','desc')->first(); 
-        return RcsBalance::where('id',$rcsBalanceId->id)->update(
+        RcsBalance::where('id',$rcsBalanceId->id)->update(
             [
                 'credit_remaining' => $rcsBalanceId->credit_remaining+$failedRcsCount,
                 'credit_spend' => $rcsBalanceId->credit_spend-$failedRcsCount,
             ]
         );
+
+        return SmsTransactionGroupAdvance::where('id',$this->smsTransactionId)->update([
+            'sms_failed' =>$failedRcsCount,
+            'sms_success' =>$succedRcsCount
+        ]);
 
     }
 }
