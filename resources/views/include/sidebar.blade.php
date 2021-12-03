@@ -54,7 +54,7 @@
                         <a href="{{url('smart-message-advance')}}" class="menu-item {{ ($segment1 == 'smart-message-advance') ? 'active' : '' }}">{{ __('Advance')}}</a>
                         <a href="{{url('filter-messages')}}" class="menu-item {{ ($segment1 == 'filter-messages') ? 'active' : '' }}">{{ __('Filter')}}</a>
                     </div>
-                </div> 
+                </div>  
                 {{-- @if(Auth::user()->roles->pluck('id')->toArray()[0]>2) --}}
                     {{-- @php
                         $balance = getBalance(auth()->user()->id);
