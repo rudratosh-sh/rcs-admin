@@ -22,6 +22,8 @@ class FilterMobileNo implements ShouldQueue
     protected $reachableGlobal;
     protected $notRechableGlobal;
     protected $mergeGlobal;
+    protected $rechableCsv;
+    protected $notRechableCsv;
 
     /**
      * Create a new job instance.
@@ -36,6 +38,8 @@ class FilterMobileNo implements ShouldQueue
         $this->reachableGlobal = [];
         $this->notRechableGlobal = [];
         $this->mergeGlobal= [];
+        $this->rechableCsv = [];
+        $this->notRechableCsv = [];
     }
 
     /**
@@ -93,7 +97,6 @@ class FilterMobileNo implements ShouldQueue
     }
     private function storeCsvFile()
     {
-        
         if (!$this->mergeGlobal || !$this->contentId)
             return false;
         try {
@@ -111,18 +114,46 @@ class FilterMobileNo implements ShouldQueue
                 $keys = array_keys($row);
                 fputcsv($file, array($keys[0], $row[$keys[0]]));
             }
-            fclose($file);
+            fclose($file); 
             FilterMessages::where('id', $this->contentId)->update(
                 [
                     'status' => 1, 
                     'downloaded_file' => 'csv/' . $fileName,
                     'valid_counts' => count($this->reachableGlobal),
                     'invalid_counts' => count($this->notRechableGlobal),
-                    'total_counts' => count($this->mergeGlobal)
+                    'total_counts' => count($this->mergeGlobal),
+                    'reachable_users_file' => $this->generateRechableCsv(),
+                    'not_reachable_users_file' => $this->generateNotRechableCsv()
                 ]
             );
         } catch (\Exception $e) {
             return $e;
         }
+    }
+
+    private function generateRechableCsv(){
+        $tempName = 'REACHABLE' . time() . '_' . Str::uuid()->toString();
+        $path = 'uploads/csv/';
+        $fileName =  $tempName  . '.csv';
+        $file = fopen(public_path().'/'.$path . $fileName, 'w');
+        fputcsv($file, array_keys($this->reachableGlobal));
+        fclose($file);
+        if(!empty($this->reachableGlobal))
+            return 'csv/' .$fileName;
+        else
+            return null;    
+    }
+
+    private function generateNotRechableCsv(){
+        $tempName = 'NOT-REACHABLE' . time() . '_' . Str::uuid()->toString();
+        $path = 'uploads/csv/';
+        $fileName =  $tempName  . '.csv';
+        $file = fopen(public_path().'/'.$path . $fileName, 'w');
+        fputcsv($file, array_keys($this->notRechableGlobal));
+        fclose($file);
+        if(!empty($this->notRechableGlobal))
+            return 'csv/' .$fileName;
+        else
+            return null;
     }
 }

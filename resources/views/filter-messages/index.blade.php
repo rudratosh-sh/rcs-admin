@@ -137,8 +137,14 @@
                                 <td>{{$filter->total_counts}}</td>
                                 <td><a class="badge badge-info" download="Uploaded Data" href="{{ url('uploads/'.$filter->uploaded_file) }}" title="Uploaded Data">Download</a></td>
                                 <td>
+                                    @if($filter->not_reachable_users_file!='')
+                                        <a class="badge badge-warning mb-10" download="Not Reachable Data" href="{{ url('uploads/'.$filter->not_reachable_users_file) }}" title="Reachable Data">Not Reachable</a>
+                                    @endif
+                                    @if($filter->reachable_users_file!='')
+                                        <a class="badge badge-primary" download="Reachable Data" href="{{ url('uploads/'.$filter->reachable_users_file) }}" title="Reachable Data">Reachable</a>
+                                    @endif
                                     @if($filter->downloaded_file!='')
-                                        <a class="badge badge-success" download="Success Data" href="{{ url('uploads/'.$filter->downloaded_file) }}" title="Success Data">Download</a>
+                                        <a class="badge badge-success" download="Complete Data" href="{{ url('uploads/'.$filter->downloaded_file) }}" title="Complete Data">Complete</a>
                                     @elseif($filter->error_file!='')
                                     <a class="badge badge-danger" download="Error File" href="{{ url('uploads/'.$filter->error_file) }}" title="Error File">Download Errors</a>
                                     @else
