@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "rbm-webixes-digi-solut-friqzaz",
+  "private_key_id": "1c39a26dd1912596da162f6872fb9c911d44d33c",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQDEBwEK5105EtYS\nRSTG/5hIqEO3FpVncrbO5qiBV9YHst3Lq9oLrDFGlyTGXrwH/FT88eLyQB3+mfxz\nRHuVEejtQ0KtH/bpAMXnqIujGQJ952tnvNBEPgnxn/pkxRboAfifVvhs8dGEER32\nD4mZL86/w09tUNh6NBVzrT2cD+Ab70KjWDYzEqnIbGyuGtvLltJOND2RN4jLLAfV\n0GG6r6Zm61hprepUxtKs16DEUNOwHTn/TpqEbGs3zCF2/51EVDMPmJbFV35+M07x\nE5AY36AA/y6dXH4YU07AeLGJOdGzYVlfZjGHHTdDFDlxCcVZXjbr5IUeS1Uqlu9K\njfu2XlWFAgMBAAECggEAB5VRyAF9TL1/X/prWs20LyWo98/PamDvi399rG/XljmD\nmZnhCj2zxkxQjAbcLCgOX+fMLeYUzBx+4lmFJvGVtjJLxZnn9TdK3l1+Y66zAB8H\nBMx8G8oDLndQA3Nis+T56aysWQcm9DVkvOWvjJX1Tbc90TfJk4QW3YBOUteoqjmh\nhNP/QV7IP5Dk2apD//nSo0QUY2JSDmP138zJCIO9N/rdmVeKqKPcwFhohDnjp09Q\nqTZrCFpalPWNgsOHshkHvgUCz5lWeHZuDA1oupSQTTrDOYYGNVypBmGeKzPEOpTb\nTlE3GNjWWksGKQKSy/zcD23DHAzmflkLIH9m01mmfQKBgQDgEbEK8l9u5At+ud80\nFPwC1J50DApw+XacN0c0J6htqCPLhD2ttzwh1d7r8KLYyheE7hPWk2ndxy/R99wL\nVBQxDILnHqw7JPkWl8IkkdeNbFsGDtQtPnecu/VZmMdSBYcEdmzemzpT+KeEHVF1\nvFT58qtI8Fb2Qdvi87O+4rTnXwKBgQDf9lDp4otl30ljolwPACWPXIS6gBH8wh0U\nkwe+wp/v2vjINIfhFcO7GpCzqqDhQnmhG4kReE5ZD19ndBIkPsr3IW5Q3FRNZODg\nyK0RziGspVMPApXJdmWWgUgo9fqC9jMsCnz7actIaTopJEY26z1dfLXxO1q3/LLD\ne1ZrHN0hmwKBgCmnQEkvq0v6+qQRO4v8BqkkC1y5TEuaJFF/+S2Z3bac1iKkL68W\nbAhCMNGdhzhTwTGF7IwsFTcUKzCWKgK1G5fOopsCWbQY+HEZvw57Sh3RMc6bfRf4\nD9ZEHqUMQKlfu6y5sx1ir+IiTEnEBXukigt48Bx8CT54Gb9D3Hs0u7pzAoGBAIf4\nFu+n5lGW2gtvSsygni0HUl2X21PE1brj+NPLfSY1nsyNd+EjQY2adzdc5AdeQFGb\nUgAVNhvDxXwdb9YpeTfISB03ZscF87EEpG4m4zLZvC9ktmN1Sf+xxYl4rPpNVovq\nYi6Q8CWqHPFVYHt/HeZgDGXETzNca3taqgClqWr5AoGBAK/uPPegeZW+tHdhYsKx\ntBs0y/DN61FShgvFF8Rq+t3wy0IwYUJw+9o5tq5ZKL711Xf+I/k6t26wo69I9S7P\niqxY+NKjOXfGo6Ze37VYEuu6+X2H/MY8UGS8bFidE/kr0xGf0AYzXpCrOKlqfubY\nRLzzUAh0KJh0wNxifbHGEDTw\n-----END PRIVATE KEY-----\n",
+  "client_email": "rbm-agent@rbm-webixes-digi-solut-friqzaz.iam.gserviceaccount.com",
+  "client_id": "101408763369996528531",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/rbm-agent%40rbm-webixes-digi-solut-friqzaz.iam.gserviceaccount.com"
+}
