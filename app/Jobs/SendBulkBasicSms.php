@@ -45,7 +45,6 @@ class SendBulkBasicSms implements ShouldQueue
     {
         //checking if data exist with pending sms
         if (!empty($this->singleSmsSingle)) {
-
             foreach ($this->singleSmsSingle as $single) {
                 $this->messageId = $this->generateRandomString(15);
                 $response = callRcsSendTextMessage($single->mobile_no, $this->userId, $this->content,$this->messageId);

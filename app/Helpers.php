@@ -11,6 +11,7 @@ function callRcsSendTextMessage($mobile_no = null, $user_id = null, $content = n
     if ($mobile_no == null || $user_id == null || $content == null || $message_id == null)
         return false;
     $content = json_encode($content);
+    dd(file_exists(public_path('rcs_keys/' . $user_id . ".json")));
     //check if rcs json key exist with current user
     if (!file_exists(public_path('rcs_keys/' . $user_id . ".json")))
         return false;
