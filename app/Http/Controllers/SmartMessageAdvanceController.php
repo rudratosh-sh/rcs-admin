@@ -104,6 +104,10 @@ class SmartMessageAdvanceController extends Controller
      */
     public function sendSmartMessageAdvance(Request $request)
     {
+         //check if rcs key available for current user
+        if (!file_exists(public_path('rcs_keys/' . Auth::user()->id . ".json")))
+             return redirect()->back()->withErrors(["RCS API Key is not Available. Contact to Administrator"])->withInput($request->all());
+    
         $request->validate([
             'message_type' => 'required ',
             'mobile_no' => 'required'

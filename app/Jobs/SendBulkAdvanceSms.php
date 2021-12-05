@@ -92,6 +92,7 @@ class SendBulkAdvanceSms implements ShouldQueue
             [
                 'credit_remaining' => $rcsBalanceId->credit_remaining+$failedRcsCount,
                 'credit_spend' => $rcsBalanceId->credit_spend-$failedRcsCount,
+                'credit_reverted' => $rcsBalanceId->credit_reverted+$failedRcsCount,
             ]
         );
 

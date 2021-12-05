@@ -19,7 +19,7 @@
                     <div class="card-block">
                         <div class="row align-items-center">
                             <div class="col-8">
-                                <h4 class="mb-0">{{$creditRemaining}}</h4>
+                                <h4 class="mb-0">{{$basicCountToday->basic_sms_count_today+$advanceCountToday->advance_sms_count_today}}</h4>
                                 <p class="mb-0">{{ __('Credit Spend Today')}}</p>
                             </div>
                             <div class="col-4 text-right">
