@@ -62,14 +62,16 @@
                                 <thead>
                                 <tr>
                                     <th>{{ __('S.N.')}}</th>
-                                    <th>{{ __('Submitted Time')}}</th>
-                                    <th>{{ __('Scheduled Time')}}</th>
-                                    <th>{{ __('SMS Route')}}</th>
-                                    <th>{{ __('SMS Text')}}</th>
-                                    <th>{{ __('Sent Via')}}</th>
-                                    <th>{{ __('No. of SMS')}}</th>
-                                    <th>{{ __('Charges')}}</th>
-                                    <th>{{ __('Action')}}</th>
+                                    <th>{{ __('User Id')}}</th>
+                                    <th>{{ __('Mobile')}}</th>
+                                    <th>{{ __('Message')}}</th>
+                                    <th>{{ __('No.Of. Credits')}}</th>
+                                    <th>{{ __('Status')}}</th>
+                                    <th>{{ __('Error code')}}</th>
+                                    <th>{{ __('Called')}}</th>
+                                    <th>{{ __('Sending Time')}}</th>
+                                    <th>{{ __('Delivery Time')}}</th>
+                                    <th>{{ __('Read Time')}}</th>
                                 </tr>
                                 </thead>
                                 <tbody>

@@ -19,11 +19,11 @@
                     <div class="card-block">
                         <div class="row align-items-center">
                             <div class="col-8">
-                                <h4 class="mb-0">{{$basicCountToday->basic_sms_count_today+$advanceCountToday->advance_sms_count_today}}</h4>
-                                <p class="mb-0">{{ __('Credit Spend Today')}}</p>
+                                <h4 class="mb-0">{{$basicCountToday->basic_sms_success_today+$advanceCountToday->advance_sms_success_today}}</h4>
+                                <p class="mb-0">{{ __('Spend Today')}}</p>
                             </div>
                             <div class="col-4 text-right">
-                                <i class="fas fa-cube f-30"></i>
+                                <i class="ik ik-activity f-30"></i>
                             </div>
                         </div>
                         <div id="Widget-line-chart1" class="chart-line chart-shadow"></div>
@@ -35,11 +35,11 @@
                     <div class="card-block">
                         <div class="row align-items-center">
                             <div class="col-8">
-                                <h4 class="mb-0">{{ __('3,612')}}</h4>
-                                <p class="mb-0">{{ __('Orders')}}</p>
+                                <h4 class="mb-0">{{$basicCountYesterday->basic_sms_success_yesterday+$advanceCountYesterday->advance_sms_success_yesterday}}</h4>
+                                <p class="mb-0">{{ __('Spend Yesterday')}}</p>
                             </div>
                             <div class="col-4 text-right">
-                                <i class="ik ik-shopping-cart f-30"></i>
+                                <i class="ik ik-activity f-30"></i>
                             </div>
                         </div>
                         <div id="Widget-line-chart2" class="chart-line chart-shadow" ></div>
@@ -51,11 +51,11 @@
                     <div class="card-block">
                         <div class="row align-items-center">
                             <div class="col-8">
-                                <h4 class="mb-0">{{ __('865')}}</h4>
-                                <p class="mb-0">{{ __('Customers')}}</p>
+                                <h4 class="mb-0">{{$basicCountWeek->basic_sms_success_week+$advanceCountWeek->advance_sms_success_week}}</h4>
+                                <p class="mb-0">{{ __('Spend in Last 7 days')}}</p>
                             </div>
                             <div class="col-4 text-right">
-                                <i class="ik ik-user f-30"></i>
+                                <i class="ik ik-activity f-30"></i>
                             </div>
                         </div>
                         <div id="Widget-line-chart3" class="chart-line chart-shadow"></div>
@@ -67,11 +67,11 @@
                     <div class="card-block">
                         <div class="row align-items-center">
                             <div class="col-8">
-                                <h4 class="mb-0">{{ __('35,500')}}</h4>
-                                <p class="mb-0">{{ __('Sales')}}</p>
+                                <h4 class="mb-0">{{$basicCountOverall->basic_sms_success_all+$advanceCountOverall->advance_sms_success_all}}</h4>
+                                <p class="mb-0">{{ __('Spend Overall')}}</p>
                             </div>
                             <div class="col-4 text-right">
-                                <i class="ik f-30">৳</i>
+                                <i class="ik ik-activity f-30"></i>
                             </div>
                         </div>
                         <div id="Widget-line-chart4" class="chart-line chart-shadow" ></div>
