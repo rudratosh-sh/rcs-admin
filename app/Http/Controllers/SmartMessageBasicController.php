@@ -12,7 +12,7 @@ use App\RcsBalance;
 
 class SmartMessageBasicController extends Controller
 {
-    protected $suggetions;
+    protected $suggestions;
     protected $text;
     protected $media;
     protected $cardContent;
@@ -35,7 +35,7 @@ class SmartMessageBasicController extends Controller
     {
         $this->cardContent = [];
         $this->dialCall = [];
-        $this->suggetions = [];
+        $this->suggestions = [];
         $this->media = [];
         $this->thumbnailImageAlignment = 'RIGHT';
         $this->cardOrientation = 'VERTICAL';
@@ -271,13 +271,13 @@ class SmartMessageBasicController extends Controller
             }
             //pushing suggestions to object
             if ($this->dialCall != null)
-                $this->suggetions[] = $this->dialCall;
+                $this->suggestions[] = $this->dialCall;
             if ($this->callUrl1 != null)
-                $this->suggetions[] = $this->callUrl1;
+                $this->suggestions[] = $this->callUrl1;
             if ($this->callUrl2 != null)
-                $this->suggetions[] = $this->callUrl2;
+                $this->suggestions[] = $this->callUrl2;
             if ($this->callUrl3 != null)
-                $this->suggetions[] = $this->callUrl3;
+                $this->suggestions[] = $this->callUrl3;
 
             //pushing text to Content Object
             if($this->text!='')
