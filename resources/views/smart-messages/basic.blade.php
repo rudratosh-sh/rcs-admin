@@ -160,7 +160,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="openUrl1">{{ __('Open Url 1')}}</label>
-                                <input type="text" class="form-control" value="{{ old('open_url_1') }}" name="open_url_1" id="openUrl1" placeholder="Open Url 1">
+                                <input type="url" class="form-control" value="{{ old('open_url_1') }}" name="open_url_1" id="openUrl1" placeholder="Open Url 1">
                             </div>
                             <div class="form-group">
                                 <label for="openUrlTitle2">{{ __('Open Url Title 2')}}</label>
@@ -168,7 +168,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="openUrl2">{{ __('Open Url 2')}}</label>
-                                <input type="text" class="form-control" value="{{ old('open_url_2') }}" name="open_url_2" id="openUrl2" placeholder="Open Url 2">
+                                <input type="url" class="form-control" value="{{ old('open_url_2') }}" name="open_url_2" id="openUrl2" placeholder="Open Url 2">
                             </div>
                             <div class="form-group">
                                 <label for="openUrlTitle3">{{ __('Open Url Title 3')}}</label>
@@ -176,7 +176,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="openUrl3">{{ __('Open Url 3')}}</label>
-                                <input type="text" class="form-control" value="{{ old('open_url_3') }}" name="open_url_3" id="openUrl3" placeholder="Open Url 3">
+                                <input type="url" class="form-control" value="{{ old('open_url_3') }}" name="open_url_3" id="openUrl3" placeholder="Open Url 3">
                             </div>
                             <div class="form-group text-center" >
                             <button type="button" class="btn btn-lg btn-danger mr-2 ">{{ __('Preview')}}</button>
