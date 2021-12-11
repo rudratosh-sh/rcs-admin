@@ -118,6 +118,7 @@ class SmartMessageBasicController extends Controller
                 'open_url_2' => $request->open_url_2 ? $request->open_url_2 : null,
                 'open_url_title_3' => $request->open_url_title_3 ? $request->open_url_title_3 : null,
                 'open_url_3' => $request->open_url_3 ? $request->open_url_3 : null,
+                'created_at' => date("Y-m-d H:i:s")
             ]);
 
             //Storing single transaction data

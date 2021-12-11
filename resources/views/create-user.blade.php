@@ -181,10 +181,10 @@
                                     </div>
 
                                     <div class="form-group">
-                                        <label for="entity_id">{{ __('Entity ID (Only for India)')}}</label>
-                                        <input id="entity-id" type="text" class="form-control @error('entity_id') is-invalid @enderror" name="entity_id" value="{{ old('entity_id') }}"placeholder="Entity ID">
+                                        <label for="mobile_no">{{ __('Mobile No')}}<span class="text-red">*</span></label>
+                                        <input id="mobile-no" type="text" required class="form-control @error('mobile_no') is-invalid @enderror" name="mobile_no" value="{{ old('mobile_no') }}"placeholder="Mobile No">
                                         <div class="help-block with-errors" ></div>
-                                        @error('entity_id')
+                                        @error('mobile_no')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
                                             </span>

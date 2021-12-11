@@ -39,10 +39,10 @@
                         @endcan
                     </div>
                 </div>
-                <div class="nav-item {{ ($segment1 == 'campaiging-report' || $segment1 == 'delivery-report'||$segment1 == 'whatsapp-report') ? 'active open' : '' }} has-sub">
+                <div class="nav-item {{ ($segment1 == 'smart-report' || $segment1 == 'delivery-report'||$segment1 == 'whatsapp-report') ? 'active open' : '' }} has-sub">
                     <a href="#"><i class="ik ik-pie-chart"></i><span>{{ __('Reports')}}</span> </a>
                     <div class="submenu-content">
-                        <a href="{{url('campaiging-report')}}" class="menu-item {{ ($segment1 == 'campaiging-report') ? 'active' : '' }}">{{ __('Campaiging Report')}}</a>
+                        <a href="{{url('smart-report')}}" class="menu-item {{ ($segment1 == 'smart-report') ? 'active' : '' }}">{{ __('Smart Report')}}</a>
                         <a href="{{url('delivery-report')}}" class="menu-item {{ ($segment1 == 'delivery-report') ? 'active' : '' }}">{{ __('Delivery Report')}}</a>
                         <a href="{{url('whatsapp-report')}}" class="menu-item {{ ($segment1 == 'whatsapp-report') ? 'active' : '' }}">{{ __('Whatsapp Report')}}</a>
                     </div>

@@ -869,6 +869,7 @@ class SmartMessageAdvanceController extends Controller
             'card_2_enable' =>  $request->card_2_check ? 1 : 0,
             'card_3_enable' =>  $request->card_3_check ? 1 : 0,
             'card_4_enable' =>  $request->card_4_check ? 1 : 0,
+            'created_at' => date("Y-m-d H:i:s")
         );
     }
 

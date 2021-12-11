@@ -1,5 +1,5 @@
 @extends('layouts.main') 
-@section('title', 'Data Tables')
+@section('title', 'Smart Reports')
 @section('content')
     <!-- push external head elements to head -->
     @push('head')
@@ -13,7 +13,21 @@
             {{ session('message') }}
         </div>
     @endif
-
+    <style>
+        td.details-control {
+            background: url('../resources/details_open.png') no-repeat center center;
+            cursor: pointer;
+        }
+        tr.details td.details-control {
+            background: url('../resources/details_close.png') no-repeat center center;
+        }
+        th.sorting_disabled.details-control {
+            padding-right: 45px;
+        }
+        .smart-image{
+            width: 250px
+        }
+    </style>
 
     <div class="container-fluid">
         <div class="page-header">
@@ -22,8 +36,8 @@
                     <div class="page-header-title">
                         <i class="ik ik-inbox bg-blue"></i>
                         <div class="d-inline">
-                            <h5>{{ __('Campaiging Report')}}</h5>
-                            <span>{{ __('View your campaiging result of current 3 Days')}}</span>
+                            <h5>{{ __('Smart Report')}}</h5>
+                            <span>{{ __('View your smart result of current 3 Days')}}</span>
                         </div>
                     </div>
                 </div>
@@ -36,80 +50,48 @@
                             <li class="breadcrumb-item">
                                 <a href="#">Reports</a>
                             </li>
-                            <li class="breadcrumb-item active" aria-current="page">Campaiging Report</li>
+                            <li class="breadcrumb-item active" aria-current="page">Smart Report</li>
                         </ol>
                     </nav>
                 </div>
             </div>
         </div>
 
-
-        
-
         <div class="row">
-            <!-- start message area-->
-            @include('include.message')
-            <!-- end message area-->
-            <div class="col-sm-12">
+             <!-- start message area-->
+             @include('include.message')
+             <!-- end message area-->
+            <div class="col-md-12">
                 <div class="card">
-                    <div class="card-header d-block">
-                        <h3>{{ __('Campaiging Report')}}</h3>
-                    </div>
+                    <div class="card-header"><h3>{{ __('Data Table')}}</h3></div>
                     <div class="card-body">
-                        <div class="dt-responsive">
-                            <table id="alt-pg-dt"
-                                   class="table table-striped table-bordered nowrap">
-                                <thead>
+                        <table id="smart_table" class="table table-striped table-bordered nowrap table-responsive" style="width:100%">
+                            <thead>
                                 <tr>
+                                    <th></th>
                                     <th>{{ __('S.N.')}}</th>
                                     <th>{{ __('User Id')}}</th>
+                                    <th>{{ __('Message Type')}}</th>
                                     <th>{{ __('Mobile')}}</th>
-                                    <th>{{ __('Message')}}</th>
+                                    {{-- <th>{{ __('Message')}}</th> --}}
                                     <th>{{ __('No.Of. Credits')}}</th>
                                     <th>{{ __('Status')}}</th>
                                     <th>{{ __('Error code')}}</th>
-                                    <th>{{ __('Called')}}</th>
+                                    {{-- <th>{{ __('Called')}}</th> --}}
                                     <th>{{ __('Sending Time')}}</th>
                                     <th>{{ __('Delivery Time')}}</th>
                                     <th>{{ __('Read Time')}}</th>
+                                    <th>{{ __('Messages')}}</th>
                                 </tr>
-                                </thead>
-                                <tbody>
-                                <tr>
-                                    <td>{{ __(1)}}</td>
-                                    <td>{{ __('05:30 PM')}}</td>
-                                    <td>{{ __('06:40 PM')}}</td>
-                                    <td>{{ __('Some Route')}}</td>
-                                    <td>{{ __('Some Message Text')}}</td>
-                                    <td>{{ __('Sent Via any Medium')}}</td>
-                                    <td>{{ __(4000)}}</td>
-                                    <td>{{ __('43 INR')}}</td>
-                                    <td>{{ __('Some Action')}}</td>
-                                </tr>
-                               
+                            </thead>
+                            <tbody>
                             </tbody>
-                                <tfoot>
-                                <tr>
-                                    <th>{{ __('S.N.')}}</th>
-                                    <th>{{ __('Submitted Time')}}</th>
-                                    <th>{{ __('Scheduled Time')}}</th>
-                                    <th>{{ __('SMS Route')}}</th>
-                                    <th>{{ __('SMS Text')}}</th>
-                                    <th>{{ __('Sent Via')}}</th>
-                                    <th>{{ __('No. of SMS')}}</th>
-                                    <th>{{ __('Charges')}}</th>
-                                    <th>{{ __('Action')}}</th>
-                                </tr>
-                                </tfoot>
-                            </table>
-                        </div>
+                        </table>
                     </div>
                 </div>
-                <!-- Language - Comma Decimal Place table end -->
             </div>
         </div>
     </div>
-               
 
     <!-- push external js -->
     @push('script')
@@ -117,6 +99,7 @@
         <script src="{{ asset('js/datatables.js') }}"></script>
         <script src="{{ asset('plugins/jquery-toast-plugin/dist/jquery.toast.min.js')}}"></script>
         <script src="{{ asset('js/alerts.js')}}"></script>
+        <script src="{{ asset('js/custom.js')}}"></script>
     @endpush
 @endsection
       

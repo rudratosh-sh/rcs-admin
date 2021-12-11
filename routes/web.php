@@ -15,6 +15,7 @@ use App\Http\Controllers\SmartMessageAdvanceController;
 use App\Http\Controllers\SmartMessageBasicController;
 use App\Http\Controllers\TemplateController;
 use App\Http\Controllers\FilterController;
+use App\Http\Controllers\RcsBalanceController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -100,7 +101,8 @@ Route::group(['middleware' => 'auth'], function () {
 
 	//reports 
 	Route::group(['middleware' => 'can:view_reports'], function () {
-		Route::get('/campaiging-report', [ReportsController::class, 'campaigingReport'])->name("campaiging-report");
+		Route::get('/smart-report', [ReportsController::class, 'smartReport'])->name("smart-report");
+		Route::get('/smart-report-data',[ReportsController::class,'smartReportData'])->name('smart-report-data');
 	});
 
 	//smart messaging basic 
@@ -123,6 +125,12 @@ Route::group(['middleware' => 'auth'], function () {
 		Route::get('/filter-messages', [FilterController::class, 'index'])->name('filter-messages');
 		Route::post('/store-filter-messages', [FilterController::class, 'store'])->name('store-filter-messages');
 		Route::get('/filter-validation', [FilterController::class, 'filterMobileNumbers'])->name('filter-validation');
+	});
+
+	//rcs balance management
+	Route::group(['middleware' => 'can:rcs_balance_management'], function () {
+		Route::get('/rcs-balance-editor', [RcsBalanceController::class, 'index'])->name('rcs-balance-editor');
+		Route::get('/rcs-users-ajax', [RcsBalanceController::class, 'getBalanceByUser'])->name('rcs-users-ajax');
 	});
 
 	// Themekit demo pages

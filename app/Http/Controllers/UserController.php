@@ -91,27 +91,41 @@ class UserController extends Controller
     public function store(Request $request)
     {
           
-        //if role is reseller 
-        if($request->role>2){
-            $validator = Validator::make($request->all(), [
-                'name'     => 'required | string ',
-                'email'    => 'required | email | unique:users',
-                'password' => 'required | confirmed',
-                'role'     => 'required',
-                'company_name' => 'required',
-                'company_address' =>'required',
-                'balance' =>'required',
-                'assigned' =>'required',
-            ]);
-        }else{
-        // create user 
+        // //if role is reseller 
+        // if($request->role>2){
+        //     $validator = Validator::make($request->all(), [
+        //         'name'     => 'required | string ',
+        //         'email'    => 'required | email | unique:users',
+        //         'password' => 'required | confirmed',
+        //         'role'     => 'required',
+        //         'company_name' => 'required',
+        //         'company_address' =>'required',
+        //         'balance' =>'required',
+        //         'assigned' =>'required',
+        //         'mobile_no' =>'required | unique:users'
+        //     ]);
+        // }else{
+        // // create user 
+        // $validator = Validator::make($request->all(), [
+        //     'name'     => 'required | string ',
+        //     'email'    => 'required | email | unique:users',
+        //     'password' => 'required | confirmed',
+        //     'role'     => 'required',
+        //     'mobile_no' =>'required | unique:users'
+        // ]);
+        // }
+
         $validator = Validator::make($request->all(), [
             'name'     => 'required | string ',
             'email'    => 'required | email | unique:users',
             'password' => 'required | confirmed',
-            'role'     => 'required'
+            'role'     => 'required',
+            'company_name' => 'required',
+            'company_address' =>'required',
+            'balance' =>'required',
+            'assigned' =>'required',
+            'mobile_no' =>'required | unique:users'
         ]);
-        }
        
         if($validator->fails()) {
             return redirect()->back()->withInput()->with('error', $validator->messages()->first());
@@ -121,11 +135,14 @@ class UserController extends Controller
             
             // store user information
             $user = User::create([
-                        'name'     => $request->name,
-                        'email'    => $request->email,
-                        'password' => Hash::make($request->password),
-                    ]);
-            
+                'name'     => $request->name,
+                'email'    => $request->email,
+                'password' => Hash::make($request->password),
+                'mobile_no' => $request->mobile_no,
+                'company_name' => $request->company_name,
+                'company_address' => $request->company_address
+            ]);
+    
            
              //store sms balance
             $valid_from = date('Y-m-d');

@@ -110,7 +110,7 @@
         <div class="card">
             <div class="card-header"><h3>{{ __('RCS Message Filter')}}</h3></div>
             <div class="card-body">
-                <table id="data_table" class="table table-responsive">
+                <table id="data_table" class="table table-striped table-bordered nowrap table-responsive">
                     <thead>
                         <tr>
                             <th>{{ __('Id')}}</th>
