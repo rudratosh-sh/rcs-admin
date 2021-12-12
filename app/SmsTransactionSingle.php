@@ -40,6 +40,7 @@ class SmsTransactionSingle extends Model
         ->leftJoin('sms_transaction_single', function ($join) {
           $join->on('sms_transaction_group.id', '=', 'sms_transaction_single.sms_transaction_group_id');
         })
+        ->orderBy('sms_transaction_group.id','DESC')
         ->groupBy('sms_transaction_group.id')
         ->get()->toArray();
     else{
@@ -65,6 +66,7 @@ class SmsTransactionSingle extends Model
           $join->on('sms_transaction_group.id', '=', 'sms_transaction_single.sms_transaction_group_id');
         })
         ->where('sms_transaction_group.user_id', $user_id)
+        ->orderBy('sms_transaction_group.id','DESC')
         ->groupBy('sms_transaction_group.id')
         ->get()->toArray();
       } 

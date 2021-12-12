@@ -45,7 +45,7 @@ class SmsTransactionGroup extends Model
           $join->on('sms_transaction_group.user_id', '=', 'users.id');
         })
         ->groupBy('sms_transaction_group.id')
-        // ->orderBy('sms_transaction_group.id','DESC')
+        ->orderBy('sms_transaction_group.id','DESC')
         ->get()->toArray();
     else
       return  DB::table('sms_transaction_group')
@@ -68,7 +68,7 @@ class SmsTransactionGroup extends Model
           $join->on('sms_transaction_group.user_id', '=', 'users.id');
         })
         ->where('sms_transaction_group.user_id', Auth::user()->id)
-        // ->orderBy('sms_transaction_group.id','DESC')
+        ->orderBy('sms_transaction_group.id','DESC')
         ->groupBy('sms_transaction_group.id')
         ->get()->toArray();
   }
