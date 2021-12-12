@@ -76,6 +76,7 @@
                                 <tr>
                                     <th></th>
                                     <th>{{ __('S.N.')}}</th>
+                                    <th>{{ __('Campaign ID')}}</th>
                                     <th>{{ __('Message Format')}}</th>
                                     <th>{{ __('User Id')}}</th>
                                     <th>{{ __('User Email')}}</th>

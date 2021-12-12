@@ -76,7 +76,7 @@ class ReportsController extends Controller
         return Datatables::of($data)
             ->addColumn('download', function ($data) {
                 return '
-                    <a class="btn btn-success" href="' . url('download-campaign-report?user_id=' . $data['user_id']) . '" >Download</a>';
+                    <a class="btn btn-success" href=" target="_blank" ' . url('download-campaign-report?user_id=' . $data['user_id'].'&group_id='.$data['id'].'&type='.$data['message_form']) . '" >Download</a>';
             })
             ->addIndexColumn()
             ->rawColumns(['download'])
@@ -87,26 +87,28 @@ class ReportsController extends Controller
 
     public function downloadCampaignReport(Request $request)
     {
-        if (!$request->user_id)
+        if (!$request->user_id || !$request->group_id || !$request->type)
             return false;
         try {
 
             /**Prepare data for report */
-            $basic = SmsTransactionSingle::getCombinedDataBasic($request->user_id);
-            $advance = SmsTransactionSingleAdvance::getCombinedDataAdvance($request->user_id);
-            $basic = json_decode(json_encode($basic), true);
-            $advance = json_decode(json_encode($advance), true);
-
-            //adding type in array
-            $basic = array_map(function ($arr) {
-                return $arr + ['smart_type' => 'Basic'];
-            }, $basic);
-
-            $advance = array_map(function ($arr) {
-                return $arr + ['smart_type' => 'Advance'];
-            }, $advance);
-
-            $data = array_merge($basic, $advance);
+            if($request->type=='BASIC'){
+                $basic = SmsTransactionSingle::getCombinedDataBasicDownload($request->user_id,$request->group_id);
+                $basic = json_decode(json_encode($basic), true);
+                //adding type in array
+                $data = array_map(function ($arr) {
+                    return $arr + ['smart_type' => 'Basic'];
+                }, $basic);
+            }    
+            if($request->type =='ADVANCE'){    
+                $advance = SmsTransactionSingleAdvance::getCombinedDataAdvanceDownload($request->user_id,$request->group_id);
+                $advance = json_decode(json_encode($advance), true);
+                $data = array_map(function ($arr) {
+                    return $arr + ['smart_type' => 'Advance'];
+                }, $advance);
+            }
+        
+            // $data = array_merge($basic, $advance);
             /** end data preparation */
             $headers = [
                 'Cache-Control'       => 'must-revalidate, post-check=0, 

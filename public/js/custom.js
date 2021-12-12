@@ -319,6 +319,7 @@
                     "defaultContent": ""
                 },
                 {data: 'DT_RowIndex', name: 'DT_RowIndex'},
+                {data: 'id', name: 'id'},
                 {data:'user_id', name: 'user_id'},
                 {data:'smart_type', name: 'smart_type'},
                 {data:'mobile_no', name: 'mobile_no'},
@@ -521,6 +522,7 @@
                      "defaultContent": ""
                  },
                  {data: 'DT_RowIndex', name: 'DT_RowIndex'},
+                 {data: 'id', name: 'id'},
                  {data:'smart_type',name:'smart_type'},
                  {data:'user_id', name: 'user_id'},
                  {data:'name', name: 'name'},

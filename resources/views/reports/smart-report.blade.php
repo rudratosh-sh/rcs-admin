@@ -70,6 +70,7 @@
                                 <tr>
                                     <th></th>
                                     <th>{{ __('S.N.')}}</th>
+                                    <th>{{ __('Campaign ID')}}</th>
                                     <th>{{ __('User Id')}}</th>
                                     <th>{{ __('Message Type')}}</th>
                                     <th>{{ __('Mobile')}}</th>

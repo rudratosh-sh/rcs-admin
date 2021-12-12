@@ -36,6 +36,7 @@ class SmsTransactionGroupAdvance extends Model
           'sms_transaction_group_advance.sms_count',
           'sms_transaction_group_advance.sms_failed',
           'sms_transaction_group_advance.sms_success',
+          'sms_transaction_group_advance.message_form',
           DB::raw("GROUP_CONCAT(
             sms_transaction_group_advance.message_card_1,',',
             sms_transaction_group_advance.message_card_2,',',
@@ -69,6 +70,7 @@ class SmsTransactionGroupAdvance extends Model
           'sms_transaction_group_advance.sms_count',
           'sms_transaction_group_advance.sms_failed',
           'sms_transaction_group_advance.sms_success',
+          'sms_transaction_group_advance.message_form',
           DB::raw("GROUP_CONCAT(
             sms_transaction_group_advance.message_card_1,',',
             sms_transaction_group_advance.message_card_2,',',
