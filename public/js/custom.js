@@ -342,7 +342,7 @@
                 {
                     extend: 'copy',
                     className: 'btn-sm btn-info',
-                    title: 'Users',
+                    title: 'Smart Report',
                     header: false,
                     footer: true,
                     exportOptions: {
@@ -352,7 +352,7 @@
                 {
                     extend: 'csv',
                     className: 'btn-sm btn-success',
-                    title: 'Users',
+                    title: 'Smart Report',
                     header: false,
                     footer: true,
                     exportOptions: {
@@ -362,7 +362,7 @@
                 {
                     extend: 'excel',
                     className: 'btn-sm btn-warning',
-                    title: 'Users',
+                    title: 'Smart Report',
                     header: false,
                     footer: true,
                     exportOptions: {
@@ -372,7 +372,7 @@
                 {
                     extend: 'pdf',
                     className: 'btn-sm btn-primary',
-                    title: 'Users',
+                    title: 'Smart Report',
                     pageSize: 'A2',
                     header: false,
                     footer: true,
@@ -383,7 +383,7 @@
                 {
                     extend: 'print',
                     className: 'btn-sm btn-default',
-                    title: 'Users',
+                    title: 'Smart Report',
                     // orientation:'landscape',
                     pageSize: 'A2',
                     header: true,
@@ -490,7 +490,7 @@
              }        
          }
          
-         var dTableSmart = $('#campaign_table').DataTable({  
+         var dTableCampgain = $('#campaign_table').DataTable({  
              order: [],
              lengthMenu: [[10, 25, 50, 100, -1], [10, 25, 50, 100, "All"]],
              processing: true,
@@ -545,7 +545,7 @@
                  {
                      extend: 'copy',
                      className: 'btn-sm btn-info',
-                     title: 'Users',
+                     title: 'Campgain Report',
                      header: false,
                      footer: true,
                      exportOptions: {
@@ -555,7 +555,7 @@
                  {
                      extend: 'csv',
                      className: 'btn-sm btn-success',
-                     title: 'Users',
+                     title: 'Campgain Report',
                      header: false,
                      footer: true,
                      exportOptions: {
@@ -565,7 +565,7 @@
                  {
                      extend: 'excel',
                      className: 'btn-sm btn-warning',
-                     title: 'Users',
+                     title: 'Campgain Report',
                      header: false,
                      footer: true,
                      exportOptions: {
@@ -575,7 +575,7 @@
                  {
                      extend: 'pdf',
                      className: 'btn-sm btn-primary',
-                     title: 'Users',
+                     title: 'Campgain Report',
                      pageSize: 'A2',
                      header: false,
                      footer: true,
@@ -586,7 +586,7 @@
                  {
                      extend: 'print',
                      className: 'btn-sm btn-default',
-                     title: 'Users',
+                     title: 'Campgain Report',
                      // orientation:'landscape',
                      pageSize: 'A2',
                      header: true,
@@ -639,9 +639,9 @@
          // Array to track the ids of the details displayed rows
      var detailRows = [];
   
-     $('#smart_table tbody').on( 'click', 'tr td.details-control', function () {
+     $('#campaign_table tbody').on( 'click', 'tr td.details-control', function () {
          var tr = $(this).closest('tr');
-         var row = dTableSmart.row( tr );
+         var row = dTableCampgain.row( tr );
          var idx = $.inArray( tr.attr('id'), detailRows );
   
          if ( row.child.isShown() ) {
@@ -663,7 +663,7 @@
      } );
   
      // On each draw, loop over the `detailRows` array and show any child rows
-     dTableSmart.on( 'draw', function () {
+     dTableCampgain.on( 'draw', function () {
          $.each( detailRows, function ( i, id ) {
              $('#'+id+' td.details-control').trigger( 'click' );
          } );
