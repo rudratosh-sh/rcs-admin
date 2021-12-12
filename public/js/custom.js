@@ -281,7 +281,7 @@
                 var temp='';
                 images.forEach(function (item, index) {
                     console.log(item)
-                    temp = "<img class='smart-image' src='"+base_path+'/uploads/'+item+"'/> "+temp
+                    temp = "<img style='width:250px' class='smart-image' src='"+base_path+'/uploads/'+item+"'/> "+temp
                 });
                 console.log(temp)
                 return temp;
@@ -483,7 +483,7 @@
                  var temp='';
                  images.forEach(function (item, index) {
                      console.log(item)
-                     temp = "<img class='smart-image' src='"+base_path+'/uploads/'+item+"'/> "+temp
+                     temp = "<img  style='width:250px' class='smart-image' src='"+base_path+'/uploads/'+item+"'/> "+temp
                  });
                  console.log(temp)
                  return temp;

@@ -24,9 +24,15 @@
         th.sorting_disabled.details-control {
             padding-right: 45px;
         }
-        .campaign-image{
+        .smart-image{
             width: 250px
         }
+
+        img.smart-image {
+            width: 250px;
+        }
+
+
     </style>
 
     <div class="container-fluid">
