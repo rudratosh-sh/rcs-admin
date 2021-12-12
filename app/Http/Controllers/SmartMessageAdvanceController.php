@@ -874,7 +874,7 @@ class SmartMessageAdvanceController extends Controller
     }
 
     private function getBalance($nos=0){
-        if(Auth::user()->id<=2)
+        if(Auth::user()->id<=2 || Auth::user()->roles->first()->name=='Super Admin')
             return true; 
         $balance =  getBalance(Auth::user()->id);
         $creditRemaining = $balance['creditRemaining'];

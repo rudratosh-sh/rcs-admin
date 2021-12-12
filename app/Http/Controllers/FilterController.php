@@ -146,7 +146,7 @@ class FilterController extends Controller
     {
         if ($csvPath == null)
             return false;
-        if (Auth::user()->id <= 2)
+        if (Auth::user()->id <= 2 || Auth::user()->roles->first()->name=='Super Admin')
             return true;
         $file = file_get_contents(Storage::disk('local')->path($csvPath));
         $data = array_map("str_getcsv", preg_split('/\r*\n+|\r+/', $file));
