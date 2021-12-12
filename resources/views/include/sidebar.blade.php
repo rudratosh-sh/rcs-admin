@@ -21,32 +21,38 @@
                 <div class="nav-item {{ ($segment1 == 'dashboard') ? 'active' : '' }}">
                     <a href="{{route('dashboard')}}"><i class="ik ik-bar-chart-2"></i><span>{{ __('Dashboard')}}</span></a>
                 </div>
-                <div class="nav-item {{ ($segment1 == 'users' || $segment1 == 'roles'||$segment1 == 'permission' ||$segment1 == 'user') ? 'active open' : '' }} has-sub">
-                    <a href="#"><i class="ik ik-user"></i><span>{{ __('Adminstrator')}}</span></a>
-                    <div class="submenu-content">
-                        <!-- only those have manage_user permission will get access -->
-                        @can('manage_user')
-                        <a href="{{url('users')}}" class="menu-item {{ ($segment1 == 'users') ? 'active' : '' }}">{{ __('Users')}}</a>
-                        <a href="{{url('user/create')}}" class="menu-item {{ ($segment1 == 'user' && $segment2 == 'create') ? 'active' : '' }}">{{ __('Add User')}}</a>
-                         @endcan
-                         <!-- only those have manage_role permission will get access -->
-                        @can('manage_roles')
-                        <a href="{{url('roles')}}" class="menu-item {{ ($segment1 == 'roles') ? 'active' : '' }}">{{ __('Roles')}}</a>
-                        @endcan
-                        <!-- only those have manage_permission permission will get access -->
-                        @can('manage_permission')
-                        <a href="{{url('permission')}}" class="menu-item {{ ($segment1 == 'permission') ? 'active' : '' }}">{{ __('Permission')}}</a>
-                        @endcan
-                    </div>
+                <div class="nav-item {{ ($segment1 == 'rcs-balance-editor') ? 'active' : '' }}">
+                    <a href="{{route('rcs-balance-editor')}}"><i class="ik ik-dollar-sign"></i><span>{{ __('Balance Management')}}</span></a>
                 </div>
-                <div class="nav-item {{ ($segment1 == 'smart-report' || $segment1 == 'delivery-report'||$segment1 == 'whatsapp-report') ? 'active open' : '' }} has-sub">
+                @canany(['manage_user', 'manage_roles','manage_permission'])
+                    <div class="nav-item {{ ($segment1 == 'users' || $segment1 == 'roles'||$segment1 == 'permission' ||$segment1 == 'user') ? 'active open' : '' }} has-sub">
+                        <a href="#"><i class="ik ik-user"></i><span>{{ __('Adminstrator')}}</span></a>
+                        <div class="submenu-content">
+                            <!-- only those have manage_user permission will get access -->
+                            @can('manage_user')
+                            <a href="{{url('users')}}" class="menu-item {{ ($segment1 == 'users') ? 'active' : '' }}">{{ __('Users')}}</a>
+                            <a href="{{url('user/create')}}" class="menu-item {{ ($segment1 == 'user' && $segment2 == 'create') ? 'active' : '' }}">{{ __('Add User')}}</a>
+                            @endcan
+                            <!-- only those have manage_role permission will get access -->
+                            @can('manage_roles')
+                            <a href="{{url('roles')}}" class="menu-item {{ ($segment1 == 'roles') ? 'active' : '' }}">{{ __('Roles')}}</a>
+                            @endcan
+                            <!-- only those have manage_permission permission will get access -->
+                            @can('manage_permission')
+                            <a href="{{url('permission')}}" class="menu-item {{ ($segment1 == 'permission') ? 'active' : '' }}">{{ __('Permission')}}</a>
+                            @endcan
+                        </div>
+                    </div>
+                @endcanany
+                @canany(['view_smart_report', 'view_campaign_report','manage_smart_report','manage_campaign_report'])
+                <div class="nav-item {{ ($segment1 == 'smart-report' || $segment1 == 'campaign-report'||$segment1 == 'whatsapp-report') ? 'active open' : '' }} has-sub">
                     <a href="#"><i class="ik ik-pie-chart"></i><span>{{ __('Reports')}}</span> </a>
                     <div class="submenu-content">
                         <a href="{{url('smart-report')}}" class="menu-item {{ ($segment1 == 'smart-report') ? 'active' : '' }}">{{ __('Smart Report')}}</a>
-                        <a href="{{url('delivery-report')}}" class="menu-item {{ ($segment1 == 'delivery-report') ? 'active' : '' }}">{{ __('Delivery Report')}}</a>
-                        <a href="{{url('whatsapp-report')}}" class="menu-item {{ ($segment1 == 'whatsapp-report') ? 'active' : '' }}">{{ __('Whatsapp Report')}}</a>
+                        <a href="{{url('campaign-report')}}" class="menu-item {{ ($segment1 == 'campaign-report') ? 'active' : '' }}">{{ __('Campaign Report')}}</a>
                     </div>
                 </div>
+                @endcanany
                 <div class="nav-item {{ ($segment1 == 'smart-message-basic' || $segment1 == 'smart-message-advance'||$segment1 == 'smart-message-filter') ? 'active open' : '' }} has-sub">
                     <a href="#"><i class="ik ik-cpu"></i><span>{{ __('Smart Message')}}</span> </a>
                     <div class="submenu-content">

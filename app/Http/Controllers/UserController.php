@@ -11,6 +11,7 @@ use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
 use DataTables,Auth;
 use App\RcsBalance;
+use App\RcsAccount;
 class UserController extends Controller
 {
     /**
@@ -157,6 +158,15 @@ class UserController extends Controller
                 'assigned' => $request->assigned,
             ]);
 
+            $rcs_account = array(
+                'user_id' => User::latest()->first()->id,
+                'type' => 'CREDIT',
+                'balance' => $request->balance,
+                'validity' => $valid_till,
+                'created_by' => Auth::user()->id
+            );
+
+            RcsAccount::create($rcs_account);
             // assign new role to the user
             $user->syncRoles($request->role);
 
@@ -199,8 +209,9 @@ class UserController extends Controller
         $validator = Validator::make($request->all(), [
             'id'       => 'required',
             'name'     => 'required | string ',
-            'email'    => 'required | email',
-            'role'     => 'required'
+            'email'    => 'required |unique:users,email,'.$request->id,
+            'role'     => 'required',
+            'mobile_no' => 'required |unique:users,mobile_no,'.$request->id,
         ]);
 
         // check validation for password match
@@ -221,6 +232,9 @@ class UserController extends Controller
             $update = $user->update([
                 'name' => $request->name,
                 'email' => $request->email,
+                'mobile_no' => $request->mobile_no,
+                'company_name' => $request->company_name,
+                'company_address' => $request->company_address
             ]);
 
             // update password if user input a new password
@@ -252,4 +266,74 @@ class UserController extends Controller
             return redirect('users')->with('error', 'User not found');
         }
     }
+
+    public function profileEdit()
+    {
+        try
+        {
+            $user  = User::with('roles','permissions')->find(Auth::user()->id);
+
+            if($user){
+                $user_role = $user->roles->first();
+                $roles     = Role::pluck('name','id');
+                return view('profile', compact('user','user_role','roles'));
+            }else{
+                return redirect('404');
+            }
+        }catch (\Exception $e) {
+            $bug = $e->getMessage();
+            return redirect()->back()->with('error', $bug);
+        }
+    }
+
+    public function profileUpdate(Request $request)
+    {
+
+        // update user info
+        $validator = Validator::make($request->all(), [
+            'id'       => 'required',
+            'name'     => 'required | string ',
+            'email'    => 'required |unique:users,email,'.Auth::user()->id,
+            'mobile_no' => 'required |unique:users,mobile_no,'.Auth::user()->id,
+        ]);
+
+        // check validation for password match
+        if(isset($request->password)){
+            $validator = Validator::make($request->all(), [
+                'password' => 'required | confirmed'
+            ]);
+        }
+        
+        if ($validator->fails()) {
+            return redirect()->back()->withInput()->with('error', $validator->messages()->first());
+        }
+
+        try{
+            
+            $user = User::find(Auth::user()->id);
+
+            $update = $user->update([
+                'name' => $request->name,
+                'email' => $request->email,
+                'mobile_no' => $request->mobile_no,
+                'company_name' => $request->company_name,
+                'company_address' => $request->company_address
+
+            ]);
+
+            // update password if user input a new password
+            if(isset($request->password)){
+                $update = $user->update([
+                    'password' => Hash::make($request->password)
+                ]);
+            }
+
+            return redirect()->back()->with('success', 'User information updated succesfully!');
+        }catch (\Exception $e) {
+            $bug = $e->getMessage();
+            return redirect()->back()->with('error', $bug);
+
+        }
+    }
+
 }

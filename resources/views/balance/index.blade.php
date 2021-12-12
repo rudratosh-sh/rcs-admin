@@ -3,13 +3,9 @@
 @section('content')
 <!-- push external head elements to head -->
 @push('head')
-
-<link rel="stylesheet" href="{{ asset('plugins/select2/dist/css/select2.min.css') }}">
-<link rel="stylesheet" href="{{ asset('plugins/summernote/dist/summernote-bs4.css') }}">
-<link rel="stylesheet" href="{{ asset('plugins/bootstrap-tagsinput/dist/bootstrap-tagsinput.css') }}">
-<link rel="stylesheet" href="{{ asset('plugins/mohithg-switchery/dist/switchery.min.css') }}">
-<link rel="stylesheet" href="{{ asset('plugins/jquery-toast-plugin/dist/jquery.toast.min.css')}}">
-
+    <link rel="stylesheet" href="{{ asset('plugins/select2/dist/css/select2.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('plugins/jquery-toast-plugin/dist/jquery.toast.min.css')}}">
+    <link rel="stylesheet" href="{{ asset('plugins/DataTables/datatables.min.css') }}">
 @endpush
 <style>
     .bootstrap-tagsinput{
@@ -64,14 +60,14 @@
             </div>
         </div>
     </div>
-    
+@can('rcs_balance_management')    
 <!-- upload file here -->
 <div class="row layout-wrap" id="layout-wrap">
     <div class="col-12 list-item">
         <div class="card d-flex flex-row mb-3">
             <div class="d-flex flex-grow-1 min-width-zero card-content">
                 <div class="card-body align-self-center d-flex flex-column flex-md-row justify-content-between min-width-zero align-items-md-center">
-                     <form class="form-inline" enctype="multipart/form-data" method="POST" action="{{ route('store-filter-messages') }}" >
+                     <form class="form-inline" enctype="multipart/form-data" method="POST" action="{{ route('rcs-balance-store') }}" >
                         @csrf
                         <div class="form-group pr-10">
                             <label for="users">Users: &nbsp;</label>
@@ -99,13 +95,13 @@
                           <div class="form-group pr-10">
                             <div class="form-group">
                                 <label class="pr-10" for="input">{{ __('Balance: ')}}</label>
-                                <input type="text" id="balance" onchange="validateBalance()" value="{{ old('balance') }}" name="balance" class="form-control"> </textarea>
+                                <input type="number" required min="0" id="balance" onchange="validateBalance()" value="{{ old('balance') }}" name="balance" class="form-control"> </textarea>
                             </div>
                         </div>  
                         <div class="form-group pr-10 pt-10">
                             <div class="form-group">
                                 <label class="pr-10" for="input">{{ __('Validity: ')}}</label>
-                                <input type="date" required id="validity" onchange="TDate()"  value="{{ old('validity') }}" name="validity" class="form-control"> </textarea>
+                                <input type="date"  min="{{date('Y-m-d')}}" required id="validity" onchange="TDate()"  value="{{ old('validity') }}" name="validity" class="form-control"> </textarea>
                             </div>
                         </div>  
                         <div class="form-group text-center pt-10">
@@ -118,23 +114,51 @@
         </div>
     </div>  
 </div>
+@endcan
     <!-- end file upload here -->
-
-    
+@canany(['rcs_balance_management','rcs_account_report'])
+    <div class="row">
+        <!-- start message area-->
+        @include('include.message')
+        <!-- end message area-->
+       <div class="col-md-12">
+           <div class="card">
+               <div class="card-header"><h3>{{ __('Data Table')}}</h3></div>
+               <div class="card-body">
+                   <table id="account_report" class="table table-striped table-bordered nowrap table-responsive" style="width:100%">
+                       <thead>
+                           <tr>
+                               <th>{{ __('S.N.')}}</th>
+                               <th>{{ __('User Id')}}</th>
+                               <th>{{ __('User Name')}}</th>
+                               <th>{{ __('Mobile')}}</th>
+                               <th>{{ __('Type')}}</th>
+                               <th>{{ __('Balance')}}</th>
+                               <th>{{ __('Validity')}}</th>
+                               <th>{{ __('Total Credit Remaining')}}</th>
+                               <th>{{ __('Added On')}}</th>
+                               <th>{{ __('Added By')}}</th>
+                           </tr>
+                       </thead>
+                       <tbody>
+                       </tbody>
+                   </table>
+               </div>
+           </div>
+       </div>
+   </div>
+@endcanany    
 </div>
      <!-- push external js -->
      @push('script')
+     <script src="{{ asset('plugins/DataTables/datatables.min.js') }}"></script>
      <script src="{{ asset('plugins/select2/dist/js/select2.min.js') }}"></script>
-     <script src="{{ asset('plugins/summernote/dist/summernote-bs4.min.js') }}"></script>
-     <script src="{{ asset('plugins/bootstrap-tagsinput/dist/bootstrap-tagsinput.min.js') }}"></script>
-     <script src="{{ asset('plugins/jquery.repeater/jquery.repeater.min.js') }}"></script>
-     <script src="{{ asset('plugins/mohithg-switchery/dist/switchery.min.js') }}"></script>
-     <script src="{{ asset('js/form-components.js') }}"></script>
-   
+     <!--server side users table script-->
      <script src="{{ asset('js/form-advanced.js') }}"></script>
      <script src="{{ asset('plugins/jquery-toast-plugin/dist/jquery.toast.min.js')}}"></script>
         
      <script src="{{ asset('js/alerts.js')}}"></script>
+     <script src="{{ asset('js/custom.js')}}"></script>
      <script>
         $(document).ready( function() {
             @if(count($errors)>0)
@@ -190,9 +214,6 @@
         
         return true;
     }
-
-
-
     </script>
  @endpush
 @endsection
