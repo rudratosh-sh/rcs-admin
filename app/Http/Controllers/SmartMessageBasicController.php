@@ -87,9 +87,9 @@ class SmartMessageBasicController extends Controller
 
             // store sms transaction group
             if ($this->storeSmsTranscationGroup($request, $image_path, $mobile_nos))
-                return redirect('campaiging-report')->with('success', 'Messages added in Queue');
+                return redirect('campaign-report')->with('success', 'Messages added in Queue');
             else
-                return redirect('campaiging-report')->with('error', 'Failed to create sms queue! Try again.');
+                return redirect('campaign-report')->with('error', 'Failed to create sms queue! Try again.');
         } catch (\Exception $e) {
             $bug = $e->getMessage();
             dd($bug);
