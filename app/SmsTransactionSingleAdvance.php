@@ -8,7 +8,7 @@ use DB, Auth;
 
 class SmsTransactionSingleAdvance extends Model
 {
-  protected $table = 'sms_transaction_single_advance_advance';
+  protected $table = 'sms_transaction_single_advance';
   use HasFactory;
   /**
    * The attributes that are mass assignable.
