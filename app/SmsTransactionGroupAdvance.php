@@ -38,16 +38,16 @@ class SmsTransactionGroupAdvance extends Model
           'sms_transaction_group_advance.sms_success',
           'sms_transaction_group_advance.message_form',
           DB::raw("GROUP_CONCAT(
-            sms_transaction_group_advance.message_card_1,',',
-            sms_transaction_group_advance.message_card_2,',',
-            sms_transaction_group_advance.message_card_3,',',
-            sms_transaction_group_advance.message_card_4) 
+            IFNULL(sms_transaction_group_advance.message_card_1,''),',',
+            IFNULL(sms_transaction_group_advance.message_card_2,''),',',
+            IFNULL(sms_transaction_group_advance.message_card_3,''),',',
+            IFNULL(sms_transaction_group_advance.message_card_4,'')) 
         as messages"),
           DB::raw("GROUP_CONCAT(
-          sms_transaction_group_advance.image_card_1,',',
-          sms_transaction_group_advance.image_card_2,',',
-          sms_transaction_group_advance.image_card_3,',',
-          sms_transaction_group_advance.image_card_4) 
+          IFNULL(sms_transaction_group_advance.image_card_1,''),',',
+          IFNULL(sms_transaction_group_advance.image_card_2,''),',',
+          IFNULL(sms_transaction_group_advance.image_card_3,''),',',
+          IFNULL(sms_transaction_group_advance.image_card_4,'')) 
           as images"),
           'users.email',
           'users.name',
@@ -72,17 +72,17 @@ class SmsTransactionGroupAdvance extends Model
           'sms_transaction_group_advance.sms_success',
           'sms_transaction_group_advance.message_form',
           DB::raw("GROUP_CONCAT(
-            sms_transaction_group_advance.message_card_1,',',
-            sms_transaction_group_advance.message_card_2,',',
-            sms_transaction_group_advance.message_card_3,',',
-            sms_transaction_group_advance.message_card_4) 
+            IFNULL(sms_transaction_group_advance.message_card_1,''),',',
+            IFNULL(sms_transaction_group_advance.message_card_2,''),',',
+            IFNULL(sms_transaction_group_advance.message_card_3,''),',',
+            IFNULL(sms_transaction_group_advance.message_card_4,'')) 
         as messages"),
           DB::raw("GROUP_CONCAT(
-          sms_transaction_group_advance.image_card_1,',',
-          sms_transaction_group_advance.image_card_2,',',
-          sms_transaction_group_advance.image_card_3,',',
-          sms_transaction_group_advance.image_card_4) 
-      as images"),
+          IFNULL(sms_transaction_group_advance.image_card_1,''),',',
+          IFNULL(sms_transaction_group_advance.image_card_2,''),',',
+          IFNULL(sms_transaction_group_advance.image_card_3,''),',',
+          IFNULL(sms_transaction_group_advance.image_card_4,'')) 
+          as images"),
       'users.email',
       'users.name',
       'users.mobile_no'

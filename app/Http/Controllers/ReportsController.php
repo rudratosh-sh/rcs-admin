@@ -64,7 +64,6 @@ class ReportsController extends Controller
     {
         $basic = SmsTransactionGroup::getCombinedDataBasic();
         $advance = SmsTransactionGroupAdvance::getCombinedDataAdvance();
-        dd($advance);
         $basic = json_decode(json_encode($basic), true);
         $advance = json_decode(json_encode($advance), true);
 

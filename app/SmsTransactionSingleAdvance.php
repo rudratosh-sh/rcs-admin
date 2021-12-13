@@ -36,17 +36,17 @@ class SmsTransactionSingleAdvance extends Model
           'sms_transaction_single_advance.read_time',
           'sms_transaction_group_advance.message_form',
           DB::raw("GROUP_CONCAT(
-                      sms_transaction_group_advance.message_card_1,',',
-                      sms_transaction_group_advance.message_card_2,',',
-                      sms_transaction_group_advance.message_card_3,',',
-                      sms_transaction_group_advance.message_card_4) 
-                  as messages"),
+            IFNULL(sms_transaction_group_advance.message_card_1,''),',',
+            IFNULL(sms_transaction_group_advance.message_card_2,''),',',
+            IFNULL(sms_transaction_group_advance.message_card_3,''),',',
+            IFNULL(sms_transaction_group_advance.message_card_4,'')) 
+        as messages"),
           DB::raw("GROUP_CONCAT(
-                    sms_transaction_group_advance.image_card_1,',',
-                    sms_transaction_group_advance.image_card_2,',',
-                    sms_transaction_group_advance.image_card_3,',',
-                    sms_transaction_group_advance.image_card_4) 
-                as images")
+          IFNULL(sms_transaction_group_advance.image_card_1,''),',',
+          IFNULL(sms_transaction_group_advance.image_card_2,''),',',
+          IFNULL(sms_transaction_group_advance.image_card_3,''),',',
+          IFNULL(sms_transaction_group_advance.image_card_4,'')) 
+          as images")
         )
         ->leftJoin('sms_transaction_single_advance', function ($join) {
           $join->on('sms_transaction_group_advance.id', '=', 'sms_transaction_single_advance.sms_transaction_group_advance_id');
@@ -72,17 +72,17 @@ class SmsTransactionSingleAdvance extends Model
           'sms_transaction_single_advance.delivery_time',
           'sms_transaction_single_advance.read_time',
           DB::raw("GROUP_CONCAT(
-              sms_transaction_group_advance.message_card_1,',',
-              sms_transaction_group_advance.message_card_2,',',
-              sms_transaction_group_advance.message_card_3,',',
-              sms_transaction_group_advance.message_card_4) 
-          as messages"),
+            IFNULL(sms_transaction_group_advance.message_card_1,''),',',
+            IFNULL(sms_transaction_group_advance.message_card_2,''),',',
+            IFNULL(sms_transaction_group_advance.message_card_3,''),',',
+            IFNULL(sms_transaction_group_advance.message_card_4,'')) 
+        as messages"),
           DB::raw("GROUP_CONCAT(
-            sms_transaction_group_advance.image_card_1,',',
-            sms_transaction_group_advance.image_card_2,',',
-            sms_transaction_group_advance.image_card_3,',',
-            sms_transaction_group_advance.image_card_4) 
-        as images")
+          IFNULL(sms_transaction_group_advance.image_card_1,''),',',
+          IFNULL(sms_transaction_group_advance.image_card_2,''),',',
+          IFNULL(sms_transaction_group_advance.image_card_3,''),',',
+          IFNULL(sms_transaction_group_advance.image_card_4,'')) 
+          as images")
         )
         ->leftJoin('sms_transaction_single_advance', function ($join) {
           $join->on('sms_transaction_group_advance.id', '=', 'sms_transaction_single_advance.sms_transaction_group_advance_id');
@@ -112,17 +112,17 @@ class SmsTransactionSingleAdvance extends Model
           'sms_transaction_single_advance.delivery_time',
           'sms_transaction_single_advance.read_time',
           DB::raw("GROUP_CONCAT(
-                      sms_transaction_group_advance.message_card_1,',',
-                      sms_transaction_group_advance.message_card_2,',',
-                      sms_transaction_group_advance.message_card_3,',',
-                      sms_transaction_group_advance.message_card_4) 
-                  as messages"),
+            IFNULL(sms_transaction_group_advance.message_card_1,''),',',
+            IFNULL(sms_transaction_group_advance.message_card_2,''),',',
+            IFNULL(sms_transaction_group_advance.message_card_3,''),',',
+            IFNULL(sms_transaction_group_advance.message_card_4,'')) 
+        as messages"),
           DB::raw("GROUP_CONCAT(
-                    sms_transaction_group_advance.image_card_1,',',
-                    sms_transaction_group_advance.image_card_2,',',
-                    sms_transaction_group_advance.image_card_3,',',
-                    sms_transaction_group_advance.image_card_4) 
-                as images")
+          IFNULL(sms_transaction_group_advance.image_card_1,''),',',
+          IFNULL(sms_transaction_group_advance.image_card_2,''),',',
+          IFNULL(sms_transaction_group_advance.image_card_3,''),',',
+          IFNULL(sms_transaction_group_advance.image_card_4,'')) 
+          as images")
         )
         ->leftJoin('sms_transaction_single_advance', function ($join) {
           $join->on('sms_transaction_group_advance.id', '=', 'sms_transaction_single_advance.sms_transaction_group_advance_id');
