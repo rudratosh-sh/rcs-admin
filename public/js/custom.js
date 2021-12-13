@@ -166,7 +166,8 @@
                 {data:'roles', name: 'roles'},
                 {data:'permissions', name: 'permissions'},
                 //only those have manage_user permission will get access
-                {data:'action', name: 'action'}
+                {data:'action', name: 'action'},
+                {data:'status', name: 'status'}
 
             ],
             buttons: [

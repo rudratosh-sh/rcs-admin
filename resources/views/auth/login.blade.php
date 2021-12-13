@@ -30,6 +30,10 @@
         <div class="auth-wrapper">
             <div class="container-fluid h-100">
                 <div class="row flex-row h-100">
+                    @if (session('message'))
+                        <div class="alert alert-danger">{{ session('message') }}</div>
+                    @endif
+
                     <div class="col-xl-4 col-lg-4 col-md-4 m-auto">
                         <div class="authentication-form mx-auto">
                             <div class="logo-centered">

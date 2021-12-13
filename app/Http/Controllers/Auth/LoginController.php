@@ -6,6 +6,9 @@ use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
+use App\User; 
+use Illuminate\Validation\ValidationException;
+
 
 class LoginController extends Controller
 {
@@ -37,6 +40,18 @@ class LoginController extends Controller
     public function __construct()
     {
         $this->middleware('guest')->except('logout');
+    }
+
+    protected function validateLogin(Request $request)
+    {
+        $user = User::where($this->username(), '=', $request->input($this->username()))->first();
+        if ($user && !$user->status) {
+            throw ValidationException::withMessages([$this->username() => __('The account is inactive')]);
+        }
+        $request->validate([
+            $this->username() => 'required|string',
+            'password' => 'required|string',
+        ]);
     }
 
     // custom logout function

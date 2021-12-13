@@ -65,6 +65,7 @@ Route::group(['middleware' => 'auth'], function () {
 		Route::get('/user/{id}', [UserController::class, 'edit']);
 		Route::post('/user/update', [UserController::class, 'update']);
 		Route::get('/user/delete/{id}', [UserController::class, 'delete']);
+		Route::get('/user/changeStatus/{id}/{status}', [UserController::class, 'changeStatus']);
 	});
 
 	//only those have manage_role permission will get access

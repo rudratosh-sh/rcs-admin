@@ -50,6 +50,7 @@
                                     <th>{{ __('Role')}}</th>
                                     <th>{{ __('Permissions')}}</th>
                                     <th>{{ __('Action')}}</th>
+                                    <th>{{ __('Status')}}</th>
                                 </tr>
                             </thead>
                             <tbody>

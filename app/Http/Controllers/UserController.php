@@ -9,9 +9,10 @@ use Illuminate\Support\Facades\Hash;
 use App\User;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
-use DataTables,Auth;
+use DataTables, Auth;
 use App\RcsBalance;
 use App\RcsAccount;
+
 class UserController extends Controller
 {
     /**
@@ -36,62 +37,72 @@ class UserController extends Controller
 
     public function getUserList(Request $request)
     {
-        
+
         $data  = User::get();
 
         return Datatables::of($data)
-                ->addColumn('roles', function($data){
-                    $roles = $data->getRoleNames()->toArray();
-                    $badge = '';
-                    if($roles){
-                        $badge = implode(' , ', $roles);
-                    }
+            ->addColumn('roles', function ($data) {
+                $roles = $data->getRoleNames()->toArray();
+                $badge = '';
+                if ($roles) {
+                    $badge = implode(' , ', $roles);
+                }
 
-                    return $badge;
-                })
-                ->addColumn('permissions', function($data){
-                    $roles = $data->getAllPermissions();
-                    $badges = '';
-                    foreach ($roles as $key => $role) {
-                        $badges .= '<span class="badge badge-dark m-1">'.$role->name.'</span>';
-                    }
+                return $badge;
+            })
+            ->addColumn('permissions', function ($data) {
+                $roles = $data->getAllPermissions();
+                $badges = '';
+                foreach ($roles as $key => $role) {
+                    $badges .= '<span class="badge badge-dark m-1">' . $role->name . '</span>';
+                }
 
-                    return $badges;
-                })
-                ->addColumn('action', function($data){
-                    if($data->name == 'Super Admin'){
-                        return '';
-                    }
-                    if (Auth::user()->can('manage_user')){
-                        return '<div class="table-actions">
-                                <a href="'.url('user/'.$data->id).'" ><i class="ik ik-edit-2 f-16 mr-15 text-green"></i></a>
-                                <a href="'.url('user/delete/'.$data->id).'"><i class="ik ik-trash-2 f-16 text-red"></i></a>
+                return $badges;
+            })
+            ->addColumn('action', function ($data) {
+                if ($data->name == 'Super Admin') {
+                    return '';
+                }
+                if (Auth::user()->can('manage_user')) {
+                    return '<div class="table-actions">
+                                <a href="' . url('user/' . $data->id) . '" ><i class="ik ik-edit-2 f-16 mr-15 text-green"></i></a>
+                                <a href="' . url('user/delete/' . $data->id) . '"><i class="ik ik-trash-2 f-16 text-red"></i></a>
                             </div>';
-                    }else{
-                        return '';
-                    }
-                })
-                ->rawColumns(['roles','permissions','action'])
-                ->make(true);
+                } else {
+                    return '';
+                }
+            })
+            ->addColumn('status', function ($data) {
+                if ($data->name == 'Super Admin') {
+                    return '';
+                }
+                if (Auth::user()->can('manage_user')) {
+                    if ($data->status)
+                        return '<a class="btn btn-danger" href="' . url('user/changeStatus/' . $data->id.'/' . $data->status) . '">Set InActive</a> ';
+                    else
+                        return '<a class="btn btn-success" href="' . url('user/changeStatus/' . $data->id.'/' . $data->statuschage) . '">Set Active</a> ';
+                } else {
+                    return '';
+                }
+            })
+            ->rawColumns(['roles', 'permissions', 'action', 'status'])
+            ->make(true);
     }
 
     public function create()
     {
-        try
-        {
-            $roles = Role::pluck('name','id');
+        try {
+            $roles = Role::pluck('name', 'id');
             return view('create-user', compact('roles'));
-
-        }catch (\Exception $e) {
+        } catch (\Exception $e) {
             $bug = $e->getMessage();
             return redirect()->back()->with('error', $bug);
-
         }
     }
 
     public function store(Request $request)
     {
-          
+
         // //if role is reseller 
         // if($request->role>2){
         //     $validator = Validator::make($request->all(), [
@@ -122,18 +133,17 @@ class UserController extends Controller
             'password' => 'required | confirmed',
             'role'     => 'required',
             'company_name' => 'required',
-            'company_address' =>'required',
-            'balance' =>'required',
-            'assigned' =>'required',
-            'mobile_no' =>'required | unique:users'
+            'company_address' => 'required',
+            'balance' => 'required',
+            'assigned' => 'required',
+            'mobile_no' => 'required | unique:users'
         ]);
-       
-        if($validator->fails()) {
+
+        if ($validator->fails()) {
             return redirect()->back()->withInput()->with('error', $validator->messages()->first());
         }
-        try
-        {
-            
+        try {
+
             // store user information
             $user = User::create([
                 'name'     => $request->name,
@@ -143,11 +153,11 @@ class UserController extends Controller
                 'company_name' => $request->company_name,
                 'company_address' => $request->company_address
             ]);
-    
-           
-             //store sms balance
+
+
+            //store sms balance
             $valid_from = date('Y-m-d');
-           $valid_till =  date('Y-m-d', strtotime($valid_from. ' + '.(int)$request->validity.'month'));    
+            $valid_till =  date('Y-m-d', strtotime($valid_from . ' + ' . (int)$request->validity . 'month'));
             // store RCS Balance information
             $rcs_balance = RcsBalance::create([
                 'user_id'     => User::latest()->first()->id,
@@ -170,12 +180,12 @@ class UserController extends Controller
             // assign new role to the user
             $user->syncRoles($request->role);
 
-            if($user){ 
+            if ($user) {
                 return redirect('users')->with('success', 'New user created!');
-            }else{
+            } else {
                 return redirect('users')->with('error', 'Failed to create new user! Try again.');
             }
-        }catch (\Exception $e) {
+        } catch (\Exception $e) {
             $bug = $e->getMessage();
             return redirect()->back()->with('error', $bug);
         }
@@ -183,20 +193,18 @@ class UserController extends Controller
 
     public function edit($id)
     {
-        try
-        {
-            $user  = User::with('roles','permissions')->find($id);
+        try {
+            $user  = User::with('roles', 'permissions')->find($id);
 
-            if($user){
+            if ($user) {
                 $user_role = $user->roles->first();
-                $roles     = Role::pluck('name','id');
+                $roles     = Role::pluck('name', 'id');
 
-                return view('user-edit', compact('user','user_role','roles'));
-            }else{
+                return view('user-edit', compact('user', 'user_role', 'roles'));
+            } else {
                 return redirect('404');
             }
-
-        }catch (\Exception $e) {
+        } catch (\Exception $e) {
             $bug = $e->getMessage();
             return redirect()->back()->with('error', $bug);
         }
@@ -209,24 +217,24 @@ class UserController extends Controller
         $validator = Validator::make($request->all(), [
             'id'       => 'required',
             'name'     => 'required | string ',
-            'email'    => 'required |unique:users,email,'.$request->id,
+            'email'    => 'required |unique:users,email,' . $request->id,
             'role'     => 'required',
-            'mobile_no' => 'required |unique:users,mobile_no,'.$request->id,
+            'mobile_no' => 'required |unique:users,mobile_no,' . $request->id,
         ]);
 
         // check validation for password match
-        if(isset($request->password)){
+        if (isset($request->password)) {
             $validator = Validator::make($request->all(), [
                 'password' => 'required | confirmed'
             ]);
         }
-        
+
         if ($validator->fails()) {
             return redirect()->back()->withInput()->with('error', $validator->messages()->first());
         }
 
-        try{
-            
+        try {
+
             $user = User::find($request->id);
 
             $update = $user->update([
@@ -238,7 +246,7 @@ class UserController extends Controller
             ]);
 
             // update password if user input a new password
-            if(isset($request->password)){
+            if (isset($request->password)) {
                 $update = $user->update([
                     'password' => Hash::make($request->password)
                 ]);
@@ -248,10 +256,9 @@ class UserController extends Controller
             $user->syncRoles($request->role);
 
             return redirect()->back()->with('success', 'User information updated succesfully!');
-        }catch (\Exception $e) {
+        } catch (\Exception $e) {
             $bug = $e->getMessage();
             return redirect()->back()->with('error', $bug);
-
         }
     }
 
@@ -259,28 +266,39 @@ class UserController extends Controller
     public function delete($id)
     {
         $user   = User::find($id);
-        if($user){
+        if ($user) {
             $user->delete();
             return redirect('users')->with('success', 'User removed!');
-        }else{
+        } else {
             return redirect('users')->with('error', 'User not found');
+        }
+    }
+
+
+    public function changeStatus($id, $status)
+    {
+        if ($status) {
+            if (User::where("id", $id)->update(['status'=> 0]))
+                return redirect('users')->with('success', 'User Inactive');
+        } else {
+            if (User::where("id", $id)->update(['status'=> 1]))
+                return redirect('users')->with('success', 'User Active');
         }
     }
 
     public function profileEdit()
     {
-        try
-        {
-            $user  = User::with('roles','permissions')->find(Auth::user()->id);
+        try {
+            $user  = User::with('roles', 'permissions')->find(Auth::user()->id);
 
-            if($user){
+            if ($user) {
                 $user_role = $user->roles->first();
-                $roles     = Role::pluck('name','id');
-                return view('profile', compact('user','user_role','roles'));
-            }else{
+                $roles     = Role::pluck('name', 'id');
+                return view('profile', compact('user', 'user_role', 'roles'));
+            } else {
                 return redirect('404');
             }
-        }catch (\Exception $e) {
+        } catch (\Exception $e) {
             $bug = $e->getMessage();
             return redirect()->back()->with('error', $bug);
         }
@@ -293,23 +311,23 @@ class UserController extends Controller
         $validator = Validator::make($request->all(), [
             'id'       => 'required',
             'name'     => 'required | string ',
-            'email'    => 'required |unique:users,email,'.Auth::user()->id,
-            'mobile_no' => 'required |unique:users,mobile_no,'.Auth::user()->id,
+            'email'    => 'required |unique:users,email,' . Auth::user()->id,
+            'mobile_no' => 'required |unique:users,mobile_no,' . Auth::user()->id,
         ]);
 
         // check validation for password match
-        if(isset($request->password)){
+        if (isset($request->password)) {
             $validator = Validator::make($request->all(), [
                 'password' => 'required | confirmed'
             ]);
         }
-        
+
         if ($validator->fails()) {
             return redirect()->back()->withInput()->with('error', $validator->messages()->first());
         }
 
-        try{
-            
+        try {
+
             $user = User::find(Auth::user()->id);
 
             $update = $user->update([
@@ -322,18 +340,16 @@ class UserController extends Controller
             ]);
 
             // update password if user input a new password
-            if(isset($request->password)){
+            if (isset($request->password)) {
                 $update = $user->update([
                     'password' => Hash::make($request->password)
                 ]);
             }
 
             return redirect()->back()->with('success', 'User information updated succesfully!');
-        }catch (\Exception $e) {
+        } catch (\Exception $e) {
             $bug = $e->getMessage();
             return redirect()->back()->with('error', $bug);
-
         }
     }
-
 }
