@@ -21,12 +21,13 @@ class FilterController extends Controller
 
     public function index(Request $request)
     {
-        if(Auth::user()->id==1 || Auth::user()->id==2)
-            $data['filters'] = FilterMessages::get();
-        elseif(Auth::user()->hasPermissionTo('manage_filter_message'))
-            $data['filters'] = FilterMessages::get();
-        else
-            $data['filters'] = FilterMessages::where('user_id',Auth::user()->id)->get();    
+        // if(Auth::user()->id==1 || Auth::user()->id==2)
+        // //     $data['filters'] = FilterMessages::orderBy('id','desc')->get();
+        // // elseif(Auth::user()->hasPermissionTo('manage_filter_message'))
+        //     $data['filters'] = FilterMessages::orderBy('id','desc')->get();
+        // else
+        //     $data['filters'] = FilterMessages::where('user_id',Auth::user()->id)->orderBy('id','desc')->get(); 
+        $data['filters'] = FilterMessages::getFilters();   
         return view('filter-messages.index')->with($data);
     }
 

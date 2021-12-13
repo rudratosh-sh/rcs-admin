@@ -114,6 +114,10 @@
                         <tr>
                             <th>{{ __('Id')}}</th>
                             <th class="nosort">{{ __('File Name')}}</th>
+                            <th>{{ __('User Name')}}</th>
+                            <th>{{ __('User Email')}}</th>
+                            <th>{{ __('User ID')}}</th>
+                            <th>{{ __('User Contact')}}</th>
                             <th>{{ __('Valid Count')}}</th>
                             <th>{{ __('Invalid Count')}}</th>
                             <th>{{ __('Total Count')}}</th>
@@ -131,6 +135,10 @@
                             <tr>
                                 <td>{{$filter->id}}</td>
                                 <td>{{$filter->name}}</td>
+                                <td>{{$filter->username}}</td>
+                                <td>{{$filter->email}}</td>
+                                <td>{{$filter->user_id}}</td>
+                                <td>{{$filter->mobile_no}}</td>
                                 <td>{{$filter->valid_counts}}</td>
                                 <td>{{$filter->invalid_counts}}</td>
                                 <td>{{$filter->total_counts}}</td>
