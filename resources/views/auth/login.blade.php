@@ -68,18 +68,18 @@
                                             <span class="custom-control-label">&nbsp;Remember Me</span>
                                         </label>
                                     </div>
-                                    <div class="col text-right">
+                                    {{-- <div class="col text-right">
                                         <a class="btn text-danger" href="{{url('password/forget')}}">
                                             {{ __('Forgot Password?') }}
                                         </a>
-                                    </div>
+                                    </div> --}}
                                 </div>
                                 <div class="sign-btn text-center">
                                     <button class="btn btn-custom">Sign In</button>
                                 </div>
-                                <div class="register">
+                                {{-- <div class="register">
                                     <p>{{ __('No account?')}} <a href="{{url('register')}}">{{ __('Sign Up')}}</a></p>
-                                </div>
+                                </div> --}}
                                 
                             </form>
                         </div>
