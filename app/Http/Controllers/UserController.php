@@ -80,7 +80,7 @@ class UserController extends Controller
                     if ($data->status)
                         return '<a class="btn btn-danger" href="' . url('user/changeStatus/' . $data->id.'/' . $data->status) . '">Set InActive</a> ';
                     else
-                        return '<a class="btn btn-success" href="' . url('user/changeStatus/' . $data->id.'/' . $data->statuschage) . '">Set Active</a> ';
+                        return '<a class="btn btn-success" href="' . url('user/changeStatus/' . $data->id.'/' . $data->status) . '">Set Active</a> ';
                 } else {
                     return '';
                 }
