@@ -11,7 +11,7 @@
     @endpush
     <div class="container-fluid">
         <div class="alert alert-primary" role="alert">
-            User Stats
+            Current User Stats
           </div>
     	<div class="row">
     		<!-- page statustic chart start -->
