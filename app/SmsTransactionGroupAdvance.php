@@ -57,7 +57,7 @@ class SmsTransactionGroupAdvance extends Model
           $join->on('sms_transaction_group_advance.user_id', '=', 'users.id');
         })
         ->groupBy('sms_transaction_group_advance.id')
-        // ->orderBy('sms_transaction_group_advance.id','DESC')
+        ->orderBy('sms_transaction_group_advance.id','DESC')
         ->get()->toArray();
     else
       return  DB::table('sms_transaction_group_advance')
