@@ -96,7 +96,6 @@
                             <button type="submit" style="height: 35px" class="btn btn-primary mr-10">{{ __('Submit')}}</button>
                             <a class="btn btn-warning " style="height: 35px"  download="Sample Data" href="{{ url('uploads/csv/sample_file.csv  ') }}" title="Sample Data">{{ __('Download Sample')}}</a>
                         </div>
-                        
                      </form>
                 </div>
             </div>

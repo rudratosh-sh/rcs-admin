@@ -76,7 +76,7 @@ class ReportsController extends Controller
         return Datatables::of($data)
             ->addColumn('download', function ($data) {
                 return '
-                    <a class="btn btn-success" href=" target="_blank" ' . url('download-campaign-report?user_id=' . $data['user_id'].'&group_id='.$data['id'].'&type='.$data['message_form']) . '" >Download</a>';
+                    <a class="btn btn-success" target="_blank" ' . url('download-campaign-report?user_id=' . $data['user_id'].'&group_id='.$data['id'].'&type='.$data['message_form']) . '" >Download</a>';
             })
             ->addIndexColumn()
             ->rawColumns(['download'])
