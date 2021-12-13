@@ -93,7 +93,7 @@ class SmartMessageAdvanceController extends Controller
 
     public function index()
     {
-        $data['templates'] = TemplateAdvance::where('status',1)->get();
+        $data['templates'] = TemplateAdvance::where('status',1)->where('user_id',Auth::user()->id)->get();
         return view('smart-messages/advance')->with($data);
     }
 

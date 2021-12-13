@@ -42,7 +42,11 @@ class ReportsController extends Controller
             return $arr + ['smart_type' => 'Advance'];
         }, $advance);
 
-        $data = array_merge($basic, $advance);
+        $x[] = $basic;
+        $x[] = $advance;
+        $data = call_user_func_array('array_merge', $x);
+        $data = ($this->sortArrary($data));
+        //$data = array_merge($basic, $advance);
 
         return Datatables::of($data)
             // ->rawColumns(['roles','permissions','action'])
@@ -71,15 +75,23 @@ class ReportsController extends Controller
             return $arr + ['smart_type' => 'Advance'];
         }, $advance);
 
-        $data = array_merge($basic, $advance);
-
+        $x[] = $basic;
+        $x[] = $advance;
+        $data = call_user_func_array('array_merge', $x);
+        $data = ($this->sortArrary($data));
         return Datatables::of($data)
             ->addColumn('download', function ($data) {
                 return '
-                    <a class="btn btn-success" target="_blank" ' . url('download-campaign-report?user_id=' . $data['user_id'].'&group_id='.$data['id'].'&type='.$data['message_form']) . '" >Download</a>';
+                    <a class="btn btn-success text-white" target="_blank" href="' . url('download-campaign-report?user_id=' . $data['user_id'] . '&group_id=' . $data['id'] . '&type=' . $data['message_form']) . '" >Download</a>';
+            })
+            ->addColumn('status', function ($data) {
+                if ($data['status'] == 0)
+                    return '<a class="btn btn-warning text-white">Pending</a>';
+                else
+                    return '<a class="btn btn-success text-white">Success</a>';
             })
             ->addIndexColumn()
-            ->rawColumns(['download'])
+            ->rawColumns(['download','status'])
             // ->rawColumns(['roles','permissions','action'])
             ->addIndexColumn()
             ->make(true);
@@ -92,22 +104,22 @@ class ReportsController extends Controller
         try {
 
             /**Prepare data for report */
-            if($request->type=='BASIC'){
-                $basic = SmsTransactionSingle::getCombinedDataBasicDownload($request->user_id,$request->group_id);
+            if ($request->type == 'BASIC') {
+                $basic = SmsTransactionSingle::getCombinedDataBasicDownload($request->user_id, $request->group_id);
                 $basic = json_decode(json_encode($basic), true);
                 //adding type in array
                 $data = array_map(function ($arr) {
                     return $arr + ['smart_type' => 'Basic'];
                 }, $basic);
-            }    
-            if($request->type =='ADVANCE'){    
-                $advance = SmsTransactionSingleAdvance::getCombinedDataAdvanceDownload($request->user_id,$request->group_id);
+            }
+            if ($request->type == 'ADVANCE') {
+                $advance = SmsTransactionSingleAdvance::getCombinedDataAdvanceDownload($request->user_id, $request->group_id);
                 $advance = json_decode(json_encode($advance), true);
                 $data = array_map(function ($arr) {
                     return $arr + ['smart_type' => 'Advance'];
                 }, $advance);
             }
-        
+
             // $data = array_merge($basic, $advance);
             /** end data preparation */
             $headers = [
@@ -136,5 +148,21 @@ class ReportsController extends Controller
         } catch (\Exception $e) {
             return ($e->getMessage());
         }
+    }
+
+    private function sortArrary($arr = [])
+    {
+        function date_compare($a, $b)
+        {
+            $t1 = strtotime($a['updated_at']);
+            $t2 = strtotime($b['updated_at']);
+            return $t1 - $t2;
+        }
+        usort($arr, function ($a, $b) {
+            $t1 = strtotime($a['updated_at']);
+            $t2 = strtotime($b['updated_at']);
+            return $t1 - $t2;
+        });
+        return (array_reverse($arr));
     }
 }
