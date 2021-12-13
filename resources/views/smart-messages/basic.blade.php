@@ -119,6 +119,7 @@
                             <div class="form-group">
                                 <label for="messageText">{{ __('Message')}}</label>
                                 <textarea class="form-control" name="message"  value="{{ old('message') }}" id="messageText" rows="4">{{ old('message') }}</textarea>
+                                <div id="counter"></div>
                                 <div class="help-block with-errors" ></div>
                                 @error('message')
                                     <span class="invalid-feedback" role="alert">

@@ -110,6 +110,7 @@ Route::group(['middleware' => 'auth'], function () {
 		Route::get('/campaign-report', [ReportsController::class, 'campaignReport'])->name("campaign-report");
 		Route::get('/campaign-report-data',[ReportsController::class,'campaignReportData'])->name('campaign-report-data');
 		Route::get('/download-campaign-report',[ReportsController::class,'downloadCampaignReport'])->name('download-campaign-report');
+		Route::get('/delete-campaign-report',[ReportsController::class,'deleteCampaignReport'])->name('delete-campaign-report');
 	});
 
 	//smart messaging basic 
@@ -126,6 +127,8 @@ Route::group(['middleware' => 'auth'], function () {
 
 	//templates
 	Route::post('api/fetch-template', [TemplateController::class, 'fetchTemplate']);
+	Route::post('api/delete-template', [TemplateController::class, 'deleteTemplate']);
+
 
 	//filter messages 
 	Route::group(['middleware' => 'can:filter_messages'], function () {

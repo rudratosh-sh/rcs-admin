@@ -95,7 +95,10 @@
                                     @foreach ( $templates as $template )
                                         <option value="{{$template->id}}" {{ old('template') == $template->id ? "selected" : "" }}>{{$template->template_name}}</option>
                                     @endforeach
-                                </select> 
+                                </select>
+                                <div id="delete_template"class="mt-10">
+                                    
+                                </div>
                                 <div class="help-block with-errors mt-25" ></div>
                                     <div class="form-group">
                                         <label for="templateName">{{ __('Template Name')}}</label>
@@ -170,6 +173,7 @@
                             <div class="form-group">
                                 <label for="messageText">{{ __('Message')}}</label>
                                 <textarea class="form-control" name="message_card_1"  value="{{ old('message_card_1') }}" id="messageTextCard1" rows="4">{{ old('message_card_1') }}</textarea>
+                                <div id="counterBox1"></div>
                                 <div class="help-block with-errors mt-25" ></div>
                                 @error('message_card_1')
                                 <div class="alert alert-danger" role="alert">
@@ -244,6 +248,7 @@
                             <div class="form-group">
                                 <label for="messageText">{{ __('Message')}}</label>
                                 <textarea class="form-control messageTextcard2" name="message_card_2"  value="{{ old('message_card_2') }}" id="messageTextcard2" rows="4">{{ old('message_card_2') }}</textarea>
+                                <div id="counterBox2"></div>
                                 <div class="help-block with-errors mt-25" ></div>
                                 @error('message_card_2')
                                 <div class="alert alert-danger" role="alert">
@@ -319,6 +324,7 @@
                             <div class="form-group">
                                 <label for="messageText">{{ __('Message')}}</label>
                                 <textarea class="form-control messageTextcard3" name="message_card_3"  value="{{ old('message_card_3') }}" id="messageTextcard3" rows="4">{{ old('message_card_3') }}</textarea>
+                                <div id="counterBox3"></div>
                                 <div class="help-block with-errors mt-25" ></div>
                                 @error('message_card_3')
                                 <div class="alert alert-danger" role="alert">
@@ -394,6 +400,7 @@
                             <div class="form-group">
                                 <label for="messageText">{{ __('Message')}}</label>
                                 <textarea class="form-control messageTextCard4" name="message_card_4"  value="{{ old('message_card_4') }}" id="messageTextcard4" rows="4">{{ old('message_card_4') }}</textarea>
+                                <div id="counterBox4"></div>
                                 <div class="help-block with-errors" ></div>
                                 <div class="help-block with-errors mt-25" ></div>
                                 @error('message_card_4')
@@ -517,7 +524,11 @@
                     /**
                         set values in form 
                     **/
-                    //set card active
+                    if(result.template!=null)
+                        $("#delete_template").html('<p onClick=(deleteTemplate('+result.template.id+')) class="text-danger">Delete This Template</p>');
+                    else
+                    $("#delete_template").html("");
+                        //set card active
                     setCardActive(result.template);
                     //set data for card one
                     if(result.template.card_1_enable)
@@ -532,6 +543,28 @@
                     if(result.template.card_4_enable)
                         setCardFourData(result.template);
 
+                }
+            });
+    }
+
+    function deleteTemplate(templateId){
+        $.ajax({
+                url: "{{url('api/delete-template')}}",
+                type: "POST",
+                data: {
+                   id: templateId,
+                   _token: '{{csrf_token()}}'
+                },
+                dataType: 'json',
+                success: function (result) {
+                    if(result.status=='success')
+                        showSuccessToast(result.message);
+                    else
+                        showDangerToast(result.message);
+                    
+                    setTimeout(function(){
+                        location.reload();
+                    }, 2000)            
                 }
             });
     }

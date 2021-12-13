@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use App\SmsTransactionSingle;
 use App\SmsTransactionSingleAdvance;
+
 use DataTables, Auth, Str;
 
 class ReportsController extends Controller
@@ -90,8 +91,14 @@ class ReportsController extends Controller
                 else
                     return '<a class="btn btn-success text-white">Success</a>';
             })
+            ->addColumn('action', function ($data) {
+                if (Auth::user()->hasPermissionTo('delete_campaign_report'))
+                    return '<a class="btn btn-danger text-white"   href="' . url('delete-campaign-report?user_id=' . $data['user_id'] . '&group_id=' . $data['id'] . '&type=' . $data['message_form']) . '">Delete</a>';
+                else
+                    return '-';
+            })
             ->addIndexColumn()
-            ->rawColumns(['download','status'])
+            ->rawColumns(['download','status','action'])
             // ->rawColumns(['roles','permissions','action'])
             ->addIndexColumn()
             ->make(true);
@@ -147,6 +154,28 @@ class ReportsController extends Controller
             return response()->stream($callback, 200, $headers);
         } catch (\Exception $e) {
             return ($e->getMessage());
+        }
+    }
+
+    public function deleteCampaignReport(Request $request)
+    {
+        if (!$request->user_id || !$request->group_id || !$request->type)
+            return false;
+        try {
+
+            if ($request->type == 'BASIC') {
+                SmsTransactionGroup::where('id',$request->group_id)->delete();
+                SmsTransactionSingle::where('sms_transaction_group_id',$request->group_id)->delete();
+            }
+
+            if ($request->type == 'ADVANCE') {
+                SmsTransactionGroupAdvance::where('id',$request->group_id)->delete();
+                SmsTransactionSingleAdvance::where('sms_transaction_group_advance_id',$request->group_id)->delete();
+            }
+            return redirect('campaign-report')->with('success', 'Campaign Deleted   ');
+               
+        } catch (\Exception $e) {
+            return redirect('campaign-report')->with('error', $e->getMessage());
         }
     }
 

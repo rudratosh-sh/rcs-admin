@@ -17,7 +17,9 @@ class DashboardController extends Controller
             [
                 array_merge($this->getBalance(Auth::user()->id),
                 $this->getStatsAdvance(),
-                $this->getStatsBasic())
+                $this->getStatsBasic(),
+                $this->adminStatsBasic(),
+                $this->adminStatsAdvance())
             ][0]
         );
     }
@@ -157,6 +159,96 @@ class DashboardController extends Controller
             'advanceCountYesterday'=>$advanceCountYesterday,
             'advanceCountWeek'=>$advanceCountWeek,
             'advanceCountOverall'=>$advanceCountOverall
+        ];
+    }
+
+    private function adminStatsBasic()
+    {
+        $basicCountToday = SmsTransactionGroup::select(
+            DB::raw('SUM(sms_count) as basic_sms_count_today'),
+            DB::raw('SUM(sms_failed) as basic_sms_failed_today'),
+            DB::raw('SUM(sms_success) as basic_sms_success_today')
+        )
+            ->whereDate('created_at', date('Y-m-d'))
+            ->where('status', 2)->first();
+            // ->where('user_id', Auth::user()->id)->first();
+
+        $basicCountYesterday = SmsTransactionGroup::select(
+            DB::raw('SUM(sms_count) as basic_sms_count_yesterday'),
+            DB::raw('SUM(sms_failed) as basic_sms_failed_yesterday'),
+            DB::raw('SUM(sms_success) as basic_sms_success_yesterday')
+        )
+            ->whereDate('created_at', date('Y-m-d', strtotime("-1 days")))
+            ->where('status', 2)->first();
+            // ->where('user_id', Auth::user()->id)->first();
+
+        $basicCountWeek = SmsTransactionGroup::select(
+            DB::raw('SUM(sms_count) as basic_sms_count_week'),
+            DB::raw('SUM(sms_failed) as basic_sms_failed_week'),
+            DB::raw('SUM(sms_success) as basic_sms_success_week')
+        )
+            ->whereDate('created_at', '>=', date('Y-m-d', strtotime("-7 days")))
+            ->where('status', 2)->first();
+            // ->where('user_id', Auth::user()->id)->first();
+
+        $basicCountOverall = SmsTransactionGroup::select(
+            DB::raw('SUM(sms_count) as basic_sms_count_all'),
+            DB::raw('SUM(sms_failed) as basic_sms_failed_all'),
+            DB::raw('SUM(sms_success) as basic_sms_success_all')
+        )
+            ->where('status', 2)->first();
+            // ->where('user_id', Auth::user()->id)->first();
+
+        return [
+            'basicCountTodayAdmin'=>$basicCountToday,
+            'basicCountYesterdayAdmin'=>$basicCountYesterday,
+            'basicCountWeekAdmin'=>$basicCountWeek,
+            'basicCountOverallAdmin'=>$basicCountOverall
+        ];
+    }
+
+    private function adminStatsAdvance()
+    {
+        $advanceCountToday = SmsTransactionGroupAdvance::select(
+            DB::raw('SUM(sms_count) as advance_sms_count_today'),
+            DB::raw('SUM(sms_failed) as advance_sms_failed_today'),
+            DB::raw('SUM(sms_success) as advance_sms_success_today')
+        )
+            ->whereDate('created_at', date('Y-m-d'))
+            ->where('status', 2)->first();
+            // ->where('user_id', Auth::user()->id)->first();
+
+        $advanceCountYesterday = SmsTransactionGroupAdvance::select(
+            DB::raw('SUM(sms_count) as advance_sms_count_yesterday'),
+            DB::raw('SUM(sms_failed) as advance_sms_failed_yesterday'),
+            DB::raw('SUM(sms_success) as advance_sms_success_yesterday')
+        )
+            ->whereDate('created_at', date('Y-m-d', strtotime("-1 days")))
+            ->where('status', 2)->first();
+            // ->where('user_id', Auth::user()->id)->first();
+
+        $advanceCountWeek = SmsTransactionGroupAdvance::select(
+            DB::raw('SUM(sms_count) as advance_sms_count_week'),
+            DB::raw('SUM(sms_failed) as advance_sms_failed_week'),
+            DB::raw('SUM(sms_success) as advance_sms_success_week')
+        )
+            ->whereDate('created_at', '>=', date('Y-m-d', strtotime("-7 days")))
+            ->where('status', 2)->first();
+            // ->where('user_id', Auth::user()->id)->first();
+
+        $advanceCountOverall = SmsTransactionGroupAdvance::select(
+            DB::raw('SUM(sms_count) as advance_sms_count_all'),
+            DB::raw('SUM(sms_failed) as advance_sms_failed_all'),
+            DB::raw('SUM(sms_success) as advance_sms_success_all')
+        )
+            ->where('status', 2)->first();
+            // ->where('user_id', Auth::user()->id)->first();
+
+        return [
+            'advanceCountTodayAdmin'=>$advanceCountToday,
+            'advanceCountYesterdayAdmin'=>$advanceCountYesterday,
+            'advanceCountWeekAdmin'=>$advanceCountWeek,
+            'advanceCountOverallAdmin'=>$advanceCountOverall
         ];
     }
 }

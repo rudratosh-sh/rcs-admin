@@ -9,9 +9,10 @@
         <link rel="stylesheet" href="{{ asset('plugins/owl.carousel/dist/assets/owl.theme.default.min.css') }}">
         <link rel="stylesheet" href="{{ asset('plugins/chartist/dist/chartist.min.css') }}">
     @endpush
-
-    @if(Auth::user()->roles->pluck('id')->toArray()[0]>2)
     <div class="container-fluid">
+        <div class="alert alert-primary" role="alert">
+            User Stats
+          </div>
     	<div class="row">
     		<!-- page statustic chart start -->
             <div class="col-xl-3 col-md-6">
@@ -19,7 +20,7 @@
                     <div class="card-block">
                         <div class="row align-items-center">
                             <div class="col-8">
-                                <h4 class="mb-0">{{$basicCountToday->basic_sms_success_today+$advanceCountToday->advance_sms_success_today}}</h4>
+                                <h4 class="mb-0">{{$basicCountToday->basic_sms_count_all+$advanceCountToday->advance_sms_count_today}}</h4>
                                 <p class="mb-0">{{ __('Spend Today')}}</p>
                             </div>
                             <div class="col-4 text-right">
@@ -35,7 +36,7 @@
                     <div class="card-block">
                         <div class="row align-items-center">
                             <div class="col-8">
-                                <h4 class="mb-0">{{$basicCountYesterday->basic_sms_success_yesterday+$advanceCountYesterday->advance_sms_success_yesterday}}</h4>
+                                <h4 class="mb-0">{{$basicCountYesterday->basic_sms_count_yesterday+$advanceCountYesterday->advance_sms_count_yesterday}}</h4>
                                 <p class="mb-0">{{ __('Spend Yesterday')}}</p>
                             </div>
                             <div class="col-4 text-right">
@@ -51,7 +52,7 @@
                     <div class="card-block">
                         <div class="row align-items-center">
                             <div class="col-8">
-                                <h4 class="mb-0">{{$basicCountWeek->basic_sms_success_week+$advanceCountWeek->advance_sms_success_week}}</h4>
+                                <h4 class="mb-0">{{$basicCountWeek->basic_sms_count_week+$advanceCountWeek->advance_sms_count_week}}</h4>
                                 <p class="mb-0">{{ __('Spend in Last 7 days')}}</p>
                             </div>
                             <div class="col-4 text-right">
@@ -67,7 +68,80 @@
                     <div class="card-block">
                         <div class="row align-items-center">
                             <div class="col-8">
-                                <h4 class="mb-0">{{$basicCountOverall->basic_sms_success_all+$advanceCountOverall->advance_sms_success_all}}</h4>
+                                <h4 class="mb-0">{{$basicCountOverall->basic_sms_count_all+$advanceCountOverall->advance_sms_count_all}}</h4>
+                                <p class="mb-0">{{ __('Spend Overall')}}</p>
+                            </div>
+                            <div class="col-4 text-right">
+                                <i class="ik ik-activity f-30"></i>
+                            </div>
+                        </div>
+                        <div id="Widget-line-chart4" class="chart-line chart-shadow" ></div>
+                    </div>
+                </div>
+            </div>
+    	</div>
+    </div>
+    @if(Auth::user()->roles->pluck('name')->toArray()[0]=='Super Admin')
+    <div class="container-fluid">
+        <div class="alert alert-primary" role="alert">
+            Overall User Stats
+          </div>
+    	<div class="row">
+    		<!-- page statustic chart start -->
+            <div class="col-xl-3 col-md-6">
+                <div class="card card-red text-white">
+                    <div class="card-block">
+                        <div class="row align-items-center">
+                            <div class="col-8">
+                                <h4 class="mb-0">{{$basicCountTodayAdmin->basic_sms_count_all+$advanceCountTodayAdmin->advance_sms_count_today}}</h4>
+                                <p class="mb-0">{{ __('Spend Today')}}</p>
+                            </div>
+                            <div class="col-4 text-right">
+                                <i class="ik ik-activity f-30"></i>
+                            </div>
+                        </div>
+                        <div id="Widget-line-chart1" class="chart-line chart-shadow"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-3 col-md-6">
+                <div class="card card-blue text-white">
+                    <div class="card-block">
+                        <div class="row align-items-center">
+                            <div class="col-8">
+                                <h4 class="mb-0">{{$basicCountYesterdayAdmin->basic_sms_count_yesterday+$advanceCountYesterdayAdmin->advance_sms_count_yesterday}}</h4>
+                                <p class="mb-0">{{ __('Spend Yesterday')}}</p>
+                            </div>
+                            <div class="col-4 text-right">
+                                <i class="ik ik-activity f-30"></i>
+                            </div>
+                        </div>
+                        <div id="Widget-line-chart2" class="chart-line chart-shadow" ></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-3 col-md-6">
+                <div class="card card-green text-white">
+                    <div class="card-block">
+                        <div class="row align-items-center">
+                            <div class="col-8">
+                                <h4 class="mb-0">{{$basicCountWeekAdmin->basic_sms_count_week+$advanceCountWeekAdmin->advance_sms_count_week}}</h4>
+                                <p class="mb-0">{{ __('Spend in Last 7 days')}}</p>
+                            </div>
+                            <div class="col-4 text-right">
+                                <i class="ik ik-activity f-30"></i>
+                            </div>
+                        </div>
+                        <div id="Widget-line-chart3" class="chart-line chart-shadow"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-3 col-md-6">
+                <div class="card card-yellow text-white">
+                    <div class="card-block">
+                        <div class="row align-items-center">
+                            <div class="col-8">
+                                <h4 class="mb-0">{{$basicCountOverallAdmin->basic_sms_count_all+$advanceCountOverallAdmin->advance_sms_count_all}}</h4>
                                 <p class="mb-0">{{ __('Spend Overall')}}</p>
                             </div>
                             <div class="col-4 text-right">

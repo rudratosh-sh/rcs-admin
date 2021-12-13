@@ -534,6 +534,7 @@
                  {data:'messages', name: 'messages'},
                  {data:'status', name: 'status'},
                  {data:'download', name: 'download'},
+                 {data:'action', name: 'action'},
                  // { data: 'images', name: 'images',
                  //     render: function( data, type, full, meta ) {
                  //         if(data!=null)

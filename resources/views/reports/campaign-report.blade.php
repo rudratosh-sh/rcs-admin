@@ -88,6 +88,7 @@
                                     <th>{{ __('Messages')}}</th>
                                     <th>{{ __('Status')}}</th>
                                     <th>{{ __('Download')}}</th>
+                                    <th>{{ __('Action')}}</th>
                                 </tr>
                             </thead>
                             <tbody>
